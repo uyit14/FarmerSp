@@ -1,0 +1,35 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context="com.example.uytai.farmersp.mvp.trader.TraderFragment">
+    <include
+        android:id="@+id/bar_trader"
+        layout="@layout/app_bar_layout"
+        />
+    <!-- TODO: Update blank fragment layout -->
+    <SearchView
+        android:id="@+id/search_trader"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/bar_trader"
+        android:layout_height="35dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/custom_search_bar"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:iconifiedByDefault="false"
+        android:queryHint="@string/query_hint_thumua">
+        <requestFocus/>
+    </SearchView>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerviewTrader"
+        android:layout_below="@+id/search_trader"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </android.support.v7.widget.RecyclerView>
+
+</RelativeLayout>

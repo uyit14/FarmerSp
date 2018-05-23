@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context="com.example.uytai.farmersp.mvp.trader.SubscribeActivity">
+    <include
+        android:id="@+id/bar_subscribe"
+        layout="@layout/app_bar_layout"
+        />
+<LinearLayout
+    android:layout_below="@+id/bar_subscribe"
+    android:orientation="vertical"
+    android:layout_margin="25dp"
+    android:background="@drawable/custom_trader_item"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_weight="3"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/avatar"
+            android:layout_gravity="center"
+            android:src="@drawable/avatar"
+            android:layout_width="70dp"
+            android:layout_height="70dp" />
+        <TextView
+            android:id="@+id/name"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:text="Name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/rate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/name"
+            android:drawableRight="@drawable/icon_star"
+            android:gravity="center"
+            android:text="0.0"
+            android:textSize="18sp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:background="@color/gray"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"></LinearLayout>
+    <LinearLayout
+        android:layout_weight="4"
+        android:layout_marginTop="25dp"
+        android:orientation="vertical"
+      android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+        <TextView
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:id="@+id/status"
+            android:textSize="18sp"
+            android:text="Thua mua các loại nông sản"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textSize="16sp"
+                android:layout_gravity="center"
+                android:text="Đánh giá thương lái này"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <RatingBar
+                android:layout_marginTop="5dp"
+                android:stepSize="0.25"
+                android:rating="4.5"
+                android:numStars="5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:background="@color/gray"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"></LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_weight="3"
+        android:layout_marginTop="25dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+        <TextView
+            android:textStyle="italic"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:layout_marginBottom="10dp"
+            android:text="Đăng ký để nhận thông tin từ thương lái"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <Button
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:id="@+id/btn_subcsribe"
+            android:padding="5dp"
+            android:background="@drawable/custom_viewdetail"
+            android:textSize="20sp"
+            android:textAllCaps="false"
+            android:text="Đăng ký ngay"
+            android:layout_width="match_parent"
+            android:layout_height="60dp" />
+    </LinearLayout>
+</LinearLayout>
+</RelativeLayout>

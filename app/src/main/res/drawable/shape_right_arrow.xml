@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <item
+    android:id="@+id/half_overlay"
+    android:drawable="@drawable/ic_arrow_right_02"
+    android:height="32.4dp"
+    android:width="18dp"/>
+
+</layer-list>
