@@ -45,6 +45,9 @@ public interface NongDanService {
     @POST("nongdan/getquanhuyenbyidtt.php")
     Call<List<QuanHuyenModel>> getQuanHuyen(@Field("id_tinhthanh") int idtt);
 
+    @POST("nongdan/deletenongsan.php")
+    Call<POST> deletens(@Field("id") int id);
+
     @GET("nongdan/getthuonglai.php")
     Call<List<ThuongLaiModel>> getTrader();
 
@@ -89,11 +92,11 @@ public interface NongDanService {
     @POST("nongdan/getidtlbyidnd.php")
     Call<List<DangKyModel>> getIDTL(@Field("idnd") int idnd);
 
-//    @FormUrlEncoded
-//    @POST("nongdan/getthuonglaibyidtl.php")
-//    Call<List<ThuongLaiModel>> getThuongLaibyID(@Field("idtl") ArrayList<Integer> idtl);
-
-    @Multipart
+    @FormUrlEncoded
     @POST("nongdan/getthuonglaibyidtl.php")
-    Call<List<ThuongLaiModel>> getThuongLaibyID(@Query("idtl[]") ArrayList<Integer> idtl);
+    Call<List<ThuongLaiModel>> getThuongLaibyID(@Field("idtl[]") ArrayList<Integer> idtl);
+
+//    @Multipart
+//    @POST("nongdan/getthuonglaibyidtl.php")
+//    Call<List<ThuongLaiModel>> getThuongLaibyID(@Query("idtl[]") ArrayList<Integer> idtl);
 }

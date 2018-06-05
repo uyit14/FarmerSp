@@ -1,4 +1,4 @@
-package com.example.uytai.farmersp.mvp.mypost;
+package com.example.uytai.farmersp.mvp.mytrader;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

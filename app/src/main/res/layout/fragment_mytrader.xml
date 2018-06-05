@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/gray"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.example.uytai.farmersp.mvp.mypost.MyTraderFragment">
+    tools:context="com.example.uytai.farmersp.mvp.mytrader.MyTraderFragment">
     <include
         android:id="@+id/bar_post"
         layout="@layout/app_bar_layout"

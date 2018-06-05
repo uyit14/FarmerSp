@@ -1,4 +1,4 @@
-package com.example.uytai.farmersp.mvp.mypost;
+package com.example.uytai.farmersp.mvp.mytrader;
 
 import com.example.uytai.farmersp.model.DangKyModel;
 

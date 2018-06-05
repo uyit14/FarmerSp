@@ -1,6 +1,4 @@
-package com.example.uytai.farmersp.mvp.mypost;
-
-import android.util.Log;
+package com.example.uytai.farmersp.mvp.mytrader;
 
 import com.example.uytai.farmersp.MainActivity;
 import com.example.uytai.farmersp.model.DangKyModel;
