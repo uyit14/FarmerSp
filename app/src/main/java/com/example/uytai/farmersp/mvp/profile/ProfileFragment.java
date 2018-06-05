@@ -57,8 +57,6 @@ public class ProfileFragment extends Fragment implements SwipeRefreshLayout.OnRe
     @BindView(R.id.swip_editprofile)
     SwipeRefreshLayout swipeRefreshLayout;
 
-    @BindView(R.id.countTDD)
-    TextView tvcountTDD;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -105,11 +103,6 @@ public class ProfileFragment extends Fragment implements SwipeRefreshLayout.OnRe
         edt_status.setText(MainActivity.nongDanModel.getStatus().toString());
         edt_phone.setText(MainActivity.nongDanModel.getSdt());
         Glide.with(getContext()).load(MainActivity.nongDanModel.getAvatar()).placeholder(R.drawable.no_image).into(cir_avatar);
-        if(TinDaDangActivity.countTDD==0){
-            tvcountTDD.setText("0");
-        }else{
-            tvcountTDD.setText(TinDaDangActivity.countTDD+"");
-        }
     }
 
     private void editInforUser(){

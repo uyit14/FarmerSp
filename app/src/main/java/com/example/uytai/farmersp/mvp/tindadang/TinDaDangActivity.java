@@ -1,5 +1,7 @@
 package com.example.uytai.farmersp.mvp.tindadang;
 
+import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -7,15 +9,18 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.uytai.farmersp.R;
 import com.example.uytai.farmersp.model.NongSanModel;
+import com.example.uytai.farmersp.mvp.dangtin.DangTinActivity;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class TinDaDangActivity extends AppCompatActivity implements ITinDaDang.View {
 
@@ -25,9 +30,14 @@ public class TinDaDangActivity extends AppCompatActivity implements ITinDaDang.V
     @BindView(R.id.bar_tindadang)
     Toolbar toolbar;
 
+    @BindView(R.id.count_tdd)
+    TextView tv_count;
+    @BindView(R.id.float_tdd)
+    FloatingActionButton btn_float;
+
     TinDaDangAdapter tinDaDangAdapter;
 
-    public static int countTDD = 0;
+    int countTDD = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +74,7 @@ public class TinDaDangActivity extends AppCompatActivity implements ITinDaDang.V
     public void getListNongSanSuccess(List<NongSanModel> nongSanModels) {
         if(nongSanModels !=null){
             countTDD = nongSanModels.size();
+            tv_count.setText(countTDD+"");
             tinDaDangAdapter = new TinDaDangAdapter(nongSanModels, getApplicationContext());
             recyclerView.setAdapter(tinDaDangAdapter);
         }
@@ -72,5 +83,10 @@ public class TinDaDangActivity extends AppCompatActivity implements ITinDaDang.V
     @Override
     public void getListNongSanFail() {
         Toast.makeText(getApplicationContext(), "Fail", Toast.LENGTH_SHORT).show();
+    }
+
+    @OnClick(R.id.float_tdd)
+    void DangTin(){
+        startActivity(new Intent(getApplicationContext(), DangTinActivity.class));
     }
 }
