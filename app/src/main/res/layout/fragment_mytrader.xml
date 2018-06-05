@@ -2,14 +2,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gray"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.example.uytai.farmersp.mvp.notification.PostFragment">
+    tools:context="com.example.uytai.farmersp.mvp.mypost.MyTraderFragment">
     <include
         android:id="@+id/bar_post"
         layout="@layout/app_bar_layout"
         />
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerviewPost"
+        android:id="@+id/recyclerviewMyPost"
         android:layout_below="@+id/bar_post"
         android:layout_width="match_parent"
         android:layout_height="match_parent">

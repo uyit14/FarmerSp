@@ -1,7 +1,6 @@
 package com.example.uytai.farmersp.mvp.trader;
 
-import com.example.uytai.farmersp.model.TraderModel;
-import com.example.uytai.farmersp.respone.TraderRespone;
+import com.example.uytai.farmersp.model.ThuongLaiModel;
 
 import java.util.List;
 
@@ -11,7 +10,7 @@ import java.util.List;
 
 public interface ITrader {
 interface View{
-        void getListTraderSuccess(List<TraderModel> traderModel);
+        void getListTraderSuccess(List<ThuongLaiModel> thuongLaiModel);
         void getListTraderFail();
     }
     //

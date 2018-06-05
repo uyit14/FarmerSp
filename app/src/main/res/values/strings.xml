@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">FarmerSp</string>
     <string name="login_with_your_account">Đăng nhập bằng tài khoản của bạn</string>
+    <string name="your_name">Tên của bạn</string>
     <string name="user_name">Tên đăng nhập</string>
     <string name="pass_word">Mật khẩu</string>
     <string name="need_new_account">Cần một tài khoản mới?</string>

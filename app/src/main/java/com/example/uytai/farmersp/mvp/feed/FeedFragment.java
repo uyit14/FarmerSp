@@ -1,7 +1,5 @@
 package com.example.uytai.farmersp.mvp.feed;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.uytai.farmersp.R;
-import com.example.uytai.farmersp.model.FeedModel;
+import com.example.uytai.farmersp.model.ThuMuaModel;
 
 import java.util.List;
 
@@ -55,9 +53,9 @@ public class FeedFragment extends Fragment implements IFeed.View {
     }
 
     @Override
-    public void getListFeedSuccess(List<FeedModel> feedModels) {
-        if(feedModels!=null){
-            feedAdapter = new FeedAdapter(feedModels, getActivity().getApplicationContext());
+    public void getListFeedSuccess(List<ThuMuaModel> thuMuaModels) {
+        if(thuMuaModels !=null){
+            feedAdapter = new FeedAdapter(thuMuaModels, getActivity().getApplicationContext());
             recyclerViewFeed.setAdapter(feedAdapter);
         }
     }

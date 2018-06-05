@@ -10,15 +10,25 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.uytai.farmersp.MainActivity;
 import com.example.uytai.farmersp.R;
 import com.example.uytai.farmersp.config.Constant;
-import com.example.uytai.farmersp.model.TraderModel;
+import com.example.uytai.farmersp.model.DangKyModel;
+import com.example.uytai.farmersp.model.ThuongLaiModel;
+import com.example.uytai.farmersp.retrofit.ApiClient;
+import com.example.uytai.farmersp.retrofit.NongDanService;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.http.POST;
 
-public class SubscribeActivity extends AppCompatActivity {
+public class SubscribeActivity extends AppCompatActivity implements ISubscribe.View {
     @BindView(R.id.avatar)
     CircleImageView civ_avatar;
     @BindView(R.id.name)
@@ -32,6 +42,9 @@ public class SubscribeActivity extends AppCompatActivity {
     @BindView(R.id.bar_subscribe)
     Toolbar toolbar;
 
+    int idtl =0 ;
+    SubscribePresenter subscribePresenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +52,8 @@ public class SubscribeActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         getTrader();
         ActionToolbar();
+        subscribePresenter = new SubscribePresenter(this);
+        subscribePresenter.requestGetSubscibed();
     }
 
     //
@@ -58,21 +73,52 @@ public class SubscribeActivity extends AppCompatActivity {
     private void getTrader() {
         Bundle bundle = getIntent().getBundleExtra(Constant.KEY_PUT_OBJECT);
         if(bundle!=null){
-            TraderModel traderModel = (TraderModel) bundle.getSerializable(Constant.KEY_PUT_BUNDLE);
-            Log.d("uytai123", traderModel.getTen());
-
+            final ThuongLaiModel thuongLaiModel = (ThuongLaiModel) bundle.getSerializable(Constant.KEY_PUT_BUNDLE);
+            idtl = thuongLaiModel.getId();
             //set Trader infor
-            Glide.with(SubscribeActivity.this).load(traderModel.getAvatar()).placeholder(R.drawable.no_image).into(civ_avatar);
-            tv_name.setText(traderModel.getTen());
-            tv_rate.setText(traderModel.getRate()+"");
-            tv_status.setText(traderModel.getStatus());
+            Glide.with(SubscribeActivity.this).load(thuongLaiModel.getAvatar()).placeholder(R.drawable.no_image).into(civ_avatar);
+            tv_name.setText(thuongLaiModel.getTen());
+            tv_rate.setText(thuongLaiModel.getRate()+"");
+            tv_status.setText(thuongLaiModel.getStatus());
             //click button subcsribe
             btn_subcsribe.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getApplicationContext(), "Subscribed", Toast.LENGTH_SHORT).show();
+                    requestSubscibe(MainActivity.nongDanModel.getId(), thuongLaiModel.getId());
                 }
             });
         }
+    }
+
+    public void requestSubscibe(int idnd, int idtl) {
+        NongDanService nongDanService = ApiClient.getClient().create(NongDanService.class);
+        nongDanService.dangky(idnd,idtl).enqueue(new Callback<POST>() {
+            @Override
+            public void onResponse(Call<POST> call, Response<POST> response) {
+                Toast.makeText(getApplicationContext(), "Đăng ký thành công", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+
+            @Override
+            public void onFailure(Call<POST> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Đăng ký thành công", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        });
+    }
+
+    @Override
+    public void CheckSubscribedSuccess(List<DangKyModel> dangKyModels) {
+        for(int i =0 ; i<dangKyModels.size() ; i++){
+            if(dangKyModels.get(i).getIdnd()==MainActivity.nongDanModel.getId() && dangKyModels.get(i).getIdtl()==idtl){
+                btn_subcsribe.setText("Đã đăng ký");
+                btn_subcsribe.setEnabled(false);
+            }
+        }
+    }
+
+    @Override
+    public void CheckSubscribedFail() {
+        Toast.makeText(getApplicationContext(), "Có lỗi trong quá trình tải, vui lòng thử lại", Toast.LENGTH_SHORT).show();
     }
 }

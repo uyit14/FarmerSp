@@ -11,4 +11,6 @@ public class Constant {
   public static final String KEY_PUT_NAME = "key_put_name";
   public static final String KEY_PUT_AVATAR = "key_put_avatar";
   public static final String KEY_PUT_STATUS = "key_put_status";
+  public static final String KEY_PUT_USERNAME = "key_put_username";
+  public static final String KEY_PUT_PASSWORD = "key_put_pass";
 }

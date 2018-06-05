@@ -1,9 +1,9 @@
 package com.example.uytai.farmersp.mvp.feed;
 
 
-import com.example.uytai.farmersp.model.FeedModel;
+import com.example.uytai.farmersp.model.ThuMuaModel;
 import com.example.uytai.farmersp.retrofit.ApiClient;
-import com.example.uytai.farmersp.retrofit.FeedService;
+import com.example.uytai.farmersp.retrofit.NongDanService;
 
 import java.util.List;
 
@@ -24,18 +24,18 @@ public class FeedPresenter implements IFeed.Presenter {
 
     @Override
     public void requestGetListFeed() {
-        FeedService feedService = ApiClient.getClient().create(FeedService.class);
-        Call<List<FeedModel>> call = feedService.getFeedThuMua();
-        call.enqueue(new Callback<List<FeedModel>>() {
+        NongDanService nongDanService = ApiClient.getClient().create(NongDanService.class);
+        Call<List<ThuMuaModel>> call = nongDanService.getFeedThuMua();
+        call.enqueue(new Callback<List<ThuMuaModel>>() {
             @Override
-            public void onResponse(Call<List<FeedModel>> call, Response<List<FeedModel>> response) {
+            public void onResponse(Call<List<ThuMuaModel>> call, Response<List<ThuMuaModel>> response) {
                 if(response.body()!=null){
                     mFeedView.getListFeedSuccess(response.body());
                 }
             }
 
             @Override
-            public void onFailure(Call<List<FeedModel>> call, Throwable t) {
+            public void onFailure(Call<List<ThuMuaModel>> call, Throwable t) {
                 mFeedView.getListFeedFail();
             }
         });

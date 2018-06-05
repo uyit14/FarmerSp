@@ -1,7 +1,5 @@
 package com.example.uytai.farmersp.mvp.tindadang;
-
-import com.example.uytai.farmersp.model.NongSan;
-
+import com.example.uytai.farmersp.model.NongSanModel;
 import java.util.List;
 
 /**
@@ -10,7 +8,7 @@ import java.util.List;
 
 public interface ITinDaDang {
     interface View {
-        void getListNongSanSuccess(List<NongSan> nongSanModels);
+        void getListNongSanSuccess(List<NongSanModel> nongSanModels);
         void getListNongSanFail();
     }
     interface Presenter{

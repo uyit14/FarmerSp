@@ -1,6 +1,6 @@
 package com.example.uytai.farmersp.mvp.feed;
 
-import com.example.uytai.farmersp.model.FeedModel;
+import com.example.uytai.farmersp.model.ThuMuaModel;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface IFeed {
 interface View {
-    void getListFeedSuccess(List<FeedModel> feedModels);
+    void getListFeedSuccess(List<ThuMuaModel> thuMuaModels);
     void getListFeedFail();
 }
 interface Presenter{

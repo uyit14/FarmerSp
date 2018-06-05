@@ -1,6 +1,5 @@
 package com.example.uytai.farmersp.mvp.trader;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -13,11 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 import com.example.uytai.farmersp.R;
-import com.example.uytai.farmersp.config.Constant;
-import com.example.uytai.farmersp.model.TraderModel;
-import com.example.uytai.farmersp.respone.TraderRespone;
+import com.example.uytai.farmersp.model.ThuongLaiModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -68,11 +64,11 @@ public class TraderFragment extends Fragment implements ITrader.View {
 
 
     @Override
-    public void getListTraderSuccess(List<TraderModel> traderModel) {
-        if(traderModel!=null){
-            traderAdapter = new TraderAdapter(traderModel, getActivity().getApplicationContext());
+    public void getListTraderSuccess(List<ThuongLaiModel> thuongLaiModel) {
+        if(thuongLaiModel !=null){
+            traderAdapter = new TraderAdapter(thuongLaiModel, getActivity().getApplicationContext());
             recyclerviewTrader.setAdapter(traderAdapter);
-            Log.d("uytai123", traderModel.get(0).getTen());
+            Log.d("uytai123", thuongLaiModel.get(0).getTen());
         }else{
             Toast.makeText(getActivity().getApplicationContext(), "Null", Toast.LENGTH_SHORT).show();
         }

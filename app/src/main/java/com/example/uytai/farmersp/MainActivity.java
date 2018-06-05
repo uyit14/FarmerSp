@@ -7,7 +7,7 @@ import android.os.Bundle;
 
 import com.example.uytai.farmersp.codehelper.SectionsPagerAdapter;
 import com.example.uytai.farmersp.config.Constant;
-import com.example.uytai.farmersp.model.UserModel;
+import com.example.uytai.farmersp.model.NongDanModel;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     ViewPager viewPager;
     @BindView(R.id.tab_layout)
     TabLayout tabLayout;
-    public static UserModel userModel;
+    public static NongDanModel nongDanModel;
     private SectionsPagerAdapter mSectionsPagerAdapter;
     //An array containing your icons from the drawable directory
     final int[] ICONS = new int[]{
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     private void getUser() {
         Bundle bundle = getIntent().getBundleExtra(Constant.KEY_PUT_BUNDLE);
         if(bundle!=null){
-            userModel = (UserModel) bundle.getSerializable(Constant.KEY_PUT_OBJECT);
+            nongDanModel = (NongDanModel) bundle.getSerializable(Constant.KEY_PUT_OBJECT);
         }
     }
 

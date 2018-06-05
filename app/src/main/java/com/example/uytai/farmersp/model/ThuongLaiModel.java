@@ -6,10 +6,10 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 
 /**
- * Created by uytai on 4/16/2018.
+ * Created by uytai on 4/13/2018.
  */
 
-public class UserModel implements Serializable {
+public class ThuongLaiModel implements Serializable {
     @SerializedName("id")
     @Expose
     private int id;
@@ -22,9 +22,6 @@ public class UserModel implements Serializable {
     @SerializedName("status")
     @Expose
     private String status;
-    @SerializedName("sdt")
-    @Expose
-    private String sdt;
     @SerializedName("rate")
     @Expose
     private String rate;
@@ -67,10 +64,12 @@ public class UserModel implements Serializable {
         this.status = status;
     }
 
-    public String getSdt(){return sdt;}
+    public String getRate() {
+        return rate;
+    }
 
-    public void setSdt(String sdt){
-        this.sdt = sdt;
+    public void setRate(String rate) {
+        this.rate = rate;
     }
 
     public String getTaikhoan() {

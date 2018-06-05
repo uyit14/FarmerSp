@@ -25,6 +25,10 @@
         <activity android:name=".mvp.feed.DetailActivity" />
         <activity android:name=".mvp.dangtin.DangTinActivity" />
         <activity android:name=".mvp.tindadang.TinDaDangActivity"></activity>
+        <activity android:name=".mvp.tindadang.DetailTDDActivity"></activity>
+        <activity
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat" />
     </application>
 
 </manifest>

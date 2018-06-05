@@ -6,13 +6,13 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 
 /**
- * Created by uytai on 4/13/2018.
+ * Created by uytai on 4/16/2018.
  */
 
-public class TraderModel implements Serializable {
+public class NongDanModel implements Serializable {
     @SerializedName("id")
     @Expose
-    private String id;
+    private int id;
     @SerializedName("ten")
     @Expose
     private String ten;
@@ -22,9 +22,9 @@ public class TraderModel implements Serializable {
     @SerializedName("status")
     @Expose
     private String status;
-    @SerializedName("rate")
+    @SerializedName("sdt")
     @Expose
-    private String rate;
+    private String sdt;
     @SerializedName("taikhoan")
     @Expose
     private String taikhoan;
@@ -32,11 +32,11 @@ public class TraderModel implements Serializable {
     @Expose
     private String matkhau;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -64,12 +64,10 @@ public class TraderModel implements Serializable {
         this.status = status;
     }
 
-    public String getRate() {
-        return rate;
-    }
+    public String getSdt(){return sdt;}
 
-    public void setRate(String rate) {
-        this.rate = rate;
+    public void setSdt(String sdt){
+        this.sdt = sdt;
     }
 
     public String getTaikhoan() {

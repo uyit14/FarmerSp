@@ -1,6 +1,6 @@
 package com.example.uytai.farmersp.mvp.login;
 
-import com.example.uytai.farmersp.model.UserModel;
+import com.example.uytai.farmersp.model.NongDanModel;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface ILogin {
     interface View{
-        void getListUserSuccess(List<UserModel> userModels);
+        void getListUserSuccess(List<NongDanModel> nongDanModels);
         void getListUserFail();
     }
     interface Presenter{

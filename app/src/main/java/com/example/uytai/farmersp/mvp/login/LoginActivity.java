@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.example.uytai.farmersp.MainActivity;
 import com.example.uytai.farmersp.R;
 import com.example.uytai.farmersp.config.Constant;
-import com.example.uytai.farmersp.model.UserModel;
+import com.example.uytai.farmersp.model.NongDanModel;
 import com.example.uytai.farmersp.mvp.register.RegisterActivity;
 
 import java.util.List;
@@ -35,6 +35,16 @@ public class LoginActivity extends AppCompatActivity implements ILogin.View {
         LoginPresenter loginPresenter = new LoginPresenter(this);
         loginPresenter.requestGetListUser();
         initView();
+        getDataSignup();
+    }
+
+    private void getDataSignup() {
+        if(getIntent().getStringExtra(Constant.KEY_PUT_USERNAME)!=null && getIntent().getStringExtra(Constant.KEY_PUT_PASSWORD)!=null){
+            String username = getIntent().getStringExtra(Constant.KEY_PUT_USERNAME);
+            String password = getIntent().getStringExtra(Constant.KEY_PUT_PASSWORD);
+            tipTaiKhoan.getEditText().setText(username);
+            tipMatKhau.getEditText().setText(password);
+        }
     }
 
     private void initView() {
@@ -53,7 +63,7 @@ public class LoginActivity extends AppCompatActivity implements ILogin.View {
     }
 
     @Override
-    public void getListUserSuccess(final List<UserModel> userModels) {
+    public void getListUserSuccess(final List<NongDanModel> nongDanModels) {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,8 +71,8 @@ public class LoginActivity extends AppCompatActivity implements ILogin.View {
                 matkhau = tipMatKhau.getEditText().getText().toString().trim();
                 //
                 if(!TextUtils.isEmpty(taikhoan) || !TextUtils.isEmpty(matkhau)){
-                    for(int i=0 ; i<userModels.size(); i++){
-                        if(taikhoan.equals(userModels.get(i).getTaikhoan()) && matkhau.equals(userModels.get(i).getMatkhau())){
+                    for(int i = 0; i< nongDanModels.size(); i++){
+                        if(taikhoan.equals(nongDanModels.get(i).getTaikhoan()) && matkhau.equals(nongDanModels.get(i).getMatkhau())){
                             loginstate = true;
                             position = i;
                             break;
@@ -74,10 +84,10 @@ public class LoginActivity extends AppCompatActivity implements ILogin.View {
                     Log.d("uytai123", "Fill out");
                 }
                 if(loginstate){
-                    UserModel userModel = userModels.get(position);
+                    NongDanModel nongDanModel = nongDanModels.get(position);
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable(Constant.KEY_PUT_OBJECT, userModel);
+                    bundle.putSerializable(Constant.KEY_PUT_OBJECT, nongDanModel);
                     intent.putExtra(Constant.KEY_PUT_BUNDLE, bundle);
                     startActivity(intent);
                     Log.d("uytai123", "Login Success");

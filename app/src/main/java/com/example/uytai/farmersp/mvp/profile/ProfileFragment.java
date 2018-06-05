@@ -6,19 +6,16 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.uytai.farmersp.MainActivity;
 import com.example.uytai.farmersp.R;
-import com.example.uytai.farmersp.config.Constant;
-import com.example.uytai.farmersp.model.UserModel;
 import com.example.uytai.farmersp.mvp.dangtin.DangTinActivity;
 import com.example.uytai.farmersp.mvp.tindadang.TinDaDangActivity;
 
@@ -43,6 +40,9 @@ public class ProfileFragment extends Fragment {
     ImageView img_dangtin;
     @BindView(R.id.img_tindadang)
     ImageView img_tindadang;
+
+    @BindView(R.id.countTDD)
+    TextView tvcountTDD;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -70,10 +70,15 @@ public class ProfileFragment extends Fragment {
 
 
     private void setInforUser() {
-        edt_name.setText(MainActivity.userModel.getTen().toString());
-        edt_status.setText(MainActivity.userModel.getStatus().toString());
-        edt_phone.setText(MainActivity.userModel.getSdt());
-        Glide.with(getContext()).load(MainActivity.userModel.getAvatar()).placeholder(R.drawable.no_image).into(cir_avatar);
+        edt_name.setText(MainActivity.nongDanModel.getTen().toString());
+        edt_status.setText(MainActivity.nongDanModel.getStatus().toString());
+        edt_phone.setText(MainActivity.nongDanModel.getSdt());
+        Glide.with(getContext()).load(MainActivity.nongDanModel.getAvatar()).placeholder(R.drawable.no_image).into(cir_avatar);
+        if(TinDaDangActivity.countTDD==0){
+            tvcountTDD.setText("0");
+        }else{
+            tvcountTDD.setText(TinDaDangActivity.countTDD+"");
+        }
     }
 
     @OnClick(R.id.img_dangtin)

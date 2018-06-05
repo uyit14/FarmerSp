@@ -2,9 +2,9 @@ package com.example.uytai.farmersp.mvp.trader;
 
 import android.util.Log;
 
-import com.example.uytai.farmersp.model.TraderModel;
+import com.example.uytai.farmersp.model.ThuongLaiModel;
 import com.example.uytai.farmersp.retrofit.ApiClient;
-import com.example.uytai.farmersp.retrofit.TraderService;
+import com.example.uytai.farmersp.retrofit.NongDanService;
 
 import java.util.List;
 
@@ -25,11 +25,11 @@ public class TraderPresenter implements ITrader.Presenter {
 
     @Override
     public void requestGetListTrader() {
-        TraderService traderService = ApiClient.getClient().create(TraderService.class);
-        Call<List<TraderModel>> call = traderService.getTrader();
-        call.enqueue(new Callback<List<TraderModel>>() {
+        NongDanService nongDanService = ApiClient.getClient().create(NongDanService.class);
+        Call<List<ThuongLaiModel>> call = nongDanService.getTrader();
+        call.enqueue(new Callback<List<ThuongLaiModel>>() {
             @Override
-            public void onResponse(Call<List<TraderModel>> call, Response<List<TraderModel>> response) {
+            public void onResponse(Call<List<ThuongLaiModel>> call, Response<List<ThuongLaiModel>> response) {
                 if(response.isSuccessful()){
                     if(response.body()!=null){
                         Log.d("uytai123", response.body().size()+"");
@@ -42,7 +42,7 @@ public class TraderPresenter implements ITrader.Presenter {
             }
 
             @Override
-            public void onFailure(Call<List<TraderModel>> call, Throwable t) {
+            public void onFailure(Call<List<ThuongLaiModel>> call, Throwable t) {
                 Log.d("uytai123", t.getMessage()+"");
                 mTraderView.getListTraderFail();
             }

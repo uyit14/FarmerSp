@@ -10,14 +10,11 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.uytai.farmersp.R;
 import com.example.uytai.farmersp.config.Constant;
-import com.example.uytai.farmersp.model.FeedModel;
+import com.example.uytai.farmersp.model.ThuMuaModel;
 
-import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -71,20 +68,20 @@ public class DetailActivity extends AppCompatActivity {
     private void getFeedDetail() {
         Bundle bundle = getIntent().getBundleExtra(Constant.KEY_PUT_OBJECT);
         if(bundle!=null){
-            FeedModel feedModel = (FeedModel) bundle.getSerializable(Constant.KEY_PUT_BUNDLE);
-            Glide.with(DetailActivity.this).load(feedModel.getAvatar()).placeholder(R.drawable.no_image).into(civ_avatar);
-            Glide.with(DetailActivity.this).load(feedModel.getHinhanh()).placeholder(R.drawable.no_image).into(img_buy);
-            tv_name.setText(feedModel.getTen());
+            ThuMuaModel thuMuaModel = (ThuMuaModel) bundle.getSerializable(Constant.KEY_PUT_BUNDLE);
+            Glide.with(DetailActivity.this).load(thuMuaModel.getAvatar()).placeholder(R.drawable.no_image).into(civ_avatar);
+            Glide.with(DetailActivity.this).load(thuMuaModel.getHinhanh()).placeholder(R.drawable.no_image).into(img_buy);
+            tv_name.setText(thuMuaModel.getTen());
             DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-            tv_date.setText(df.format(feedModel.getTgKetthuc()));
+            tv_date.setText(df.format(thuMuaModel.getTgKetthuc()));
             DecimalFormat formatter = new DecimalFormat("###,###,###");
-            String giathapnhat = formatter.format(Double.parseDouble(feedModel.getGiaThapnhat()));
-            String giacaonhat =  formatter.format(Double.parseDouble(feedModel.getGiaCaonhat()));
+            String giathapnhat = formatter.format(Double.parseDouble(thuMuaModel.getGiaThapnhat()));
+            String giacaonhat =  formatter.format(Double.parseDouble(thuMuaModel.getGiaCaonhat()));
             tv_giathap.setText(giathapnhat + " VND");
             tv_giacao.setText(giacaonhat + " VND");
-            tv_lienhe.setText(feedModel.getLienhe());
-            tv_noithumua.setText(feedModel.getNoithumua());
-            tv_mota.setText(feedModel.getMota());
+            tv_lienhe.setText(thuMuaModel.getLienhe());
+            tv_noithumua.setText(thuMuaModel.getNoithumua());
+            tv_mota.setText(thuMuaModel.getMota());
         }
     }
 }

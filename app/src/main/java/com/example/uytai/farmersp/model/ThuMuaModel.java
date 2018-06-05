@@ -10,7 +10,7 @@ import java.util.Date;
  * Created by uytai on 4/15/2018.
  */
 
-public class FeedModel implements Serializable {
+public class ThuMuaModel implements Serializable {
     @SerializedName("ten")
     @Expose
     private String ten;
