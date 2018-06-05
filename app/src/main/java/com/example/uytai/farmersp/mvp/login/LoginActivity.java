@@ -100,6 +100,6 @@ public class LoginActivity extends AppCompatActivity implements ILogin.View {
 
     @Override
     public void getListUserFail() {
-        Toast.makeText(getApplicationContext(), "Load data Fail", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getApplicationContext(), "Load data Fail", Toast.LENGTH_SHORT).show();
     }
 }

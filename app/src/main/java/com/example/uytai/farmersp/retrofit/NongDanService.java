@@ -35,7 +35,8 @@ public interface NongDanService {
 
     @FormUrlEncoded
     @POST("nongdan/editprofile.php")
-    Call<POST> editProfile(@Field("id") int idtt, @Field("ten") String ten, @Field("status") String status, @Field("sdt") String sdt);
+    Call<POST> editProfile(@Field("id") int idtt, @Field("ten") String ten, @Field("status") String status,
+                           @Field("sdt") String sdt, @Field("hinhanh") String hinhanh);
 
     @FormUrlEncoded
     @POST("nongdan/getnongsanbyidnd.php")

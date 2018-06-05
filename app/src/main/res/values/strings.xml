@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">FarmerSp</string>
-    <string name="login_with_your_account">Đăng nhập bằng tài khoản của bạn</string>
+    <string name="login_with_your_account">Chào mừng đến với farmsp</string>
     <string name="your_name">Tên của bạn</string>
     <string name="user_name">Tên đăng nhập</string>
     <string name="pass_word">Mật khẩu</string>
@@ -9,4 +9,15 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="query_hint_thumua">Tìm kiếm tin thu mua</string>
+    <!-- OnBoard Screen. -->
+
+    <string name="ob_header1">TÌM KIẾM</string>
+    <string name="ob_header2">GIAO DỊCH</string>
+    <string name="ob_header3">LỢI NHUẬN</string>
+
+    <string name="ob_get_started">KHÁM PHÁ NGAY</string>
+
+    <string name="ob_desc1">Tìm kiếm thương lái uy tín, thu mua với giá cao nhất</string>
+    <string name="ob_desc2">Bán nông sản cho thương lái với giá tốt nhất</string>
+    <string name="ob_desc3">Thu về lợi nhuận để tăng thu nhập và cải thiện đời sống</string>
 </resources>

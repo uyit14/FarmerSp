@@ -13,22 +13,24 @@
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity" />
         <activity android:name=".mvp.splash.SplashActivity" />
-        <activity android:name=".mvp.login.LoginActivity">
+        <activity android:name=".mvp.login.LoginActivity"></activity>
+        <activity android:name=".mvp.register.RegisterActivity" />
+        <activity android:name=".mvp.trader.SubscribeActivity" />
+        <activity android:name=".mvp.feed.DetailActivity" />
+        <activity android:name=".mvp.dangtin.DangTinActivity" />
+        <activity android:name=".mvp.tindadang.TinDaDangActivity" />
+        <activity android:name=".mvp.tindadang.DetailTDDActivity" />
+        <activity
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat" />
+        <activity android:name=".mvp.onboarding.OnboardingActivity"></activity>
+        <activity android:name=".mvp.onboarding.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".mvp.register.RegisterActivity" />
-        <activity android:name=".mvp.trader.SubscribeActivity" />
-        <activity android:name=".mvp.feed.DetailActivity" />
-        <activity android:name=".mvp.dangtin.DangTinActivity" />
-        <activity android:name=".mvp.tindadang.TinDaDangActivity"></activity>
-        <activity android:name=".mvp.tindadang.DetailTDDActivity"></activity>
-        <activity
-            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:theme="@style/Base.Theme.AppCompat" />
     </application>
 
 </manifest>
