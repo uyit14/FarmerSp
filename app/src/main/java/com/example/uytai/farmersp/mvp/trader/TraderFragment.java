@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 import android.widget.Toast;
 import com.example.uytai.farmersp.R;
 import com.example.uytai.farmersp.model.ThuongLaiModel;
@@ -20,12 +21,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class TraderFragment extends Fragment implements ITrader.View {
+public class TraderFragment extends Fragment implements ITrader.View, SearchView.OnQueryTextListener {
 
     @BindView(R.id.recyclerviewTrader)
     RecyclerView recyclerviewTrader;
     @BindView(R.id.bar_trader)
     Toolbar toolbar;
+    @BindView(R.id.search_trader)
+    SearchView searchView;
     TraderAdapter traderAdapter;
 
     public TraderFragment() {
@@ -68,7 +71,6 @@ public class TraderFragment extends Fragment implements ITrader.View {
         if(thuongLaiModel !=null){
             traderAdapter = new TraderAdapter(thuongLaiModel, getActivity().getApplicationContext());
             recyclerviewTrader.setAdapter(traderAdapter);
-            Log.d("uytai123", thuongLaiModel.get(0).getTen());
         }else{
             Toast.makeText(getActivity().getApplicationContext(), "Null", Toast.LENGTH_SHORT).show();
         }
@@ -77,5 +79,16 @@ public class TraderFragment extends Fragment implements ITrader.View {
     @Override
     public void getListTraderFail() {
         Toast.makeText(getActivity().getApplicationContext(), "Fail", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String s) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String s) {
+        traderAdapter.filter(s);
+        return false;
     }
 }

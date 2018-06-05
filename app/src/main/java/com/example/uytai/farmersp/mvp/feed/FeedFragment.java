@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.example.uytai.farmersp.R;
@@ -18,9 +19,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class FeedFragment extends Fragment implements IFeed.View {
+public class FeedFragment extends Fragment implements IFeed.View, SearchView.OnQueryTextListener {
     @BindView(R.id.recyclerviewFeed)
     RecyclerView recyclerViewFeed;
+    @BindView(R.id.search_feed)
+    SearchView searchView;
 
     FeedAdapter feedAdapter;
 
@@ -63,5 +66,16 @@ public class FeedFragment extends Fragment implements IFeed.View {
     @Override
     public void getListFeedFail() {
         Toast.makeText(getActivity().getApplicationContext(), "Fail", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String s) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String s) {
+        feedAdapter.filter(s.trim());
+        return false;
     }
 }

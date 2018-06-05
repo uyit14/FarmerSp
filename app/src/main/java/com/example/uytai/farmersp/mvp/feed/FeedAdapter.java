@@ -17,8 +17,12 @@ import com.example.uytai.farmersp.config.Constant;
 import com.example.uytai.farmersp.model.ThuMuaModel;
 
 import java.text.DateFormat;
+import java.text.Normalizer;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.regex.Pattern;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -28,11 +32,36 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder> {
     List<ThuMuaModel> arrFeed;
+    List<ThuMuaModel> re_arrFeed;
     Context context;
 
     public FeedAdapter(List<ThuMuaModel> arrFeed, Context context) {
         this.arrFeed = arrFeed;
         this.context = context;
+        this.re_arrFeed = new ArrayList<ThuMuaModel>();
+        this.re_arrFeed.addAll(arrFeed);
+    }
+
+    public void filter(String charText){
+        charText = charText.toLowerCase(Locale.getDefault());
+        arrFeed.clear();
+        if(charText.length()==0){
+            arrFeed.addAll(re_arrFeed);
+        }else{
+            for(ThuMuaModel thuMuaModel : re_arrFeed){
+                removeAccent(thuMuaModel.getTenNongsan());
+                if(thuMuaModel.getTenNongsan().toLowerCase(Locale.getDefault()).contains(charText)){
+                    arrFeed.add(thuMuaModel);
+                }
+            }
+        }
+        notifyDataSetChanged();
+    }
+
+    public static String removeAccent(String s){
+        String temp = Normalizer.normalize(s, Normalizer.Form.NFD);
+        Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+        return pattern.matcher(temp).replaceAll("");
     }
 
     public void RemoveItem(int position){
