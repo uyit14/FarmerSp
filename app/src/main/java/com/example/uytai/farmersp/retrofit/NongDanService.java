@@ -34,6 +34,10 @@ public interface NongDanService {
     Call<List<NongDanModel>> getUserND();
 
     @FormUrlEncoded
+    @POST("nongdan/editprofile.php")
+    Call<POST> editProfile(@Field("id") int idtt, @Field("ten") String ten, @Field("status") String status, @Field("sdt") String sdt);
+
+    @FormUrlEncoded
     @POST("nongdan/getnongsanbyidnd.php")
     Call<List<NongSanModel>> getNongSanbyIDND(@Field("id_nongdan") int idnd);
 
@@ -67,6 +71,12 @@ public interface NongDanService {
                                          @Field("hinhanh") String hinhanh, @Field("mota") String mota,
                                          @Field("id_nd") int id_nd, @Field("id_loains") int id_loains,
                                          @Field("id_quanhuyen") int id_quanhuyen );
+
+    @FormUrlEncoded
+    @POST("nongdan/edittindadang.php")
+    Call<POST> edittindadang(@Field("id") int id, @Field("tennongsan") String tennongsan, @Field("tg_batdau") String tg_batdau
+            , @Field("tg_ketthuc") String tg_ketthuc, @Field("ten_lh") String ten_lh,
+                                         @Field("sdt_lh") String sdt_lh, @Field("diachi") String diachi, @Field("mota") String mota);
 
     @FormUrlEncoded
     @POST("nongdan/dangky.php")
