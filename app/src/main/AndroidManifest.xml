@@ -24,15 +24,14 @@
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
         <activity android:name=".mvp.onboarding.OnboardingActivity" />
-        <activity android:name=".mvp.onboarding.SplashScreenActivity" />
-        <activity android:name=".thuonglai.MainTLActivity"
-            >
+        <activity android:name=".mvp.onboarding.SplashScreenActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".thuonglai.MainTLActivity"></activity>
         <activity android:name=".thuonglai.nongsan.NongSanActivity" />
         <activity android:name=".thuonglai.TinDangTL.TinDaDangTLActivity" />
         <activity android:name=".thuonglai.thongbao.ThongBaoTLActivity" />

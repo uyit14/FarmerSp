@@ -7,11 +7,16 @@ import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import com.example.uytai.farmersp.R;
 import com.example.uytai.farmersp.config.Constant;
+import com.example.uytai.farmersp.model.NongDanModel;
+import com.example.uytai.farmersp.model.ThuongLaiModel;
 import com.example.uytai.farmersp.mvp.login.LoginActivity;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,6 +50,12 @@ public class RegisterActivity extends AppCompatActivity implements IRegister.Vie
     public static  String taikhoan="";
     public static  String matkhau="";
     RegisterPresenter registerPresenter;
+    //
+    List<NongDanModel> nongDanModels;
+    List<ThuongLaiModel> thuongLaiModels;
+
+    //
+    boolean flag = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,17 +63,31 @@ public class RegisterActivity extends AppCompatActivity implements IRegister.Vie
         setContentView(R.layout.activity_register);
         ButterKnife.bind(this);
         registerPresenter = new RegisterPresenter(this);
-
+        registerPresenter.requestGetNongDan();
+        registerPresenter.requestGetThuongLai();
         findViewById(R.id.signup_button).setOnClickListener(this);
         setChecked();
     }
 
     private void setChecked() {
-        if(cbNongdan.isChecked()){
-            cbThuonglai.setChecked(false);
-        }else if(cbThuonglai.isChecked()){
-            cbNongdan.setChecked(false);
-        }
+        //
+        cbNongdan.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (cbNongdan.isChecked()){
+                    cbThuonglai.setChecked(false);
+                }
+            }
+        });
+        //
+        cbThuonglai.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(cbThuonglai.isChecked()){
+                    cbNongdan.setChecked(false);
+                }
+            }
+        });
     }
 
     private void getDataSignUp() {
@@ -75,9 +100,31 @@ public class RegisterActivity extends AppCompatActivity implements IRegister.Vie
             Toast.makeText(getApplicationContext(), "Vui lòng điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
         }else{
             if(cbNongdan.isChecked()){
-                registerPresenter.requestSignUp();
+                for(int i=0; i<nongDanModels.size();i++){
+                    if(!taikhoan.equals(nongDanModels.get(i).getTaikhoan())){
+                        flag = true;
+                    }else{
+                        flag = false;
+                    }
+                }
+                if(flag){
+                    registerPresenter.requestSignUp();
+                }else{
+                    Toast.makeText(getApplicationContext(), "Tài khoản nông dân đã tồn tại, vui lòng chọn tài khoản khác!", Toast.LENGTH_SHORT).show();
+                }
             }else if(cbThuonglai.isChecked()){
-             registerPresenter.requestSignUpThuonglai();
+                for(int i=0; i<thuongLaiModels.size();i++){
+                    if(!taikhoan.equals(thuongLaiModels.get(i).getTaikhoan())){
+                        flag = true;
+                    }else{
+                        flag = false;
+                    }
+                }
+                if(flag){
+                    registerPresenter.requestSignUpThuonglai();
+                }else{
+                    Toast.makeText(getApplicationContext(), "Tài khoản thương lái đã tồn tại, vui lòng chọn tài khoản khác!", Toast.LENGTH_SHORT).show();
+                }
             }
         }
     }
@@ -95,6 +142,20 @@ public class RegisterActivity extends AppCompatActivity implements IRegister.Vie
     @Override
     public void SignUpFail() {
         Toast.makeText(getApplicationContext(), "Đăng ký thất bại, vui lòng thử lại sau!", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void getLisNongDanSuccess(List<NongDanModel> nongDanModels) {
+        if(nongDanModels!=null){
+            nongDanModels.addAll(nongDanModels);
+        }
+    }
+
+    @Override
+    public void getListThuongLaiSuccess(List<ThuongLaiModel> thuongLaiModels) {
+        if(thuongLaiModels!=null){
+            thuongLaiModels.addAll(thuongLaiModels);
+        }
     }
 
     @Override

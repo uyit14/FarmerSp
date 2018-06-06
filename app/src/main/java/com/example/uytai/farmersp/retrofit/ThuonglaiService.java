@@ -1,5 +1,6 @@
 package com.example.uytai.farmersp.retrofit;
 
+import com.example.uytai.farmersp.model.NongDanModel;
 import com.example.uytai.farmersp.model.ThuMuaModelTL;
 import com.example.uytai.farmersp.model.ThuongLaiModel;
 
@@ -21,4 +22,7 @@ public interface ThuonglaiService {
     @POST("nongdan/signup.php")
     Call<List<ThuongLaiModel>> signupTL(@Field("ten") String ten, @Field("avatar") String avatar, @Field("sdt") String sdt,
                                     @Field("taikhoan") String taikhoan, @Field("matkhau") String matkhau);
+
+    @GET("nongdan/getuser.php")
+    Call<List<ThuongLaiModel>> getUserTL();
 }
