@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gray"
     tools:context="com.example.uytai.farmersp.mvp.dangtin.DangTinActivity"
     >
 <LinearLayout
@@ -17,29 +18,20 @@
         android:layout_height="?attr/actionBarSize"
         android:id="@+id/them_canban_toolbar"/>
     <LinearLayout
-        android:layout_marginTop="10dp"
+        android:background="@drawable/custom_trader_item"
+        android:layout_marginTop="5dp"
         android:gravity="left|center"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="3dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <LinearLayout
-            android:layout_marginLeft="10dp"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
             <TextView
                 android:textSize="18sp"
                 android:text="Ảnh nông sản"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-            <ImageButton
-                android:id="@+id/imgFolder_dangtin"
-                android:layout_width="70dp"
-                android:layout_height="50dp"
-                app:srcCompat="@android:drawable/sym_contact_card" />
-        </LinearLayout>
         <ImageView
             android:layout_marginLeft="20dp"
             android:src="@drawable/no_image"
@@ -49,15 +41,13 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_marginLeft="10dp"
+        android:background="@drawable/custom_trader_item"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="3dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <TextView
-            android:textSize="20sp"
-            android:text="Tên nông sản: "
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
         <EditText
             android:layout_marginRight="20dp"
             android:id="@+id/tennongsan_dangtin"
@@ -68,15 +58,13 @@
             android:layout_height="wrap_content" />
     </LinearLayout>
     <LinearLayout
-        android:layout_marginLeft="10dp"
+        android:background="@drawable/custom_trader_item"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="3dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <TextView
-            android:textSize="16sp"
-            android:text="Bán từ ngày: "
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
         <EditText
             android:id="@+id/ngaybatdau_dangtin"
             android:layout_marginRight="20dp"
@@ -88,15 +76,13 @@
             android:layout_height="wrap_content" />
     </LinearLayout>
     <LinearLayout
-        android:layout_marginLeft="10dp"
+        android:background="@drawable/custom_trader_item"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="3dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <TextView
-            android:textSize="16sp"
-            android:text="Đến hết ngày; "
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
         <EditText
             android:id="@+id/ngayketthuc_dangtin"
             android:textStyle="italic"
@@ -108,15 +94,13 @@
             android:layout_height="wrap_content" />
     </LinearLayout>
     <LinearLayout
-        android:layout_marginLeft="10dp"
+        android:background="@drawable/custom_trader_item"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="3dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <TextView
-            android:textSize="16sp"
-            android:text="Tên liên hệ: "
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
         <EditText
             android:id="@+id/tenlienhe_dangtin"
             android:textSize="16sp"
@@ -126,15 +110,13 @@
             android:layout_height="wrap_content" />
     </LinearLayout>
     <LinearLayout
-        android:layout_marginLeft="10dp"
+        android:background="@drawable/custom_trader_item"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="3dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <TextView
-            android:textSize="16sp"
-            android:text="SĐT liên hệ: "
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
         <EditText
             android:id="@+id/sdt_dangtin"
             android:textSize="16sp"
@@ -144,15 +126,13 @@
             android:layout_height="wrap_content" />
     </LinearLayout>
     <LinearLayout
-        android:layout_marginLeft="10dp"
+        android:background="@drawable/custom_trader_item"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="3dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <TextView
-            android:textSize="16sp"
-            android:text="Địa chỉ: "
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
         <EditText
             android:id="@+id/diachi_dangtin"
             android:textSize="16sp"
@@ -162,15 +142,13 @@
             android:layout_height="wrap_content" />
     </LinearLayout>
     <LinearLayout
-        android:layout_marginLeft="10dp"
+        android:background="@drawable/custom_trader_item"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="3dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <TextView
-            android:textSize="16sp"
-            android:text="Mô tả: "
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
         <EditText
             android:id="@+id/mota_dangtin"
             android:textSize="16sp"
@@ -180,7 +158,10 @@
             android:layout_height="wrap_content" />
     </LinearLayout>
     <LinearLayout
-        android:layout_marginLeft="10dp"
+        android:background="@drawable/custom_trader_item"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="3dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -196,7 +177,10 @@
         </Spinner>
     </LinearLayout>
     <LinearLayout
-        android:layout_marginLeft="10dp"
+        android:background="@drawable/custom_trader_item"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="3dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -205,6 +189,11 @@
             android:id="@+id/sptinhthanh_dangtin"
             android:layout_width="0dp"
             android:layout_height="wrap_content"/>
+        <View
+            android:background="@color/gray"
+            android:layout_weight="0.1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
         <Spinner
             android:layout_weight="1"
             android:id="@+id/spquanhuyen_dangtin"
@@ -213,7 +202,10 @@
         </Spinner>
     </LinearLayout>
     <LinearLayout
-        android:layout_marginTop="10dp"
+        android:background="@drawable/custom_trader_item"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="3dp"
         android:gravity="center"
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -221,17 +213,19 @@
         <Button
             android:id="@+id/btn_huy_dangtin"
             android:text="Hủy"
-            android:layout_marginRight="15dp"
-            android:background="#d26565"
-            android:layout_width="100dp"
-            android:layout_height="40dp" />
+            android:layout_marginRight="5dp"
+            android:background="@drawable/custom_button_huy"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="35dp" />
         <Button
             android:id="@+id/btn_luu_dangtin"
-            android:layout_marginLeft="15dp"
-            android:background="@color/colorMain"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/custom_button_them"
             android:text="Thêm"
-            android:layout_width="100dp"
-            android:layout_height="40dp" />
+            android:layout_width="0dp"
+            android:layout_height="35dp" />
     </LinearLayout>
 
 

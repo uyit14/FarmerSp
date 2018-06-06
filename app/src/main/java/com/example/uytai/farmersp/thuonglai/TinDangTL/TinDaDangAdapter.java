@@ -59,11 +59,11 @@ public class TinDaDangAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) view.getTag();
         }
         ThuMuaModelTL thuMuaModelTL = (ThuMuaModelTL) getItem(i);
-        viewHolder.tenns.setText("");
-        viewHolder.noithumua.setText("");
-        viewHolder.sdt.setText("");
+        viewHolder.tenns.setText(thuMuaModelTL.getTenNongsan());
+        viewHolder.noithumua.setText(thuMuaModelTL.getNoithumua());
+        viewHolder.sdt.setText(thuMuaModelTL.getLienhe());
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-//        viewHolder.ngaybatdau.setText(df.format(arrNongsan.get(position).getTgKetthuc()));
+        viewHolder.ngaybatdau.setText(df.format(thuMuaModelTL.getTgBatdau()));
         return view;
     }
 }

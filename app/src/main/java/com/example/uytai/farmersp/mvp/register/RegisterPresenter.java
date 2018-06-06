@@ -45,7 +45,7 @@ public class RegisterPresenter implements IRegister.Presenter {
     public void requestSignUpThuonglai() {
         ThuonglaiService thuonglaiService = ApiClient.getClient().create(ThuonglaiService.class);
         Call<List<ThuongLaiModel>> call = thuonglaiService.signupTL(RegisterActivity.ten,RegisterActivity.avatar,
-                RegisterActivity.sdt, RegisterActivity.taikhoan, RegisterActivity.matkhau);
+                RegisterActivity.rate, RegisterActivity.taikhoan, RegisterActivity.matkhau);
         call.enqueue(new Callback<List<ThuongLaiModel>>() {
             @Override
             public void onResponse(Call<List<ThuongLaiModel>> call, Response<List<ThuongLaiModel>> response) {

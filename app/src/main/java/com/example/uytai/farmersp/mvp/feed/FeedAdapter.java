@@ -42,6 +42,12 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
         this.re_arrFeed.addAll(arrFeed);
     }
 
+//    public void setfilter(ArrayList<ThuMuaModel> thuMuaModels){
+//        re_arrFeed = new ArrayList<>();
+//        re_arrFeed.addAll(thuMuaModels);
+//        notifyDataSetChanged();
+//    }
+
     public void filter(String charText){
         charText = charText.toLowerCase(Locale.getDefault());
         arrFeed.clear();
@@ -80,7 +86,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
     public void onBindViewHolder(FeedViewHolder holder, final int position) {
         Glide.with(context).load(arrFeed.get(position).getAvatar()).placeholder(R.drawable.no_image).into(holder.crImgAvatar);
         Glide.with(context).load(arrFeed.get(position).getHinhanh()).placeholder(R.drawable.no_image).into(holder.Img_Buy);
-        holder.Tv_Name.setText(arrFeed.get(position).getTen());
+        holder.Tv_Name.setText(arrFeed.get(position).getTenNongsan());
         holder.Tv_Desciption.setText(arrFeed.get(position).getMota());
         holder.Tv_NoiThuMua.setText(arrFeed.get(position).getNoithumua());
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");

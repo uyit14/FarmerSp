@@ -1,89 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<ScrollView
     android:layout_marginBottom="3dp"
     android:background="@color/background"
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <include
-        android:id="@+id/bar_detail"
-        layout="@layout/app_bar_layout"
-        />
-    <LinearLayout
-        android:layout_below="@+id/bar_detail"
+    <RelativeLayout
+        android:layout_margin="5dp"
         android:background="@drawable/custom_trader_item"
-        android:layout_margin="10dp"
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <include
+            android:id="@+id/bar_detail"
+            layout="@layout/app_bar_layout" />
         <LinearLayout
-            android:layout_margin="3dp"
-            android:layout_weight="1.5"
-            android:layout_width="match_parent"
-            android:layout_height="0dp">
-            <LinearLayout
-                android:layout_margin="2dp"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_weight="8"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent">
-                    <TextView
-                        android:id="@+id/name"
-                        android:layout_marginTop="5dp"
-                        android:layout_weight="4"
-                        android:gravity="left|center_vertical"
-                        android:textColor="@android:color/black"
-                        android:textSize="17sp"
-                        android:textStyle="bold"
-                        android:text="@string/app_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp" />
-                    <LinearLayout
-                        android:orientation="horizontal"
-                        android:layout_weight="6"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp">
-                        <ImageView
-                            android:layout_gravity="center_vertical"
-                            android:src="@drawable/ic_calendar"
-                            android:layout_width="25dp"
-                            android:layout_height="20dp" />
-                        <TextView
-                            android:id="@+id/date"
-                            android:layout_marginRight="5dp"
-                            android:layout_marginLeft="5dp"
-                            android:layout_gravity="center_vertical"
-                            android:textColor="@android:color/black"
-                            android:text="22 Feb 2017"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-                        <ImageView
-                            android:layout_marginLeft="15dp"
-                            android:layout_gravity="center_vertical"
-                            android:src="@drawable/ic_place"
-                            android:layout_width="25dp"
-                            android:layout_height="20dp" />
-                        <TextView
-                            android:id="@+id/noithumua"
-                            android:layout_marginLeft="5dp"
-                            android:layout_gravity="center_vertical"
-                            android:textColor="@android:color/black"
-                            android:text="ĐB. SCL"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-                    </LinearLayout>
-                </LinearLayout>
-            </LinearLayout>
-        </LinearLayout>
-        <LinearLayout
-            android:gravity="left|center_vertical"
-            android:layout_weight="2.5"
+            android:layout_margin="5dp"
+            android:id="@+id/layout1"
+            android:layout_below="@+id/bar_detail"
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="0dp">
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:paddingLeft="10dp"
+                    android:id="@+id/tennongsan"
+                    android:layout_marginTop="3dp"
+                    android:gravity="left|center_vertical"
+                    android:textColor="@android:color/black"
+                    android:textSize="17sp"
+                    android:enabled="false"
+                    android:textStyle="bold"
+                    android:text="@string/app_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/edit"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorMain"
+                    android:textSize="20sp"
+                    android:layout_marginRight="10dp"
+                    android:gravity="right|center"
+                    android:layout_gravity="center"
+                    android:text="Sửa"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_calendar"
+                    android:layout_width="25dp"
+                    android:layout_height="20dp" />
+                <EditText
+                    android:enabled="false"
+                    android:id="@+id/ngaybatdau"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_gravity="center_vertical"
+                    android:inputType="date"
+                    android:textColor="@android:color/black"
+                    android:text="22 Feb 2017"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_place"
+                    android:layout_width="25dp"
+                    android:layout_height="20dp" />
+                <EditText
+                    android:enabled="false"
+                    android:id="@+id/noithumua"
+                    android:layout_marginLeft="5dp"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="@android:color/black"
+                    android:text="Nam Bộ"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_margin="5dp"
+            android:id="@+id/layout2"
+            android:layout_below="@+id/layout1"
+            android:gravity="left|top"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
             <LinearLayout
                 android:layout_marginRight="5dp"
                 android:layout_marginLeft="5dp"
@@ -94,16 +103,18 @@
                     android:gravity="left|center_vertical"
                     android:textSize="17sp"
                     android:textStyle="bold"
-                    android:layout_marginRight="10dp"
                     android:text="Liên hệ: "
+                    android:layout_weight="2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
-                <TextView
+                <EditText
+                    android:enabled="false"
                     android:id="@+id/lienhe"
                     android:gravity="left|center_vertical"
                     android:textSize="17sp"
                     android:textStyle="italic"
                     android:text="01657988994"
+                    android:layout_weight="4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
@@ -117,10 +128,11 @@
                     android:gravity="left|center_vertical"
                     android:textSize="17sp"
                     android:textStyle="bold"
-                    android:text="Giá thu mua: "
+                    android:text="Giá từ: "
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
-                <TextView
+                <EditText
+                    android:enabled="false"
                     android:id="@+id/giathap"
                     android:gravity="left|center_vertical"
                     android:textSize="17sp"
@@ -130,21 +142,26 @@
                     android:layout_height="wrap_content" />
                 <TextView
                     android:gravity="left|center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:textSize="17sp"
-                    android:text="  -  "
+                    android:textStyle="bold"
+                    android:text="đến: "
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
-                <TextView
+                <EditText
+                    android:enabled="false"
                     android:id="@+id/giacao"
                     android:gravity="left|center_vertical"
                     android:textSize="17sp"
                     android:textStyle="italic"
-                    android:text="70000"
+                    android:text="80000"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
-            <TextView
-                android:id="@+id/description"
+            <EditText
+                android:enabled="false"
+                android:id="@+id/mota"
                 android:layout_marginRight="5dp"
                 android:layout_marginLeft="5dp"
                 android:ellipsize="end"
@@ -156,6 +173,8 @@
                 android:layout_height="wrap_content" />
         </LinearLayout>
         <View
+            android:id="@+id/layout3"
+            android:layout_below="@+id/layout2"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_width="match_parent"
@@ -163,16 +182,17 @@
             android:layout_gravity="bottom"
             android:background="@color/background"/>
         <LinearLayout
+            android:layout_below="@+id/layout3"
             android:gravity="top"
             android:layout_margin="5dp"
-            android:layout_weight="6"
             android:layout_width="match_parent"
-            android:layout_height="0dp">
+            android:layout_height="wrap_content">
             <ImageView
-                android:id="@+id/img_buy"
+                android:src="@drawable/avatar"
+                android:id="@+id/hinhanh"
                 android:scaleType="fitXY"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </LinearLayout>
-    </LinearLayout>
-</RelativeLayout>
+    </RelativeLayout>
+</ScrollView>

@@ -19,10 +19,23 @@ public interface ThuonglaiService {
     Call<List<ThuMuaModelTL>> getTinDaDangByIDTL(@Field("id") int idtl);
 
     @FormUrlEncoded
-    @POST("nongdan/signup.php")
-    Call<List<ThuongLaiModel>> signupTL(@Field("ten") String ten, @Field("avatar") String avatar, @Field("sdt") String sdt,
+    @POST("nongdan/signuptl.php")
+    Call<List<ThuongLaiModel>> signupTL(@Field("ten") String ten, @Field("avatar") String avatar, @Field("rate") double rate,
                                     @Field("taikhoan") String taikhoan, @Field("matkhau") String matkhau);
 
-    @GET("nongdan/getuser.php")
+    @GET("nongdan/getthuonglai.php")
     Call<List<ThuongLaiModel>> getUserTL();
+
+    @FormUrlEncoded
+    @POST("nongdan/getthumuabyidtl.php")
+    Call<List<ThuMuaModelTL>> getThuMuabyIDTL(@Field("id_thuonglai") int idtl);
+
+    @FormUrlEncoded
+    @POST("nongdan/themthumua.php")
+    Call<POST> themthumua(@Field("ten_nongsan") String ten_nongsan, @Field("tg_batdau") String tg_batdau
+            , @Field("tg_ketthuc") String tg_ketthuc, @Field("gia_thapnhat") double gia_thapnhat,
+                                         @Field("gia_caonhat") double gia_caonhat, @Field("noithumua") String noithumua,
+                                         @Field("lienhe") String lienhe, @Field("hinhanh") String hinhanh,
+                                         @Field("mota") String mota, @Field("id_thuonglai") int id_thuonglai,
+                                         @Field("id_loains") int id_loains );
 }

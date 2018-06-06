@@ -16,6 +16,7 @@ import com.example.uytai.farmersp.model.NongDanModel;
 import com.example.uytai.farmersp.model.ThuongLaiModel;
 import com.example.uytai.farmersp.mvp.login.LoginActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -49,10 +50,11 @@ public class RegisterActivity extends AppCompatActivity implements IRegister.Vie
     public static  String sdt="";
     public static  String taikhoan="";
     public static  String matkhau="";
+    public static double rate = 0.0;
     RegisterPresenter registerPresenter;
     //
-    List<NongDanModel> nongDanModels;
-    List<ThuongLaiModel> thuongLaiModels;
+    List<NongDanModel> listnongDanModels;
+    List<ThuongLaiModel> listthuongLaiModels;
 
     //
     boolean flag = false;
@@ -63,6 +65,8 @@ public class RegisterActivity extends AppCompatActivity implements IRegister.Vie
         setContentView(R.layout.activity_register);
         ButterKnife.bind(this);
         registerPresenter = new RegisterPresenter(this);
+        listnongDanModels = new ArrayList<>();
+        listthuongLaiModels = new ArrayList<>();
         registerPresenter.requestGetNongDan();
         registerPresenter.requestGetThuongLai();
         findViewById(R.id.signup_button).setOnClickListener(this);
@@ -100,8 +104,8 @@ public class RegisterActivity extends AppCompatActivity implements IRegister.Vie
             Toast.makeText(getApplicationContext(), "Vui lòng điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
         }else{
             if(cbNongdan.isChecked()){
-                for(int i=0; i<nongDanModels.size();i++){
-                    if(!taikhoan.equals(nongDanModels.get(i).getTaikhoan())){
+                for(int i=0; i<listnongDanModels.size();i++){
+                    if(!taikhoan.equals(listnongDanModels.get(i).getTaikhoan())){
                         flag = true;
                     }else{
                         flag = false;
@@ -113,8 +117,8 @@ public class RegisterActivity extends AppCompatActivity implements IRegister.Vie
                     Toast.makeText(getApplicationContext(), "Tài khoản nông dân đã tồn tại, vui lòng chọn tài khoản khác!", Toast.LENGTH_SHORT).show();
                 }
             }else if(cbThuonglai.isChecked()){
-                for(int i=0; i<thuongLaiModels.size();i++){
-                    if(!taikhoan.equals(thuongLaiModels.get(i).getTaikhoan())){
+                for(int i=0; i<listthuongLaiModels.size();i++){
+                    if(!taikhoan.equals(listthuongLaiModels.get(i).getTaikhoan())){
                         flag = true;
                     }else{
                         flag = false;
@@ -141,20 +145,25 @@ public class RegisterActivity extends AppCompatActivity implements IRegister.Vie
 
     @Override
     public void SignUpFail() {
-        Toast.makeText(getApplicationContext(), "Đăng ký thất bại, vui lòng thử lại sau!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Đăng ký thành công", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+        intent.putExtra(Constant.KEY_PUT_USERNAME, taikhoan);
+        intent.putExtra(Constant.KEY_PUT_PASSWORD, matkhau);
+        startActivity(intent);
+        finish();
     }
 
     @Override
     public void getLisNongDanSuccess(List<NongDanModel> nongDanModels) {
         if(nongDanModels!=null){
-            nongDanModels.addAll(nongDanModels);
+            listnongDanModels.addAll(nongDanModels);
         }
     }
 
     @Override
     public void getListThuongLaiSuccess(List<ThuongLaiModel> thuongLaiModels) {
         if(thuongLaiModels!=null){
-            thuongLaiModels.addAll(thuongLaiModels);
+            listthuongLaiModels.addAll(thuongLaiModels);
         }
     }
 

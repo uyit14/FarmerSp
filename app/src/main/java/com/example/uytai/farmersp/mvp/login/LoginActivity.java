@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,12 +16,23 @@ import com.example.uytai.farmersp.MainActivity;
 import com.example.uytai.farmersp.R;
 import com.example.uytai.farmersp.config.Constant;
 import com.example.uytai.farmersp.model.NongDanModel;
+import com.example.uytai.farmersp.model.ThuongLaiModel;
 import com.example.uytai.farmersp.mvp.register.RegisterActivity;
+import com.example.uytai.farmersp.thuonglai.MainTLActivity;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class LoginActivity extends AppCompatActivity implements ILogin.View {
 
+    @BindView(R.id.login_nongdan)
+    CheckBox cbNongdan;
+    @BindView(R.id.login_thuonglai)
+    CheckBox cbThuonglai;
     TextInputLayout tipTaiKhoan, tipMatKhau;
     Button btnLogin;
     TextView tv_register;
@@ -28,14 +40,26 @@ public class LoginActivity extends AppCompatActivity implements ILogin.View {
     String taikhoan="", matkhau="";
     int position;
 
+    List<NongDanModel> listNongDan;
+    List<ThuongLaiModel> listThuongLai;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        ButterKnife.bind(this);
+        listNongDan = new ArrayList<>();
+        listThuongLai = new ArrayList<>();
         LoginPresenter loginPresenter = new LoginPresenter(this);
         loginPresenter.requestGetListUser();
+        loginPresenter.requestGetThuongLai();
         initView();
         getDataSignup();
+    }
+
+    @OnClick(R.id.btn_login)
+    void login(){
+        signin();
     }
 
     private void getDataSignup() {
@@ -62,29 +86,24 @@ public class LoginActivity extends AppCompatActivity implements ILogin.View {
         });
     }
 
-    @Override
-    public void getListUserSuccess(final List<NongDanModel> nongDanModels) {
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                taikhoan = tipTaiKhoan.getEditText().getText().toString().trim();
-                matkhau = tipMatKhau.getEditText().getText().toString().trim();
-                //
-                if(!TextUtils.isEmpty(taikhoan) || !TextUtils.isEmpty(matkhau)){
-                    for(int i = 0; i< nongDanModels.size(); i++){
-                        if(taikhoan.equals(nongDanModels.get(i).getTaikhoan()) && matkhau.equals(nongDanModels.get(i).getMatkhau())){
-                            loginstate = true;
-                            position = i;
-                            break;
-                        }else{
-                            loginstate = false;
-                        }
+    private void signin(){
+        taikhoan = tipTaiKhoan.getEditText().getText().toString().trim();
+        matkhau = tipMatKhau.getEditText().getText().toString().trim();
+        //
+        if(!TextUtils.isEmpty(taikhoan) || !TextUtils.isEmpty(matkhau)){
+            if(cbNongdan.isChecked()){
+                for(int i = 0; i< listNongDan.size(); i++){
+                    if(taikhoan.equals(listNongDan.get(i).getTaikhoan()) && matkhau.equals(listNongDan.get(i).getMatkhau())){
+                        loginstate = true;
+                        position = i;
+                        break;
+                    }else{
+                        loginstate = false;
                     }
-                }else{
-                    Log.d("uytai123", "Fill out");
                 }
+                //
                 if(loginstate){
-                    NongDanModel nongDanModel = nongDanModels.get(position);
+                    NongDanModel nongDanModel = listNongDan.get(position);
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putSerializable(Constant.KEY_PUT_OBJECT, nongDanModel);
@@ -92,14 +111,53 @@ public class LoginActivity extends AppCompatActivity implements ILogin.View {
                     startActivity(intent);
                     Log.d("uytai123", "Login Success");
                 }else{
-                    Log.d("uytai123", "Login Fail");
+                    Toast.makeText(getApplicationContext(), "Đăng nhập nông dân thất bại", Toast.LENGTH_SHORT).show();
+                }
+            }else if(cbThuonglai.isChecked()){
+                for(int i = 0; i< listThuongLai.size(); i++){
+                    if(taikhoan.equals(listThuongLai.get(i).getTaikhoan()) && matkhau.equals(listThuongLai.get(i).getMatkhau())){
+                        loginstate = true;
+                        position = i;
+                        break;
+                    }else{
+                        loginstate = false;
+                    }
+                }
+                //
+                if(loginstate){
+                    ThuongLaiModel thuongLaiModel = listThuongLai.get(position);
+                    Intent intent = new Intent(getApplicationContext(), MainTLActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable(Constant.KEY_PUT_OBJECT, thuongLaiModel);
+                    intent.putExtra(Constant.KEY_PUT_BUNDLE, bundle);
+                    startActivity(intent);
+                    Log.d("uytai123", "Login Success");
+                }else{
+                    Toast.makeText(getApplicationContext(), "Đăng nhập thương lái thất bại", Toast.LENGTH_SHORT).show();
                 }
             }
-        });
+        }else{
+            Log.d("uytai123", "Vui lòng điền đầy đủ thông tin");
+        }
+    }
+
+    @Override
+    public void getListUserSuccess(final List<NongDanModel> nongDanModels) {
+        listNongDan.addAll(nongDanModels);
     }
 
     @Override
     public void getListUserFail() {
 //        Toast.makeText(getApplicationContext(), "Load data Fail", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void getListTLSuccess(List<ThuongLaiModel> thuongLaiModels) {
+        listThuongLai.addAll(thuongLaiModels);
+    }
+
+    @Override
+    public void getListTLFail() {
+
     }
 }

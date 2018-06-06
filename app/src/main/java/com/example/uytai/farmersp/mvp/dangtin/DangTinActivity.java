@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -73,6 +74,8 @@ public class DangTinActivity extends AppCompatActivity implements IDangTin.View 
     Button btn_huy;
     @BindView(R.id.btn_luu_dangtin)
     Button btn_luu;
+    @BindView(R.id.them_canban_toolbar)
+    Toolbar toolbar;
 
     DangTinPresenter dangTinPresenter;
 
@@ -97,6 +100,12 @@ public class DangTinActivity extends AppCompatActivity implements IDangTin.View 
         QHadapter = new ArrayAdapter<String>(getApplicationContext(),
                 android.R.layout.simple_spinner_dropdown_item, arrQuanHuyen);
         //
+        ActionToolbar();
+    }
+
+    private void ActionToolbar() {
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Cá nhân");
     }
 
     private void setClickonSpinner() {
@@ -218,7 +227,7 @@ public class DangTinActivity extends AppCompatActivity implements IDangTin.View 
     }
 
     // ------- cac su kien click --------- //
-    @OnClick(R.id.imgFolder_dangtin)
+    @OnClick(R.id.hinhanh_dangtin)
     void ChooseImage(View v){
         onPickPhoto(v);
     }
@@ -276,6 +285,7 @@ public class DangTinActivity extends AppCompatActivity implements IDangTin.View 
                 File file = new File(resultUri.getPath());
                 Glide.with(DangTinActivity.this).load(file).into(img_hinhanh);
                 hinhanh = String.valueOf(file);
+                Log.d("uytai123", hinhanh);
             }
         }
         super.onActivityResult(requestCode, resultCode, data);

@@ -45,13 +45,13 @@ import static android.app.Activity.RESULT_OK;
 
 
 public class ProfileFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
-    @BindView(R.id.name)
+    @BindView(R.id.name_profile)
     EditText edt_name;
     @BindView(R.id.phone_profile)
     EditText edt_phone;
     @BindView(R.id.avatar)
     CircleImageView cir_avatar;
-    @BindView(R.id.status)
+    @BindView(R.id.status_profile)
     EditText edt_status;
     @BindView(R.id.bar_profile)
     Toolbar toolbar;

@@ -71,8 +71,8 @@ public class TinDaDangAdapter extends RecyclerView.Adapter<TinDaDangAdapter.TinD
 
     //
     private void showDialog(final int id, String tenns){
-        final AlertDialog.Builder dialog = new AlertDialog.Builder(context);
-        final AlertDialog show = dialog.show();
+        final AlertDialog.Builder dialog = new AlertDialog.Builder(context.getApplicationContext());
+        //final AlertDialog show = dialog.show();
         dialog.setMessage("Bạn có chắn chắn xóa " + tenns + " không?");
         dialog.setPositiveButton("C", new DialogInterface.OnClickListener() {
             @Override
@@ -83,7 +83,7 @@ public class TinDaDangAdapter extends RecyclerView.Adapter<TinDaDangAdapter.TinD
         dialog.setNegativeButton("Không", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                show.dismiss();
+                //show.dismiss();
             }
         });
         dialog.show();

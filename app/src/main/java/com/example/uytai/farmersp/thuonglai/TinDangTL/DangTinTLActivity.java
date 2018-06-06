@@ -11,9 +11,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.uytai.farmersp.R;
+import com.example.uytai.farmersp.retrofit.ApiClient;
+import com.example.uytai.farmersp.retrofit.ThuonglaiService;
+import com.example.uytai.farmersp.thuonglai.MainTLActivity;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.io.File;
@@ -21,6 +25,10 @@ import java.io.File;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.http.POST;
 
 public class DangTinTLActivity extends AppCompatActivity {
     @BindView(R.id.btn_huy_dangtin_tl)
@@ -47,9 +55,20 @@ public class DangTinTLActivity extends AppCompatActivity {
     EditText edtTenNongSan;
     @BindView(R.id.toolbar_dangtin_tl)
     Toolbar toolbar;
-
     //
-    String hinhanh;
+    //
+    public static String tennongsan="";
+    public static String tg_batdau = "";
+    public static String tg_ketthuc = "";
+    public static double gia_thapnhat=0;
+    public static double gia_caonhat=0;
+    public static String noithumua="";
+    public static String lienhe="";
+    public static String hinhanh="";
+    public static String mota="";
+    public static int id_thuonglai=0;
+    public static int id_loains=0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +87,44 @@ public class DangTinTLActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    private void getData(){
+        id_thuonglai = MainTLActivity.thuongLaiModel.getId();
+        tennongsan = edtTenNongSan.getText().toString();
+        tg_batdau = edtNgayBatDau.getText().toString();
+        tg_ketthuc = edtNgayKetThuc.getText().toString();
+        gia_thapnhat = Double.parseDouble(edtGiaThapNhat.getText().toString());
+        gia_caonhat = Double.parseDouble(edtGiaCaoNhat.getText().toString());
+        noithumua = edtNoiThuMua.getText().toString();
+        lienhe = edtLienHe.getText().toString();
+        mota = edtMoTa.getText().toString();
+    }
+
+    private void ThemThuMua(){
+        getData();
+        ThuonglaiService thuonglaiService = ApiClient.getClient().create(ThuonglaiService.class);
+        Call<POST> call = thuonglaiService.themthumua(tennongsan, tg_batdau, tg_ketthuc, gia_thapnhat, gia_caonhat, noithumua,
+                lienhe, hinhanh,mota, id_thuonglai, id_loains);
+        call.enqueue(new Callback<POST>() {
+            @Override
+            public void onResponse(Call<POST> call, Response<POST> response) {
+                if(response.isSuccessful()){
+                    Toast.makeText(getApplicationContext(), "Thêm thua mua thành công", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<POST> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Thêm thua mua thành công", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        });
+    }
+
+    @OnClick(R.id.btn_luu_dangtin_tl)
+    void ClickThem(){
+        ThemThuMua();
     }
 
     @OnClick(R.id.hinhanh_dangtin_tl)

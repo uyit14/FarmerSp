@@ -36,7 +36,7 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:drawableTop="@drawable/plus"
-            android:text="3"
+            android:text="2"
             android:elevation="16dp"
             android:textColor="@color/white"
             android:textAppearance="?android:attr/textAppearanceMedium" />

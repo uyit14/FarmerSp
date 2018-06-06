@@ -68,7 +68,7 @@ public interface NongDanService {
                                     @Field("taikhoan") String taikhoan, @Field("matkhau") String matkhau);
 
     @FormUrlEncoded
-    @POST("nongdan/themnongsannn.php")
+    @POST("nongdan/themnongsan.php")
     Call<List<NongSanModel>> themnongsan(@Field("tennongsan") String tennongsan, @Field("tg_batdau") String tg_batdau
             , @Field("tg_ketthuc") String tg_ketthuc, @Field("ten_lh") String ten_lh,
                                     @Field("sdt_lh") String sdt_lh, @Field("diachi") String diachi,

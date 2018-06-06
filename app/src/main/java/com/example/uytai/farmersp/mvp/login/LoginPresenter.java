@@ -1,8 +1,10 @@
 package com.example.uytai.farmersp.mvp.login;
 
 import com.example.uytai.farmersp.model.NongDanModel;
+import com.example.uytai.farmersp.model.ThuongLaiModel;
 import com.example.uytai.farmersp.retrofit.ApiClient;
 import com.example.uytai.farmersp.retrofit.NongDanService;
+import com.example.uytai.farmersp.retrofit.ThuonglaiService;
 
 import java.util.List;
 
@@ -38,6 +40,27 @@ public class LoginPresenter implements ILogin.Presenter {
             @Override
             public void onFailure(Call<List<NongDanModel>> call, Throwable t) {
                 mLoginView.getListUserFail();
+            }
+        });
+    }
+
+    @Override
+    public void requestGetThuongLai() {
+        ThuonglaiService thuonglaiService = ApiClient.getClient().create(ThuonglaiService.class);
+        Call<List<ThuongLaiModel>> call = thuonglaiService.getUserTL();
+        call.enqueue(new Callback<List<ThuongLaiModel>>() {
+            @Override
+            public void onResponse(Call<List<ThuongLaiModel>> call, Response<List<ThuongLaiModel>> response) {
+                if(response.isSuccessful()){
+                    if(response.body()!=null){
+                        mLoginView.getListTLSuccess(response.body());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<ThuongLaiModel>> call, Throwable t) {
+                mLoginView.getListTLFail();
             }
         });
     }

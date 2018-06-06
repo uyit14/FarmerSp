@@ -1,7 +1,9 @@
 package com.example.uytai.farmersp.thuonglai.TinDangTL;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -15,6 +17,7 @@ import com.example.uytai.farmersp.config.Constant;
 import com.example.uytai.farmersp.model.ThuMuaModelTL;
 import com.example.uytai.farmersp.retrofit.ApiClient;
 import com.example.uytai.farmersp.retrofit.ThuonglaiService;
+import com.example.uytai.farmersp.thuonglai.MainTLActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,23 +29,27 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class TinDaDangTLActivity extends AppCompatActivity {
+public class TinDaDangTLActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
     @BindView(R.id.float_tdd_tl)
     FloatingActionButton float_dangtin;
     @BindView(R.id.bar_tindadang_tl)
     Toolbar toolbar;
+    @BindView(R.id.listviewTinDaDangTL)
     ListView listView;
     TinDaDangAdapter tinDaDangAdapter;
     List<ThuMuaModelTL> thuMuaModelTLS;
+    @BindView(R.id.swip)
+    SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tin_dang_tl);
         ButterKnife.bind(this);
+        swipeRefreshLayout.setOnRefreshListener(this);
         requestGetListTinDaDang();
         ActionToolbar();
-        //ClickItem();
+        ClickItem();
         thuMuaModelTLS = new ArrayList<>();
     }
 
@@ -67,6 +74,7 @@ public class TinDaDangTLActivity extends AppCompatActivity {
              Bundle bundle = new Bundle();
              bundle.putSerializable(Constant.KEY_PUT_OBJECT, thuMuaModelTLS.get(i));
              intent.putExtra(Constant.KEY_PUT_BUNDLE, bundle);
+             startActivity(intent);
          }
      });
 
@@ -82,7 +90,7 @@ public class TinDaDangTLActivity extends AppCompatActivity {
     //
     private void requestGetListTinDaDang(){
         ThuonglaiService thuonglaiService = ApiClient.getClient().create(ThuonglaiService.class);
-        Call<List<ThuMuaModelTL>> call = thuonglaiService.getTinDaDangByIDTL(1);
+        Call<List<ThuMuaModelTL>> call = thuonglaiService.getThuMuabyIDTL(MainTLActivity.thuongLaiModel.getId());
         call.enqueue(new Callback<List<ThuMuaModelTL>>() {
             @Override
             public void onResponse(Call<List<ThuMuaModelTL>> call, Response<List<ThuMuaModelTL>> response) {
@@ -110,5 +118,16 @@ public class TinDaDangTLActivity extends AppCompatActivity {
     void DangTin(){
         Intent intent = new Intent(TinDaDangTLActivity.this, DangTinTLActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void onRefresh() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                requestGetListTinDaDang();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        }, 2000);
     }
 }
