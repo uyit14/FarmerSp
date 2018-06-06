@@ -11,5 +11,6 @@ public interface IRegister {
     }
     interface Presenter{
         void requestSignUp();
+        void requestSignUpThuonglai();
     }
 }

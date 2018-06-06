@@ -54,6 +54,15 @@ public class RegisterActivity extends AppCompatActivity implements IRegister.Vie
         registerPresenter = new RegisterPresenter(this);
 
         findViewById(R.id.signup_button).setOnClickListener(this);
+        setChecked();
+    }
+
+    private void setChecked() {
+        if(cbNongdan.isChecked()){
+            cbThuonglai.setChecked(false);
+        }else if(cbThuonglai.isChecked()){
+            cbNongdan.setChecked(false);
+        }
     }
 
     private void getDataSignUp() {
@@ -65,7 +74,11 @@ public class RegisterActivity extends AppCompatActivity implements IRegister.Vie
         if(ten.equals("") || taikhoan.equals("") || matkhau.equals("")){
             Toast.makeText(getApplicationContext(), "Vui lòng điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
         }else{
-            registerPresenter.requestSignUp();
+            if(cbNongdan.isChecked()){
+                registerPresenter.requestSignUp();
+            }else if(cbThuonglai.isChecked()){
+             registerPresenter.requestSignUpThuonglai();
+            }
         }
     }
 
