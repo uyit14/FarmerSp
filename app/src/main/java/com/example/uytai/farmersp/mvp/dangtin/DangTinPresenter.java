@@ -94,10 +94,10 @@ public class DangTinPresenter implements IDangTin.Presenter {
                     if(response.body()!=null){
                         mDangTinView.getQuanHuyenSuccess(response.body());
                     }else{
-                        Log.d("uytai123", "NULL");
+//                        Log.d("uytai123", "NULL");
                     }
                 }else{
-                    Log.d("uytai123", "FAIL");
+//                    Log.d("uytai123", "FAIL");
                 }
 
             }

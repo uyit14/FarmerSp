@@ -49,15 +49,15 @@ public class NongSanModel implements Serializable {
 
     @SerializedName("id_nongdan")
     @Expose
-    private String idNongDan;
+    private int idNongDan;
 
     @SerializedName("id_loains")
     @Expose
-    private String idLoaiNS;
+    private int idLoaiNS;
 
     @SerializedName("id_quanhuyen")
     @Expose
-    private String idQuanHuyen;
+    private int idQuanHuyen;
 
     public int getId() {
         return id;
@@ -131,27 +131,27 @@ public class NongSanModel implements Serializable {
         this.moTa = moTa;
     }
 
-    public String getIdNongDan() {
+    public int getIdNongDan() {
         return idNongDan;
     }
 
-    public void setIdNongDan(String idNongDan) {
+    public void setIdNongDan(int idNongDan) {
         this.idNongDan = idNongDan;
     }
 
-    public String getIdLoaiNS() {
+    public int getIdLoaiNS() {
         return idLoaiNS;
     }
 
-    public void setIdLoaiNS(String idLoaiNS) {
+    public void setIdLoaiNS(int idLoaiNS) {
         this.idLoaiNS = idLoaiNS;
     }
 
-    public String getIdQuanHuyen() {
+    public int getIdQuanHuyen() {
         return idQuanHuyen;
     }
 
-    public void setIdQuanHuyen(String idQuanHuyen) {
+    public void setIdQuanHuyen(int idQuanHuyen) {
         this.idQuanHuyen = idQuanHuyen;
     }
 }

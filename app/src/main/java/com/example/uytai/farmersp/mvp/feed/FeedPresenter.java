@@ -24,6 +24,7 @@ public class FeedPresenter implements IFeed.Presenter {
 
     @Override
     public void requestGetListFeed() {
+        mFeedView.showDialogProgress();
         NongDanService nongDanService = ApiClient.getClient().create(NongDanService.class);
         Call<List<ThuMuaModel>> call = nongDanService.getFeedThuMua();
         call.enqueue(new Callback<List<ThuMuaModel>>() {
@@ -31,12 +32,14 @@ public class FeedPresenter implements IFeed.Presenter {
             public void onResponse(Call<List<ThuMuaModel>> call, Response<List<ThuMuaModel>> response) {
                 if(response.body()!=null){
                     mFeedView.getListFeedSuccess(response.body());
+                    mFeedView.dismissDialog();
                 }
             }
 
             @Override
             public void onFailure(Call<List<ThuMuaModel>> call, Throwable t) {
                 mFeedView.getListFeedFail();
+                mFeedView.dismissDialog();
             }
         });
     }

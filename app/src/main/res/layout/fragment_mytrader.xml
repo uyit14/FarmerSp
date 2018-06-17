@@ -2,17 +2,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.uytai.farmersp.mvp.mytrader.MyTraderFragment">
     <include
         android:id="@+id/bar_post"
         layout="@layout/app_bar_layout"
         />
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerviewMyPost"
+    <LinearLayout
+        android:orientation="vertical"
+        android:gravity="center"
         android:layout_below="@+id/bar_post"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <ImageView
+            android:src="@drawable/no_data"
+            android:layout_width="200dp"
+            android:layout_height="200dp" />
+        <TextView
+            android:layout_gravity="center"
+            android:text="Chưa có dữ liệu lúc này!"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerviewMyPost"
+        android:layout_below="@+id/bar_post"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     </android.support.v7.widget.RecyclerView>
+
 </RelativeLayout>

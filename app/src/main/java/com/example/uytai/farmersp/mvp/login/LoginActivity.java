@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,11 +56,33 @@ public class LoginActivity extends AppCompatActivity implements ILogin.View {
         loginPresenter.requestGetThuongLai();
         initView();
         getDataSignup();
+        setChecked();
     }
 
     @OnClick(R.id.btn_login)
     void login(){
         signin();
+    }
+
+    private void setChecked() {
+        //
+        cbNongdan.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (cbNongdan.isChecked()){
+                    cbThuonglai.setChecked(false);
+                }
+            }
+        });
+        //
+        cbThuonglai.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(cbThuonglai.isChecked()){
+                    cbNongdan.setChecked(false);
+                }
+            }
+        });
     }
 
     private void getDataSignup() {
@@ -109,7 +132,7 @@ public class LoginActivity extends AppCompatActivity implements ILogin.View {
                     bundle.putSerializable(Constant.KEY_PUT_OBJECT, nongDanModel);
                     intent.putExtra(Constant.KEY_PUT_BUNDLE, bundle);
                     startActivity(intent);
-                    Log.d("uytai123", "Login Success");
+//                    Log.d("uytai123", "Login Success");
                 }else{
                     Toast.makeText(getApplicationContext(), "Đăng nhập nông dân thất bại", Toast.LENGTH_SHORT).show();
                 }
@@ -131,13 +154,13 @@ public class LoginActivity extends AppCompatActivity implements ILogin.View {
                     bundle.putSerializable(Constant.KEY_PUT_OBJECT, thuongLaiModel);
                     intent.putExtra(Constant.KEY_PUT_BUNDLE, bundle);
                     startActivity(intent);
-                    Log.d("uytai123", "Login Success");
+//                    Log.d("uytai123", "Login Success");
                 }else{
                     Toast.makeText(getApplicationContext(), "Đăng nhập thương lái thất bại", Toast.LENGTH_SHORT).show();
                 }
             }
         }else{
-            Log.d("uytai123", "Vui lòng điền đầy đủ thông tin");
+            Toast.makeText(getApplicationContext(), "Vui lòng điền đầy đủ thông tin!", Toast.LENGTH_SHORT).show();
         }
     }
 

@@ -32,18 +32,18 @@ public class TraderPresenter implements ITrader.Presenter {
             public void onResponse(Call<List<ThuongLaiModel>> call, Response<List<ThuongLaiModel>> response) {
                 if(response.isSuccessful()){
                     if(response.body()!=null){
-                        Log.d("uytai123", response.body().size()+"");
+//                        Log.d("uytai123", response.body().size()+"");
                         mTraderView.getListTraderSuccess(response.body());
                     }else{
                         //null
-                        Log.d("uytai123", response.body().size()+"");
+//                        Log.d("uytai123", response.body().size()+"");
                     }
                 }
             }
 
             @Override
             public void onFailure(Call<List<ThuongLaiModel>> call, Throwable t) {
-                Log.d("uytai123", t.getMessage()+"");
+//                Log.d("uytai123", t.getMessage()+"");
                 mTraderView.getListTraderFail();
             }
         });

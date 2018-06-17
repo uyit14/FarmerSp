@@ -1,6 +1,7 @@
 package com.example.uytai.farmersp.retrofit;
 
 import com.example.uytai.farmersp.model.NongDanModel;
+import com.example.uytai.farmersp.model.NongSanModelTL;
 import com.example.uytai.farmersp.model.ThuMuaModelTL;
 import com.example.uytai.farmersp.model.ThuongLaiModel;
 
@@ -31,6 +32,10 @@ public interface ThuonglaiService {
     Call<List<ThuMuaModelTL>> getThuMuabyIDTL(@Field("id_thuonglai") int idtl);
 
     @FormUrlEncoded
+    @POST("nongdan/getthumuabyidthumua.php")
+    Call<List<ThuMuaModelTL>> getThuMuabyIDThuMua(@Field("id") int id);
+
+    @FormUrlEncoded
     @POST("nongdan/themthumua.php")
     Call<POST> themthumua(@Field("ten_nongsan") String ten_nongsan, @Field("tg_batdau") String tg_batdau
             , @Field("tg_ketthuc") String tg_ketthuc, @Field("gia_thapnhat") double gia_thapnhat,
@@ -38,4 +43,20 @@ public interface ThuonglaiService {
                                          @Field("lienhe") String lienhe, @Field("hinhanh") String hinhanh,
                                          @Field("mota") String mota, @Field("id_thuonglai") int id_thuonglai,
                                          @Field("id_loains") int id_loains );
+    @FormUrlEncoded
+    @POST("nongdan/editthumua.php")
+    Call<POST> editthumua(@Field("id") int id, @Field("ten_nongsan") String ten_nongsan, @Field("tg_batdau") String tg_batdau
+            , @Field("tg_ketthuc") String tg_ketthuc, @Field("gia_thapnhat") double gia_thapnhat,
+                          @Field("gia_caonhat") double gia_caonhat, @Field("noithumua") String noithumua,
+                          @Field("lienhe") String lienhe, @Field("hinhanh") String hinhanh,
+                          @Field("mota") String mota, @Field("id_thuonglai") int id_thuonglai,
+                          @Field("id_loains") int id_loains );
+
+    @GET("nongdan/getnongsan.php")
+    Call<List<NongSanModelTL>> getNongSanForTL();
+
+    @FormUrlEncoded
+    @POST("nongdan/editprofiletl.php")
+    Call<POST> editProfileTL(@Field("id") int idtt, @Field("ten") String ten, @Field("status") String status
+            , @Field("avatar") String avatar);
 }

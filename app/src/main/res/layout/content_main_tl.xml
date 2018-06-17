@@ -1,11 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".thuonglai.MainTLActivity"
-    tools:showIn="@layout/app_bar_main_tl">
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/bar_main"
+    tools:context=".thuonglai.MainTLActivity">
+    <LinearLayout
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="gone"
+        android:layout_below="@+id/bar_post"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:src="@drawable/no_data"
+            android:layout_width="200dp"
+            android:layout_height="200dp" />
+        <TextView
+            android:layout_gravity="center"
+            android:text="Chưa có dữ liệu lúc này!"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_below="@+id/bar_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/background">
 
-</android.support.constraint.ConstraintLayout>
+        <!-- TODO: Update blank fragment layout -->
+        <SearchView
+            android:id="@+id/search_nongsan"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/custom_search_bar"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:iconifiedByDefault="false"
+            android:queryHint="@string/query_hint_thumua">
+            <requestFocus/>
+        </SearchView>
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swip_nongsan_tl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ListView
+                android:id="@+id/listviewnongsan"
+                android:layout_below="@+id/search_trader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+            </ListView>
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

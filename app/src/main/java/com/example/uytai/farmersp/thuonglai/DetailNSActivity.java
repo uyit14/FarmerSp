@@ -1,15 +1,17 @@
-package com.example.uytai.farmersp.mvp.feed;
+package com.example.uytai.farmersp.thuonglai;
 
 import android.Manifest;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.media.Image;
 import android.net.Uri;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,10 +19,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.uytai.farmersp.R;
 import com.example.uytai.farmersp.config.Constant;
-import com.example.uytai.farmersp.model.ThuMuaModel;
+import com.example.uytai.farmersp.model.NongSanModelTL;
 
 import java.text.DateFormat;
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,37 +31,38 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class DetailActivity extends AppCompatActivity {
-
-    @BindView(R.id.img_buy)
-    ImageView img_buy;
-    @BindView(R.id.avatar)
-    CircleImageView civ_avatar;
-    @BindView(R.id.name)
+public class DetailNSActivity extends AppCompatActivity {
+    @BindView(R.id.img_avatar_nd)
+    CircleImageView cir_avatar;
+    @BindView(R.id.tenns_ns_detail)
+    TextView tv_tenns;
+    @BindView(R.id.startdate_ns_detail)
+    TextView tv_startdate;
+    @BindView(R.id.enddate_ns_detail)
+    TextView tv_enddate;
+    @BindView(R.id.name_detail)
     TextView tv_name;
-    @BindView(R.id.date)
-    TextView tv_date;
-    @BindView(R.id.noithumua)
-    TextView tv_noithumua;
-    @BindView(R.id.lienhe)
-    TextView tv_lienhe;
-    @BindView(R.id.giathap)
-    TextView tv_giathap;
-    @BindView(R.id.giacao)
-    TextView tv_giacao;
-    @BindView(R.id.description)
-    TextView tv_mota;
     @BindView(R.id.sdt_detail)
     TextView tv_sdt;
+    @BindView(R.id.diachi_detail)
+    TextView tv_diachi;
+    @BindView(R.id.description_detail)
+    TextView tv_description;
+    @BindView(R.id.hinhanh_detail)
+    ImageView img_hinhanh;
     @BindView(R.id.bar_detail)
     Toolbar toolbar;
+
+    NongSanModelTL nongSanModelTL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail);
+        setContentView(R.layout.activity_detail_ns);
         ButterKnife.bind(this);
-       getFeedDetail();
+        //
+        getDateDetail();
+        setInfor();
         ActionToolbar();
     }
 
@@ -76,28 +78,30 @@ public class DetailActivity extends AppCompatActivity {
         });
     }
 
-
-    private void getFeedDetail() {
-        Bundle bundle = getIntent().getBundleExtra(Constant.KEY_PUT_BUNDLE);
-        if(bundle!=null){
-            ThuMuaModel thuMuaModel = (ThuMuaModel) bundle.getSerializable(Constant.KEY_PUT_OBJECT);
-            Glide.with(DetailActivity.this).load(thuMuaModel.getAvatar()).placeholder(R.drawable.no_image).into(civ_avatar);
-            Glide.with(DetailActivity.this).load(thuMuaModel.getHinhanh()).placeholder(R.drawable.no_image).into(img_buy);
-            tv_name.setText(thuMuaModel.getTen());
+    private void setInfor() {
+        if(nongSanModelTL!=null){
+            tv_description.setText(nongSanModelTL.getMota());
+            tv_name.setText(nongSanModelTL.getTen());
+            tv_diachi.setText(nongSanModelTL.getDiachi());
+            tv_sdt.setText(nongSanModelTL.getSdtLh());
+            tv_tenns.setText(nongSanModelTL.getTennongsan());
+            Glide.with(getApplicationContext()).load(nongSanModelTL.getAvatar()).placeholder(R.drawable.no_image).into(cir_avatar);
+            Glide.with(getApplicationContext()).load(nongSanModelTL.getAvatar()).placeholder(R.drawable.no_image).into(img_hinhanh);
             DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-            tv_date.setText(df.format(thuMuaModel.getTgKetthuc()));
-            DecimalFormat formatter = new DecimalFormat("###,###,###");
-            String giathapnhat = formatter.format(Double.parseDouble(thuMuaModel.getGiaThapnhat()));
-            String giacaonhat =  formatter.format(Double.parseDouble(thuMuaModel.getGiaCaonhat()));
-            tv_giathap.setText(giathapnhat + " VND");
-            tv_giacao.setText(giacaonhat + " VND");
-            tv_lienhe.setText(thuMuaModel.getLienhe());
-            tv_noithumua.setText(thuMuaModel.getNoithumua());
-            tv_mota.setText(thuMuaModel.getMota());
+            tv_startdate.setText(df.format(nongSanModelTL.getTgBatdau()));
+            tv_enddate.setText(df.format(nongSanModelTL.getTgKetthuc()));
         }
     }
 
-    //
+    private void getDateDetail() {
+        Bundle bundle = getIntent().getBundleExtra(Constant.KEY_PUT_BUNDLE);
+        if(bundle!=null){
+            nongSanModelTL = (NongSanModelTL) bundle.getSerializable(Constant.KEY_PUT_OBJECT);
+            Log.d("uytai123", nongSanModelTL.getTen());
+        }
+    }
+
+
     //
     @OnClick(R.id.sdt_detail)
     void callNow(){

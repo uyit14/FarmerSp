@@ -34,7 +34,7 @@
             android:src="@android:color/transparent" />
 
         <TextView
-            android:id="@+id/count_tdd"
+            android:id="@+id/count_tdd_tl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

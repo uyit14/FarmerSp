@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="10dp"
+    android:orientation="vertical"
+    android:background="@drawable/custom_trader_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:id="@+id/layout_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/img_avatar_nd"
+            android:src="@drawable/avatar"
+            android:layout_width="70dp"
+            android:layout_height="70dp" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/tenns_ns"
+            android:layout_marginTop="5dp"
+            android:gravity="left|center_vertical"
+            android:textColor="@android:color/black"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:text="@string/app_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <ImageView
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_calendar"
+                android:layout_width="25dp"
+                android:layout_height="20dp" />
+            <TextView
+                android:id="@+id/startdate_ns"
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_gravity="center_vertical"
+                android:textColor="@android:color/black"
+                android:text="22 Feb 2017"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:layout_marginLeft="15dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_calendar"
+                android:layout_width="25dp"
+                android:layout_height="20dp" />
+            <TextView
+                android:id="@+id/enddate_ns"
+                android:layout_marginLeft="5dp"
+                android:layout_gravity="center_vertical"
+                android:textColor="@android:color/black"
+                android:text="25 Feb 2017"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/layout_2"
+        android:gravity="left|center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/description_ns"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:ellipsize="end"
+            android:textSize="16sp"
+            android:maxLines="2"
+            android:gravity="left|center_vertical"
+            android:textColor="@android:color/black"
+            android:text="Need to buy some thing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_gravity="top|center"
+            android:src="@drawable/logo_design"
+            android:id="@+id/hinhanh_ns"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/btn_viewdetail_ns"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/custom_viewdetail"
+            android:padding="5dp"
+            android:text="Xem chi tiết"
+            android:textAllCaps="false"
+            android:textSize="20sp" />
+    </LinearLayout>
+</LinearLayout>

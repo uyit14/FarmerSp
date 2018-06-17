@@ -9,7 +9,7 @@ import java.util.Date;
 public class ThuMuaModelTL implements Serializable {
     @SerializedName("id")
     @Expose
-    private String id;
+    private int id;
     @SerializedName("ten_nongsan")
     @Expose
     private String tenNongsan;
@@ -21,10 +21,10 @@ public class ThuMuaModelTL implements Serializable {
     private Date tgKetthuc;
     @SerializedName("gia_thapnhat")
     @Expose
-    private String giaThapnhat;
+    private double giaThapnhat;
     @SerializedName("gia_caonhat")
     @Expose
-    private String giaCaonhat;
+    private double giaCaonhat;
     @SerializedName("noithumua")
     @Expose
     private String noithumua;
@@ -41,11 +41,11 @@ public class ThuMuaModelTL implements Serializable {
     @Expose
     private String idThuonglai;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -73,19 +73,19 @@ public class ThuMuaModelTL implements Serializable {
         this.tgKetthuc = tgKetthuc;
     }
 
-    public String getGiaThapnhat() {
+    public double getGiaThapnhat() {
         return giaThapnhat;
     }
 
-    public void setGiaThapnhat(String giaThapnhat) {
+    public void setGiaThapnhat(double giaThapnhat) {
         this.giaThapnhat = giaThapnhat;
     }
 
-    public String getGiaCaonhat() {
+    public double getGiaCaonhat() {
         return giaCaonhat;
     }
 
-    public void setGiaCaonhat(String giaCaonhat) {
+    public void setGiaCaonhat(double giaCaonhat) {
         this.giaCaonhat = giaCaonhat;
     }
 

@@ -35,11 +35,11 @@ public class TinDaDangPresenter implements ITinDaDang.Presenter {
                     if(response.body()!=null){
                         mTinDangView.getListNongSanSuccess(response.body());
                     }else{
-                        Log.d("uytai123", "respone_null");
+//                        Log.d("uytai123", "respone_null");
                     }
                 }else{
-                    Log.d("uytai123", "respone_null_" +MainActivity.nongDanModel.getId());
-                    Log.d("uytai123", "respone_fail");
+//                    Log.d("uytai123", "respone_null_" +MainActivity.nongDanModel.getId());
+//                    Log.d("uytai123", "respone_fail");
                 }
             }
 

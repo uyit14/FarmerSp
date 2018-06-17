@@ -36,16 +36,21 @@ public interface NongDanService {
     @FormUrlEncoded
     @POST("nongdan/editprofile.php")
     Call<POST> editProfile(@Field("id") int idtt, @Field("ten") String ten, @Field("status") String status,
-                           @Field("sdt") String sdt, @Field("hinhanh") String hinhanh);
+                           @Field("sdt") String sdt, @Field("avatar") String hinhanh);
 
     @FormUrlEncoded
     @POST("nongdan/getnongsanbyidnd.php")
     Call<List<NongSanModel>> getNongSanbyIDND(@Field("id_nongdan") int idnd);
 
     @FormUrlEncoded
+    @POST("nongdan/getnongsanbyidnongsan.php")
+    Call<List<NongSanModel>> getNongSanbyID(@Field("id") int id);
+
+    @FormUrlEncoded
     @POST("nongdan/getquanhuyenbyidtt.php")
     Call<List<QuanHuyenModel>> getQuanHuyen(@Field("id_tinhthanh") int idtt);
 
+    @FormUrlEncoded
     @POST("nongdan/deletenongsan.php")
     Call<POST> deletens(@Field("id") int id);
 
@@ -73,14 +78,15 @@ public interface NongDanService {
             , @Field("tg_ketthuc") String tg_ketthuc, @Field("ten_lh") String ten_lh,
                                     @Field("sdt_lh") String sdt_lh, @Field("diachi") String diachi,
                                          @Field("hinhanh") String hinhanh, @Field("mota") String mota,
-                                         @Field("id_nd") int id_nd, @Field("id_loains") int id_loains,
+                                         @Field("id_nongdan") int id_nd, @Field("id_loains") int id_loains,
                                          @Field("id_quanhuyen") int id_quanhuyen );
 
     @FormUrlEncoded
-    @POST("nongdan/edittindadang.php")
+    @POST("nongdan/editnongsan.php")
     Call<POST> edittindadang(@Field("id") int id, @Field("tennongsan") String tennongsan, @Field("tg_batdau") String tg_batdau
             , @Field("tg_ketthuc") String tg_ketthuc, @Field("ten_lh") String ten_lh,
-                                         @Field("sdt_lh") String sdt_lh, @Field("diachi") String diachi, @Field("mota") String mota);
+                                         @Field("sdt_lh") String sdt_lh, @Field("diachi") String diachi,@Field("hinhanh") String hinhanh,
+                             @Field("mota") String mota, @Field("id_nongdan") int idnt, @Field("id_loains") int idloains, @Field("id_quanhuyen") int idqh);
 
     @FormUrlEncoded
     @POST("nongdan/dangky.php")

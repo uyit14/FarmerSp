@@ -50,6 +50,7 @@ public class TinDaDangAdapter extends RecyclerView.Adapter<TinDaDangAdapter.TinD
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         holder.EndDate.setText(df.format(arrNongsan.get(position).getTgKetthuc()));
         holder.SDT.setText(arrNongsan.get(position).getSdtLienHe());
+        holder.DiaChi.setText(arrNongsan.get(position).getDiaChi());
         holder.ImgEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -64,29 +65,52 @@ public class TinDaDangAdapter extends RecyclerView.Adapter<TinDaDangAdapter.TinD
         holder.setItemLongClickListener(new ItemLongClickListener() {
             @Override
             public void onItemLongClick(View v, int pos) {
-                showDialog(arrNongsan.get(position).getId(), arrNongsan.get(pos).getTenNongsan());
+//                showDialog(arrNongsan.get(position).getId(), arrNongsan.get(pos).getTenNongsan());
+                Delete(arrNongsan.get(position).getId());
             }
         });
     }
 
-    //
-    private void showDialog(final int id, String tenns){
-        final AlertDialog.Builder dialog = new AlertDialog.Builder(context.getApplicationContext());
-        //final AlertDialog show = dialog.show();
-        dialog.setMessage("Bạn có chắn chắn xóa " + tenns + " không?");
-        dialog.setPositiveButton("C", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                Delete(id);
+//    //
+//    private void showDialog(final int id, String tenns){
+//        final AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+//        //final AlertDialog show = dialog.show();
+//        dialog.setMessage("Bạn có chắn chắn xóa " + tenns + " không?");
+//        dialog.setPositiveButton("C", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialogInterface, int i) {
+//                Delete(id);
+//            }
+//        });
+//        dialog.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialogInterface, int i) {
+//                //show.dismiss();
+//            }
+//        });
+//        dialog.show();
+//    }
+
+    public void alertMessage(final int id) {
+        DialogInterface.OnClickListener dialogClickListener = new  DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case DialogInterface.BUTTON_POSITIVE: // Yes button clicked
+                        Delete(id);
+                        // set your own logic for removal item from listview
+                        break;
+
+                    case DialogInterface.BUTTON_NEGATIVE: // No button clicked // do nothing
+                        //Delete(which);
+                        break;
+                }
             }
-        });
-        dialog.setNegativeButton("Không", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                //show.dismiss();
-            }
-        });
-        dialog.show();
+        };
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage("Are you sure?")
+                .setPositiveButton("Yes", dialogClickListener)
+                .setNegativeButton("No", dialogClickListener).show();
     }
 
     //
@@ -116,7 +140,7 @@ public class TinDaDangAdapter extends RecyclerView.Adapter<TinDaDangAdapter.TinD
     }
 
     public class TinDaDangViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener {
-        TextView TenNongSan, EndDate, SDT;
+        TextView TenNongSan, EndDate, SDT, DiaChi;
         ImageView ImgEdit;
         ItemLongClickListener itemLongClickListener;
 
@@ -126,6 +150,7 @@ public class TinDaDangAdapter extends RecyclerView.Adapter<TinDaDangAdapter.TinD
             EndDate = itemView.findViewById(R.id.date_tindadang_tv);
             SDT = itemView.findViewById(R.id.sdt_tindadang_tv);
             ImgEdit = itemView.findViewById(R.id.edit_tindadang_img);
+            DiaChi = itemView.findViewById(R.id.diachi_tindadang_tv);
             //
             itemView.setOnLongClickListener(this);
         }

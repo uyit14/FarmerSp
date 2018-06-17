@@ -20,9 +20,11 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.uytai.farmersp.MainActivity;
 import com.example.uytai.farmersp.R;
+import com.example.uytai.farmersp.config.Constant;
 import com.example.uytai.farmersp.model.LoaiNSModel;
 import com.example.uytai.farmersp.model.QuanHuyenModel;
 import com.example.uytai.farmersp.model.TinhThanhModel;
+import com.example.uytai.farmersp.mvp.tindadang.TinDaDangActivity;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.io.File;
@@ -101,6 +103,9 @@ public class DangTinActivity extends AppCompatActivity implements IDangTin.View 
                 android.R.layout.simple_spinner_dropdown_item, arrQuanHuyen);
         //
         ActionToolbar();
+        //
+        id_nd = getIntent().getIntExtra(Constant.KEY_PUT_ID_ND, -1);
+//        Log.d("uytai123", id_nd+"_DT");
     }
 
     private void ActionToolbar() {
@@ -147,7 +152,8 @@ public class DangTinActivity extends AppCompatActivity implements IDangTin.View 
             }
         });
         //
-        id_nd = MainActivity.nongDanModel.getId();
+        //id_nd = MainActivity.nongDanModel.getId();
+
         tennongsan = edt_tennongsan.getText().toString();
         tg_batdau = edt_ngaybatdau.getText().toString();
         tg_ketthuc = edt_ngayketthuc.getText().toString();
@@ -166,7 +172,9 @@ public class DangTinActivity extends AppCompatActivity implements IDangTin.View 
 
     @Override
     public void DangTinSuccess() {
+        startActivity(new Intent(getApplicationContext(), TinDaDangActivity.class));
         Toast.makeText(getApplicationContext(), "Đăng tin thành công!", Toast.LENGTH_SHORT).show();
+        finish();
     }
 
     @Override
@@ -211,13 +219,13 @@ public class DangTinActivity extends AppCompatActivity implements IDangTin.View 
     @Override
     public void getQuanHuyenSuccess(List<QuanHuyenModel> quanHuyenModels) {
         if(quanHuyenModels!=null){
-            Log.d("uytai123", arrQuanHuyen.size()+"");
+//            Log.d("uytai123", arrQuanHuyen.size()+"");
             for(int i = 0 ; i<quanHuyenModels.size(); i++){
                 arrQuanHuyen.add(quanHuyenModels.get(i).getTenquanhuyen());
                 sp_quanhuyen.setAdapter(QHadapter);
             }
         }else{
-            Log.d("uytai123", "NULL");
+//            Log.d("uytai123", "NULL");
         }
     }
 
@@ -285,7 +293,7 @@ public class DangTinActivity extends AppCompatActivity implements IDangTin.View 
                 File file = new File(resultUri.getPath());
                 Glide.with(DangTinActivity.this).load(file).into(img_hinhanh);
                 hinhanh = String.valueOf(file);
-                Log.d("uytai123", hinhanh);
+//                Log.d("uytai123", hinhanh);
             }
         }
         super.onActivityResult(requestCode, resultCode, data);

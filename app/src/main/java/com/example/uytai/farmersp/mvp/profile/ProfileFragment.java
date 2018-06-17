@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.uytai.farmersp.MainActivity;
 import com.example.uytai.farmersp.R;
+import com.example.uytai.farmersp.config.Constant;
 import com.example.uytai.farmersp.model.NongDanModel;
 import com.example.uytai.farmersp.mvp.dangtin.DangTinActivity;
 import com.example.uytai.farmersp.mvp.tindadang.TinDaDangActivity;
@@ -63,6 +65,8 @@ public class ProfileFragment extends Fragment implements SwipeRefreshLayout.OnRe
     TextView tv_edit;
     @BindView(R.id.swip_editprofile)
     SwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.dangxuat_profile)
+    Button btnSignout;
 
 
     public ProfileFragment() {
@@ -133,7 +137,7 @@ public class ProfileFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
             @Override
             public void onFailure(Call<POST> call, Throwable t) {
-                Toast.makeText(getContext(), "Có lỗi xảy ra, vui lòng thử lại sau!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Cập nhật thành công", Toast.LENGTH_SHORT).show();
             }
         });
         //
@@ -152,9 +156,16 @@ public class ProfileFragment extends Fragment implements SwipeRefreshLayout.OnRe
                 default:
         }
     }
+
+    @OnClick(R.id.dangxuat_profile)
+    void Signout(){
+
+    }
     @OnClick(R.id.img_dangtin)
     void DangTin(){
-        startActivity(new Intent(getContext(), DangTinActivity.class));
+        Intent intent = new Intent(getContext(), DangTinActivity.class);
+        intent.putExtra(Constant.KEY_PUT_ID_ND, MainActivity.nongDanModel.getId());
+        startActivity(intent);
     }
     @OnClick(R.id.img_tindadang)
     void TinDaDang(){
@@ -162,8 +173,8 @@ public class ProfileFragment extends Fragment implements SwipeRefreshLayout.OnRe
     }
 
     @OnClick(R.id.avatar)
-    void ChangeImage(){
-
+    void ChangeImage(View v){
+        onPickPhoto(v);
     }
 
     @Override

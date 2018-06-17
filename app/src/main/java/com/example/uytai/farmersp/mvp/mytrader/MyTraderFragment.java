@@ -84,15 +84,15 @@ public class MyTraderFragment extends Fragment implements IMyTrader.View {
             @Override
             public void onResponse(Call<List<ThuongLaiModel>> call, Response<List<ThuongLaiModel>> response) {
                 if(response.isSuccessful()){
-                    Log.d("uytai123", "OK");
+//                    Log.d("uytai123", "OK");
                 }else{
-                    Log.d("uytai123", "NOT");
+//                    Log.d("uytai123", "NOT");
                 }
             }
 
             @Override
             public void onFailure(Call<List<ThuongLaiModel>> call, Throwable t) {
-                Log.d("uytai123", "Fail");
+//                Log.d("uytai123", "Fail");
             }
         });
     }

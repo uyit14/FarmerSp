@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:layout_weight="1"
+        android:id="@+id/btnCall"
+        android:layout_gravity="center"
+        android:src="@drawable/icon_call"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp" />
+    <ImageView
+        android:layout_weight="1"
+        android:id="@+id/btnMessage"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_gravity="center"
+        android:src="@drawable/icon_message"
+        android:layout_width="50dp"
+        android:layout_height="50dp" />
+</LinearLayout>

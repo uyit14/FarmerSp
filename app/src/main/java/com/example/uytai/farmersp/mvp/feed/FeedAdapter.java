@@ -64,6 +64,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
         notifyDataSetChanged();
     }
 
+    //bỏ dấu
     public static String removeAccent(String s){
         String temp = Normalizer.normalize(s, Normalizer.Form.NFD);
         Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
@@ -97,8 +98,8 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
             public void onClick(View v) {
                 Intent intent = new Intent(context, DetailActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putSerializable(Constant.KEY_PUT_BUNDLE, arrFeed.get(position));
-                intent.putExtra(Constant.KEY_PUT_OBJECT, bundle);
+                bundle.putSerializable(Constant.KEY_PUT_OBJECT, arrFeed.get(position));
+                intent.putExtra(Constant.KEY_PUT_BUNDLE, bundle);
                 context.startActivity(intent);
             }
         });

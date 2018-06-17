@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.uytai.farmersp.R;
 import com.example.uytai.farmersp.model.NongSanModel;
 import com.example.uytai.farmersp.mvp.dangtin.DangTinActivity;
+import com.example.uytai.farmersp.mvp.feed.DetailActivity;
 
 import java.util.List;
 
@@ -36,6 +37,7 @@ public class TinDaDangActivity extends AppCompatActivity implements ITinDaDang.V
     FloatingActionButton btn_float;
 
     TinDaDangAdapter tinDaDangAdapter;
+    TinDaDangPresenter tinDaDangPresenter;
 
     int countTDD = 0;
 
@@ -45,7 +47,7 @@ public class TinDaDangActivity extends AppCompatActivity implements ITinDaDang.V
         setContentView(R.layout.activity_tin_da_dang);
         ButterKnife.bind(this);
         //
-        TinDaDangPresenter tinDaDangPresenter = new TinDaDangPresenter(this);
+        tinDaDangPresenter = new TinDaDangPresenter(this);
         tinDaDangPresenter.requestGetListNongSan();
         //
         ActionToolbar();
@@ -88,5 +90,11 @@ public class TinDaDangActivity extends AppCompatActivity implements ITinDaDang.V
     @OnClick(R.id.float_tdd)
     void DangTin(){
         startActivity(new Intent(getApplicationContext(), DangTinActivity.class));
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+       // tinDaDangPresenter.requestGetListNongSan();
     }
 }

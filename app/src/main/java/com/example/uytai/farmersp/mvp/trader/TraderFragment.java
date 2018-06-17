@@ -1,6 +1,7 @@
 package com.example.uytai.farmersp.mvp.trader;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -46,11 +47,17 @@ public class TraderFragment extends Fragment implements ITrader.View, SearchView
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_trader, container, false);
         ButterKnife.bind(this, root);
+        return root;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         TraderPresenter traderPresenter = new TraderPresenter(this);
         traderPresenter.requestGetListTrader();
+        searchView.setOnQueryTextListener(this);
         initView();
         ActionToolbar();
-        return root;
     }
 
     private void ActionToolbar() {
@@ -88,7 +95,8 @@ public class TraderFragment extends Fragment implements ITrader.View, SearchView
 
     @Override
     public boolean onQueryTextChange(String s) {
+        Log.d("uytai123", s+"");
         traderAdapter.filter(s);
-        return false;
+        return true;
     }
 }

@@ -12,6 +12,8 @@ public interface IFeed {
 interface View {
     void getListFeedSuccess(List<ThuMuaModel> thuMuaModels);
     void getListFeedFail();
+    void showDialogProgress();
+    void dismissDialog();
 }
 interface Presenter{
     void requestGetListFeed();

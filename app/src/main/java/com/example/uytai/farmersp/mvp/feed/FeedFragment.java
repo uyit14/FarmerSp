@@ -1,5 +1,7 @@
 package com.example.uytai.farmersp.mvp.feed;
 
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -30,6 +32,8 @@ public class FeedFragment extends Fragment implements IFeed.View, SearchView.OnQ
 
     FeedAdapter feedAdapter;
     List<ThuMuaModel> listThuMua;
+    //
+    ProgressDialog pDialog;
 
     public FeedFragment() {
         // Required empty public constructor
@@ -54,6 +58,7 @@ public class FeedFragment extends Fragment implements IFeed.View, SearchView.OnQ
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         searchView.setOnQueryTextListener(this);
+        pDialog = new ProgressDialog(getActivity());
         FeedPresenter feedPresenter = new FeedPresenter(this);
         feedPresenter.requestGetListFeed();
         initView();
@@ -81,13 +86,25 @@ public class FeedFragment extends Fragment implements IFeed.View, SearchView.OnQ
     }
 
     @Override
+    public void showDialogProgress() {
+        pDialog.setMessage("Đang tải thông tin...!");
+        pDialog.setCancelable(false);
+        pDialog.show();
+    }
+
+    @Override
+    public void dismissDialog() {
+        if(pDialog.isShowing())
+        pDialog.dismiss();
+    }
+
+    @Override
     public boolean onQueryTextSubmit(String s) {
         return false;
     }
 
     @Override
     public boolean onQueryTextChange(String s) {
-        Log.d("uytai123", s+"");
         feedAdapter.filter(s.trim());
 //        s = s.toLowerCase();
 //        if(listThuMua!=null){

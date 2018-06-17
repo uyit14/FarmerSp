@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.uytai.farmersp.R;
@@ -40,6 +41,8 @@ public class TinDaDangTLActivity extends AppCompatActivity implements SwipeRefre
     List<ThuMuaModelTL> thuMuaModelTLS;
     @BindView(R.id.swip)
     SwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.count_tdd_tl)
+    TextView count;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +102,7 @@ public class TinDaDangTLActivity extends AppCompatActivity implements SwipeRefre
                         thuMuaModelTLS.addAll(response.body());
                         tinDaDangAdapter = new TinDaDangAdapter(getApplicationContext(), response.body());
                         listView.setAdapter(tinDaDangAdapter);
+                        count.setText(thuMuaModelTLS.size()+"");
                     }else {
                         Toast.makeText(getApplicationContext(), "Chưa có dữ liệu", Toast.LENGTH_SHORT).show();
                     }
