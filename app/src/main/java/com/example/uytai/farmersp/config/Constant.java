@@ -6,6 +6,7 @@ package com.example.uytai.farmersp.config;
 
 public class Constant {
   public static final String KEY_PUT_ID_ND = "id_nd";
+  public static final String KEY_PUT_ID_TL = "id_tl";
   public static final String KEY_PUT_BUNDLE = "key_put_bundle";
   public static final String KEY_PUT_OBJECT = "key_put_object";
   public static final String KEY_PUT_NAME = "key_put_name";

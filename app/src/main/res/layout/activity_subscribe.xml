@@ -49,10 +49,10 @@
             android:text="0.0"
             android:textSize="18sp"/>
     </LinearLayout>
-    <LinearLayout
+    <View
         android:background="@color/gray"
         android:layout_width="match_parent"
-        android:layout_height="2dp"></LinearLayout>
+        android:layout_height="2dp"></View>
     <LinearLayout
         android:layout_weight="4"
         android:layout_marginTop="25dp"
@@ -75,26 +75,30 @@
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <TextView
-                android:textSize="16sp"
-                android:layout_gravity="center"
-                android:text="Đánh giá thương lái này"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <RatingBar
-                android:layout_marginTop="5dp"
-                android:stepSize="0.25"
-                android:rating="4.5"
-                android:numStars="5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                <TextView
+                    android:textSize="22sp"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:text="Số tin đã đăng"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/countdd"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorMain"
+                        android:textSize="36sp"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:text="7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
         </LinearLayout>
 
     </LinearLayout>
-    <LinearLayout
+    <View
         android:background="@color/gray"
         android:layout_width="match_parent"
-        android:layout_height="2dp"></LinearLayout>
+        android:layout_height="2dp"></View>
     <LinearLayout
         android:orientation="vertical"
         android:gravity="center"
@@ -107,7 +111,7 @@
             android:textSize="16sp"
             android:gravity="center"
             android:layout_marginBottom="10dp"
-            android:text="Đăng ký để nhận thông tin từ thương lái"
+            android:text="Xem những bài đăng của thương lái này"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <Button
@@ -118,9 +122,9 @@
             android:background="@drawable/custom_viewdetail"
             android:textSize="20sp"
             android:textAllCaps="false"
-            android:text="Đăng ký ngay"
+            android:text="Xem chi tiết"
             android:layout_width="match_parent"
-            android:layout_height="60dp" />
+            android:layout_height="50dp" />
     </LinearLayout>
 </LinearLayout>
 </RelativeLayout>

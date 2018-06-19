@@ -40,7 +40,8 @@
         <activity android:name=".thuonglai.profile.ProfileTLActivity" />
         <activity android:name=".thuonglai.TinDangTL.DangTinTLActivity" />
         <activity android:name=".thuonglai.TinDangTL.DetailTLActivity" />
-        <activity android:name=".thuonglai.DetailNSActivity"></activity>
+        <activity android:name=".thuonglai.DetailNSActivity" />
+        <activity android:name=".mvp.trader.DetailTraderActivity"></activity>
     </application>
 
 </manifest>

@@ -1,9 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/gray"
     tools:context=".thuonglai.thongbao.ThongBaoTLActivity">
+    <RelativeLayout
+        android:background="@color/white"
+        android:layout_marginBottom="3dp"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+        <TextView
+            android:text="Biểu đồ nông sản theo loại"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/piechart"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-</android.support.constraint.ConstraintLayout>
+        </com.github.mikephil.charting.charts.PieChart>
+    </RelativeLayout>
+    <RelativeLayout
+        android:background="@color/white"
+        android:layout_marginTop="3dp"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+        <TextView
+           android:id="@+id/tv"
+            android:text="Biểu 5 tỉnh có nông sản được rau bán nhiều nhất"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <com.github.mikephil.charting.charts.BarChart
+            android:layout_below="@+id/tv"
+            android:id="@+id/barchart"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </com.github.mikephil.charting.charts.BarChart>
+    </RelativeLayout>
+
+</LinearLayout>

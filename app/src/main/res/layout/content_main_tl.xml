@@ -30,22 +30,73 @@
         android:orientation="vertical"
         android:background="@color/background">
 
-        <!-- TODO: Update blank fragment layout -->
-        <SearchView
-            android:id="@+id/search_nongsan"
+        <!--&lt;!&ndash; TODO: Update blank fragment layout &ndash;&gt;-->
+        <!--<SearchView-->
+            <!--android:id="@+id/search_nongsan"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="35dp"-->
+            <!--android:layout_marginTop="3dp"-->
+            <!--android:layout_marginBottom="3dp"-->
+            <!--android:layout_marginLeft="5dp"-->
+            <!--android:layout_marginRight="5dp"-->
+            <!--android:background="@drawable/custom_search_bar"-->
+            <!--android:focusable="false"-->
+            <!--android:focusableInTouchMode="false"-->
+            <!--android:iconifiedByDefault="false"-->
+            <!--android:queryHint="@string/query_hint_thumua">-->
+            <!--<requestFocus/>-->
+        <!--</SearchView>-->
+        <LinearLayout
+            android:background="@color/selected_dot"
+            android:layout_marginBottom="3dp"
+            android:gravity="center"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:background="@drawable/custom_search_bar"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:iconifiedByDefault="false"
-            android:queryHint="@string/query_hint_thumua">
-            <requestFocus/>
-        </SearchView>
+            android:layout_height="40dp">
+            <TextView
+                android:id="@+id/tatcat"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Tất cả"
+                android:textSize="16sp"
+                android:textColor="@color/cl_black"
+                android:textStyle="bold"
+                android:layout_marginRight="3dp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+            <TextView
+                android:id="@+id/anqua"
+                android:textSize="16sp"
+                android:textColor="@color/cl_black"
+                android:textStyle="bold"
+                android:layout_marginRight="3dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Ăn quả"
+                android:layout_width="0dp"
+                android:layout_height="match_parent" />
+            <TextView
+                android:id="@+id/congnghiep"
+                android:textSize="16sp"
+                android:textColor="@color/cl_black"
+                android:textStyle="bold"
+                android:layout_marginRight="3dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Công nghiệp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent" />
+            <TextView
+                android:id="@+id/khac"
+                android:textSize="16sp"
+                android:textColor="@color/cl_black"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Khác"
+                android:layout_width="0dp"
+                android:layout_height="match_parent" />
+        </LinearLayout>
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/swip_nongsan_tl"
             android:layout_width="match_parent"

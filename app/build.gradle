@@ -63,5 +63,6 @@ dependencies {
 
     //Recyclerview
     compile 'com.android.support:recyclerview-v7:26.1.0'
-
+    //chart
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
 }

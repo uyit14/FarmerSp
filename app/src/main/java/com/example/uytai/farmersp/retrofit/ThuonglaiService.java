@@ -56,6 +56,10 @@ public interface ThuonglaiService {
     Call<List<NongSanModelTL>> getNongSanForTL();
 
     @FormUrlEncoded
+    @POST("nongdan/getlistnsbyidloains.php")
+    Call<List<NongSanModelTL>> getNongSanbyIDLNSForTL(@Field("id_loains") int id_loains);
+
+    @FormUrlEncoded
     @POST("nongdan/editprofiletl.php")
     Call<POST> editProfileTL(@Field("id") int idtt, @Field("ten") String ten, @Field("status") String status
             , @Field("avatar") String avatar);

@@ -9,6 +9,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -17,7 +18,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,18 +38,19 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainTLActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, SwipeRefreshLayout.OnRefreshListener, SearchView.OnQueryTextListener {
+        implements NavigationView.OnNavigationItemSelectedListener, SwipeRefreshLayout.OnRefreshListener {
 
     @BindView(R.id.listviewnongsan)
     ListView listView;
-    @BindView(R.id.search_nongsan)
-    SearchView searchView;
+//    @BindView(R.id.search_nongsan)
+//    SearchView searchView;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.swip_nongsan_tl)
@@ -64,7 +65,7 @@ public class MainTLActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_tl);
         ButterKnife.bind(this);
-        searchView.setOnQueryTextListener(this);
+//        searchView.setOnQueryTextListener(this);
         setSupportActionBar(toolbar);
         swipeRefreshLayout.setOnRefreshListener(this);
         //
@@ -114,22 +115,20 @@ public class MainTLActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main_tl, menu);
-        return true;
-    }
+        SearchView searchView = (SearchView) menu.findItem(R.id.menusearch).getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+            @Override
+            public boolean onQueryTextChange(String s) {
+                mainTLAdapter.filter(s.trim());
+                return false;
+            }
+        });
+        return super.onCreateOptionsMenu(menu);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -165,6 +164,31 @@ public class MainTLActivity extends AppCompatActivity
             public void onResponse(Call<List<NongSanModelTL>> call, Response<List<NongSanModelTL>> response) {
                 if(response.isSuccessful()){
                     if(response!=null){
+                        listNongSan.clear();
+                        listNongSan.addAll(response.body());
+                        mainTLAdapter = new MainTLAdapter(MainTLActivity.this, listNongSan);
+                        listView.setAdapter(mainTLAdapter);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<NongSanModelTL>> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Tải thông tin thất bại, xin thử lại sau!", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    //by id loai ns
+    private void requestGetListNongSanbyidLoains(int idloains){
+        ThuonglaiService thuonglaiService = ApiClient.getClient().create(ThuonglaiService.class);
+        Call<List<NongSanModelTL>> call = thuonglaiService.getNongSanbyIDLNSForTL(idloains);
+        call.enqueue(new Callback<List<NongSanModelTL>>() {
+            @Override
+            public void onResponse(Call<List<NongSanModelTL>> call, Response<List<NongSanModelTL>> response) {
+                if(response.isSuccessful()){
+                    if(response!=null){
+                        listNongSan.clear();
                         listNongSan.addAll(response.body());
                         mainTLAdapter = new MainTLAdapter(MainTLActivity.this, listNongSan);
                         listView.setAdapter(mainTLAdapter);
@@ -190,14 +214,23 @@ public class MainTLActivity extends AppCompatActivity
         }, 2000);
     }
 
-    @Override
-    public boolean onQueryTextSubmit(String s) {
-        return false;
-    }
 
-    @Override
-    public boolean onQueryTextChange(String s) {
-        mainTLAdapter.filter(s.trim());
-        return true;
+
+    //
+    @OnClick(R.id.tatcat)
+    void TatCa(){
+        requestGetListNongSan();
+    }
+    @OnClick(R.id.anqua)
+    void AnQua(){
+        requestGetListNongSanbyidLoains(1);
+    }
+    @OnClick(R.id.congnghiep)
+    void CongNghiep(){
+        requestGetListNongSanbyidLoains(2);
+    }
+    @OnClick(R.id.khac)
+    void Khac(){
+        requestGetListNongSan();
     }
 }

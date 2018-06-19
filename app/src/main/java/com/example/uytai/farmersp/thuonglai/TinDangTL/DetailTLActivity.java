@@ -73,6 +73,12 @@ public class DetailTLActivity extends AppCompatActivity implements SwipeRefreshL
             ThuMuaModelTL thumuas = (ThuMuaModelTL) bundle.getSerializable(Constant.KEY_PUT_OBJECT);
             id = thumuas.getId();
         }
+        int ISND = getIntent().getIntExtra("ISND", -1);
+        if(ISND==100){
+            tvEdit.setVisibility(View.GONE);
+        }else{
+            tvEdit.setVisibility(View.VISIBLE);
+        }
         ActionToolbar();
         requestGetListThuMua();
     }
