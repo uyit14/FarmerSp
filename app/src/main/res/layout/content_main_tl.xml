@@ -47,31 +47,33 @@
             <!--<requestFocus/>-->
         <!--</SearchView>-->
         <LinearLayout
-            android:background="@color/selected_dot"
-            android:layout_marginBottom="3dp"
             android:gravity="center"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="40dp">
             <TextView
                 android:id="@+id/tatcat"
+                android:background="@color/idle_dot"
             android:layout_weight="1"
             android:gravity="center"
             android:text="Tất cả"
+                android:drawableRight="@drawable/icon_all"
+                android:layout_marginRight="2dp"
                 android:textSize="16sp"
                 android:textColor="@color/cl_black"
                 android:textStyle="bold"
-                android:layout_marginRight="3dp"
             android:layout_width="0dp"
             android:layout_height="match_parent" />
             <TextView
                 android:id="@+id/anqua"
+                android:background="@color/idle_dot"
                 android:textSize="16sp"
                 android:textColor="@color/cl_black"
                 android:textStyle="bold"
-                android:layout_marginRight="3dp"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:drawableRight="@drawable/icon_anqua"
+                android:layout_marginRight="2dp"
                 android:text="Ăn quả"
                 android:layout_width="0dp"
                 android:layout_height="match_parent" />
@@ -79,8 +81,10 @@
                 android:id="@+id/congnghiep"
                 android:textSize="16sp"
                 android:textColor="@color/cl_black"
+                android:background="@color/idle_dot"
                 android:textStyle="bold"
-                android:layout_marginRight="3dp"
+                android:drawableRight="@drawable/icon_congnghiep"
+                android:layout_marginRight="2dp"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="Công nghiệp"
@@ -90,6 +94,7 @@
                 android:id="@+id/khac"
                 android:textSize="16sp"
                 android:textColor="@color/cl_black"
+                android:background="@color/idle_dot"
                 android:textStyle="bold"
                 android:layout_weight="1"
                 android:gravity="center"
@@ -101,13 +106,13 @@
             android:id="@+id/swip_nongsan_tl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <ListView
-                android:id="@+id/listviewnongsan"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerviewFeedTL"
                 android:layout_below="@+id/search_trader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 >
-            </ListView>
+            </android.support.v7.widget.RecyclerView>
         </android.support.v4.widget.SwipeRefreshLayout>
 
     </LinearLayout>

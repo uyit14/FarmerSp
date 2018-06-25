@@ -1,5 +1,6 @@
 package com.example.uytai.farmersp.mvp.trader;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -32,6 +33,8 @@ public class TraderFragment extends Fragment implements ITrader.View, SearchView
     SearchView searchView;
     TraderAdapter traderAdapter;
 
+    ProgressDialog pDialog;
+
     public TraderFragment() {
         // Required empty public constructor
     }
@@ -53,6 +56,7 @@ public class TraderFragment extends Fragment implements ITrader.View, SearchView
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        pDialog = new ProgressDialog(getActivity());
         TraderPresenter traderPresenter = new TraderPresenter(this);
         traderPresenter.requestGetListTrader();
         searchView.setOnQueryTextListener(this);
@@ -86,6 +90,19 @@ public class TraderFragment extends Fragment implements ITrader.View, SearchView
     @Override
     public void getListTraderFail() {
         Toast.makeText(getActivity().getApplicationContext(), "Fail", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showDialogProgress() {
+        pDialog.setMessage("Đang tải thông tin...!");
+        pDialog.setCancelable(false);
+        pDialog.show();
+    }
+
+    @Override
+    public void dismissDialog() {
+        if(pDialog.isShowing())
+            pDialog.dismiss();
     }
 
     @Override

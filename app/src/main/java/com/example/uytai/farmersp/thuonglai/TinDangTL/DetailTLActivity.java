@@ -1,5 +1,6 @@
 package com.example.uytai.farmersp.thuonglai.TinDangTL;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -62,11 +63,14 @@ public class DetailTLActivity extends AppCompatActivity implements SwipeRefreshL
     ThuMuaModelTL thuMuaModelTLS;
     int id = 0;
 
+    ProgressDialog pDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_tl);
         ButterKnife.bind(this);
+        pDialog = new ProgressDialog(this);
         swipeRefreshLayout.setOnRefreshListener(this);
         Bundle bundle = getIntent().getBundleExtra(Constant.KEY_PUT_BUNDLE);
         if(bundle!=null){
@@ -99,6 +103,9 @@ public class DetailTLActivity extends AppCompatActivity implements SwipeRefreshL
     }
 
     private void requestGetListThuMua() {
+        pDialog.setMessage("Đang tải thông tin...!");
+        pDialog.setCancelable(false);
+        pDialog.show();
         ThuonglaiService thuonglaiService = ApiClient.getClient().create(ThuonglaiService.class);
         Call<List<ThuMuaModelTL>> call = thuonglaiService.getThuMuabyIDThuMua(id);
         call.enqueue(new Callback<List<ThuMuaModelTL>>() {
@@ -108,8 +115,11 @@ public class DetailTLActivity extends AppCompatActivity implements SwipeRefreshL
                     if(response.body()!=null){
                         thuMuaModelTLS = response.body().get(0);
                         setInfor();
+                        if(pDialog.isShowing())
+                            pDialog.dismiss();
                     }else{
-//                        Log.d("uytai123", "respone null");
+                       if(pDialog.isShowing())
+                        pDialog.dismiss();
                     }
                 }
             }
@@ -117,6 +127,8 @@ public class DetailTLActivity extends AppCompatActivity implements SwipeRefreshL
             @Override
             public void onFailure(Call<List<ThuMuaModelTL>> call, Throwable t) {
 //                Log.d("uytai123", "Get list fail");
+                if(pDialog.isShowing())
+                    pDialog.dismiss();
             }
         });
     }

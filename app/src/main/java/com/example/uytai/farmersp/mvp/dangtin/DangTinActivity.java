@@ -1,5 +1,6 @@
 package com.example.uytai.farmersp.mvp.dangtin;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -80,6 +81,7 @@ public class DangTinActivity extends AppCompatActivity implements IDangTin.View 
     Toolbar toolbar;
 
     DangTinPresenter dangTinPresenter;
+    ProgressDialog pDialog;
 
     //
     ArrayList<String> arrLoains;
@@ -92,6 +94,7 @@ public class DangTinActivity extends AppCompatActivity implements IDangTin.View 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dang_tin);
         ButterKnife.bind(this);
+        pDialog = new ProgressDialog(this);
         dangTinPresenter = new DangTinPresenter(this);
         dangTinPresenter.requestGetLoaiNS();
         dangTinPresenter.requestGetTinhThanh();
@@ -110,7 +113,14 @@ public class DangTinActivity extends AppCompatActivity implements IDangTin.View 
 
     private void ActionToolbar() {
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Cá nhân");
+        getSupportActionBar().setTitle("Đăng tin");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void setClickonSpinner() {
@@ -232,6 +242,19 @@ public class DangTinActivity extends AppCompatActivity implements IDangTin.View 
     @Override
     public void getQuanHuyenFail() {
         Toast.makeText(getApplicationContext(), "Tải thất bại, vui lòng thử lại sau!", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showDialogProgress() {
+        pDialog.setMessage("Đang tải thông tin...!");
+        pDialog.setCancelable(false);
+        pDialog.show();
+    }
+
+    @Override
+    public void dismissDialog() {
+        if(pDialog.isShowing())
+            pDialog.dismiss();
     }
 
     // ------- cac su kien click --------- //

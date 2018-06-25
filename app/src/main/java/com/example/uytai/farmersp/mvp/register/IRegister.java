@@ -15,6 +15,8 @@ public interface IRegister {
         void SignUpFail();
         void getLisNongDanSuccess(List<NongDanModel> nongDanModels);
         void getListThuongLaiSuccess(List<ThuongLaiModel> thuongLaiModels);
+        void showDialogProgress();
+        void dismissDialog();
     }
     interface Presenter{
         void requestSignUp();

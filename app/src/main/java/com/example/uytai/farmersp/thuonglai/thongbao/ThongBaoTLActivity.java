@@ -3,6 +3,8 @@ package com.example.uytai.farmersp.thuonglai.thongbao;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import com.example.uytai.farmersp.R;
 import com.github.mikephil.charting.animation.Easing;
@@ -20,64 +22,89 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class ThongBaoTLActivity extends AppCompatActivity {
     private float[] yData = {25f, 20f, 45f, 10f};
     private String[] xData = {"1","2","3","4"};
-    PieChart pieChart;
-    BarChart barChart;
+    PieChart pieChart, pieChart2;
+
+    @BindView(R.id.thongke_toolbar)
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thong_bao_tl);
+        ButterKnife.bind(this);
         pieChart = (PieChart) findViewById(R.id.piechart);
-        barChart = findViewById(R.id.barchart);
+        pieChart2 = findViewById(R.id.piechart2);
         setPieChart();
-        setbarChart();
+        setpieChart2();
+        ActionToolbar();
     }
 
-    private void setbarChart() {
-        barChart.getDescription().setEnabled(true);
-        barChart.setExtraOffsets(5,10,5,5);
-        barChart.setDragDecelerationFrictionCoef(0.9f);
-        barChart.getDescription().setEnabled(true);
-        barChart.animateY(1000, Easing.EasingOption.EaseInOutCubic);
-        ArrayList<BarEntry> yValues = new ArrayList<>();
-        yValues.add(new BarEntry(5f,10));
-        yValues.add(new BarEntry(4f,20));
-        yValues.add(new BarEntry(3f,30));
-        yValues.add(new BarEntry(2f,40));
-
-        BarDataSet dataSet = new BarDataSet(yValues, "Desease Per Regions");
-        dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-        BarData barData = new BarData((dataSet));
-        barData.setValueTextSize(10f);
-        barData.setValueTextColor(Color.YELLOW);
-        barChart.setData(barData);
+    private void ActionToolbar() {
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Thống kê");
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void setPieChart() {
         pieChart.setUsePercentValues(true);
-        pieChart.getDescription().setEnabled(true);
+        //pieChart.getDescription().setEnabled(true);
         pieChart.setExtraOffsets(5,10,5,5);
         pieChart.setDragDecelerationFrictionCoef(0.9f);
-        pieChart.setTransparentCircleRadius(61f);
+       // pieChart.setTransparentCircleRadius(61f);
         pieChart.setHoleColor(Color.WHITE);
         pieChart.animateY(1000, Easing.EasingOption.EaseInOutCubic);
         ArrayList<PieEntry> yValues = new ArrayList<>();
-        yValues.add(new PieEntry(34f,"Ilala"));
-        yValues.add(new PieEntry(56f,"Temeke"));
-        yValues.add(new PieEntry(66f,"Kinondoni"));
-        yValues.add(new PieEntry(45f,"Kigamboni"));
+        yValues.add(new PieEntry(45f,"Ăn quả"));
+        yValues.add(new PieEntry(25f,"Công nghiệp"));
+        yValues.add(new PieEntry(20f,"Lương thực"));
+        yValues.add(new PieEntry(10f,"Khác"));
 
-        PieDataSet dataSet = new PieDataSet(yValues, "Desease Per Regions");
+        PieDataSet dataSet = new PieDataSet(yValues, "");
         dataSet.setSliceSpace(3f);
         dataSet.setSelectionShift(5f);
         dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
         PieData pieData = new PieData((dataSet));
-        pieData.setValueTextSize(10f);
+        pieData.setValueTextSize(15f);
         pieData.setValueTextColor(Color.YELLOW);
         pieChart.setData(pieData);
+        //PieChart Ends Here
+    }
+
+    //
+    private void setpieChart2() {
+        pieChart2.setUsePercentValues(true);
+        pieChart2.getDescription().setEnabled(true);
+        pieChart2.setExtraOffsets(5,10,5,5);
+        pieChart2.setDragDecelerationFrictionCoef(0.9f);
+       // pieChart2.setTransparentCircleRadius(61f);
+        pieChart2.setHoleColor(Color.WHITE);
+        pieChart2.animateY(1000, Easing.EasingOption.EaseInOutCubic);
+        ArrayList<PieEntry> yValues = new ArrayList<>();
+        yValues.add(new PieEntry(25f,"Tiền Giang"));
+        yValues.add(new PieEntry(25f,"TP. HCM"));
+        yValues.add(new PieEntry(25f,"Trà Vinh"));
+        yValues.add(new PieEntry(25f,"Bến tre"));
+
+        PieDataSet dataSet = new PieDataSet(yValues, "");
+        dataSet.setSliceSpace(3f);
+        dataSet.setSelectionShift(5f);
+        dataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+        PieData pieData = new PieData((dataSet));
+        pieData.setValueTextSize(15f);
+        pieData.setValueTextColor(Color.YELLOW);
+        pieChart2.setData(pieData);
         //PieChart Ends Here
     }
 }

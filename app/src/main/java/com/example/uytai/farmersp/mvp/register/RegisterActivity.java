@@ -1,5 +1,6 @@
 package com.example.uytai.farmersp.mvp.register;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -55,6 +56,7 @@ public class RegisterActivity extends AppCompatActivity implements IRegister.Vie
     //
     List<NongDanModel> listnongDanModels;
     List<ThuongLaiModel> listthuongLaiModels;
+    ProgressDialog pDialog;
 
     //
     boolean flag = false;
@@ -64,6 +66,7 @@ public class RegisterActivity extends AppCompatActivity implements IRegister.Vie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         ButterKnife.bind(this);
+        pDialog = new ProgressDialog(this);
         registerPresenter = new RegisterPresenter(this);
         listnongDanModels = new ArrayList<>();
         listthuongLaiModels = new ArrayList<>();
@@ -165,6 +168,19 @@ public class RegisterActivity extends AppCompatActivity implements IRegister.Vie
         if(thuongLaiModels!=null){
             listthuongLaiModels.addAll(thuongLaiModels);
         }
+    }
+
+    @Override
+    public void showDialogProgress() {
+        pDialog.setMessage("Đang tải thông tin...!");
+        pDialog.setCancelable(false);
+        pDialog.show();
+    }
+
+    @Override
+    public void dismissDialog() {
+        if(pDialog.isShowing())
+            pDialog.dismiss();
     }
 
     @Override

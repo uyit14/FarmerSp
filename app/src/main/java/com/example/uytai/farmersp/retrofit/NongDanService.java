@@ -30,50 +30,50 @@ import retrofit2.http.Query;
  */
 
 public interface NongDanService {
-    @GET("nongdan/getuser.php")
+    @GET("getuser.php")
     Call<List<NongDanModel>> getUserND();
 
     @FormUrlEncoded
-    @POST("nongdan/editprofile.php")
+    @POST("editprofile.php")
     Call<POST> editProfile(@Field("id") int idtt, @Field("ten") String ten, @Field("status") String status,
                            @Field("sdt") String sdt, @Field("avatar") String hinhanh);
 
     @FormUrlEncoded
-    @POST("nongdan/getnongsanbyidnd.php")
+    @POST("getnongsanbyidnd.php")
     Call<List<NongSanModel>> getNongSanbyIDND(@Field("id_nongdan") int idnd);
 
     @FormUrlEncoded
-    @POST("nongdan/getnongsanbyidnongsan.php")
+    @POST("getnongsanbyidnongsan.php")
     Call<List<NongSanModel>> getNongSanbyID(@Field("id") int id);
 
     @FormUrlEncoded
-    @POST("nongdan/getquanhuyenbyidtt.php")
+    @POST("getquanhuyenbyidtt.php")
     Call<List<QuanHuyenModel>> getQuanHuyen(@Field("id_tinhthanh") int idtt);
 
     @FormUrlEncoded
-    @POST("nongdan/deletenongsan.php")
+    @POST("deletenongsan.php")
     Call<POST> deletens(@Field("id") int id);
 
-    @GET("nongdan/getthuonglai.php")
+    @GET("getthuonglai.php")
     Call<List<ThuongLaiModel>> getTrader();
 
-    @GET("nongdan/getthumua.php")
+    @GET("getthumua.php")
     Call<List<ThuMuaModel>> getFeedThuMua();
 
-    @GET("nongdan/getloains.php")
+    @GET("getloains.php")
     Call<List<LoaiNSModel>> getLoains();
 
-    @GET("nongdan/gettinhthanh.php")
+    @GET("gettinhthanh.php")
     Call<List<TinhThanhModel>> getTinhThanh();
 
     @FormUrlEncoded
-    @POST("nongdan/signup.php")
+    @POST("signup.php")
     Call<List<NongDanModel>> signup(@Field("ten") String ten, @Field("avatar") String avatar
     , @Field("status") String status, @Field("sdt") String sdt,
                                     @Field("taikhoan") String taikhoan, @Field("matkhau") String matkhau);
 
     @FormUrlEncoded
-    @POST("nongdan/themnongsan.php")
+    @POST("themnongsan.php")
     Call<List<NongSanModel>> themnongsan(@Field("tennongsan") String tennongsan, @Field("tg_batdau") String tg_batdau
             , @Field("tg_ketthuc") String tg_ketthuc, @Field("ten_lh") String ten_lh,
                                     @Field("sdt_lh") String sdt_lh, @Field("diachi") String diachi,
@@ -82,28 +82,28 @@ public interface NongDanService {
                                          @Field("id_quanhuyen") int id_quanhuyen );
 
     @FormUrlEncoded
-    @POST("nongdan/editnongsan.php")
+    @POST("editnongsan.php")
     Call<POST> edittindadang(@Field("id") int id, @Field("tennongsan") String tennongsan, @Field("tg_batdau") String tg_batdau
             , @Field("tg_ketthuc") String tg_ketthuc, @Field("ten_lh") String ten_lh,
                                          @Field("sdt_lh") String sdt_lh, @Field("diachi") String diachi,@Field("hinhanh") String hinhanh,
                              @Field("mota") String mota, @Field("id_nongdan") int idnt, @Field("id_loains") int idloains, @Field("id_quanhuyen") int idqh);
 
     @FormUrlEncoded
-    @POST("nongdan/dangky.php")
+    @POST("dangky.php")
     Call<POST> dangky(@Field("idnd") int idnd, @Field("idtl") int idtl);
 
-    @GET("nongdan/getdangky.php")
+    @GET("getdangky.php")
     Call<List<DangKyModel>> getDangKy();
 
     @FormUrlEncoded
-    @POST("nongdan/getidtlbyidnd.php")
+    @POST("getidtlbyidnd.php")
     Call<List<DangKyModel>> getIDTL(@Field("idnd") int idnd);
 
     @FormUrlEncoded
-    @POST("nongdan/getthuonglaibyidtl.php")
+    @POST("getthuonglaibyidtl.php")
     Call<List<ThuongLaiModel>> getThuongLaibyID(@Field("idtl[]") ArrayList<Integer> idtl);
 
 //    @Multipart
-//    @POST("nongdan/getthuonglaibyidtl.php")
+//    @POST("getthuonglaibyidtl.php")
 //    Call<List<ThuongLaiModel>> getThuongLaibyID(@Query("idtl[]") ArrayList<Integer> idtl);
 }

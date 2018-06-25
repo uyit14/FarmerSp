@@ -12,6 +12,8 @@ public interface ITrader {
 interface View{
         void getListTraderSuccess(List<ThuongLaiModel> thuongLaiModel);
         void getListTraderFail();
+    void showDialogProgress();
+    void dismissDialog();
     }
     //
     interface Presenter{

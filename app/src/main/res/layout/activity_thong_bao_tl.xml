@@ -7,6 +7,11 @@
     android:orientation="vertical"
     android:background="@color/gray"
     tools:context=".thuonglai.thongbao.ThongBaoTLActivity">
+    <include
+        layout="@layout/app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:id="@+id/thongke_toolbar"/>
     <RelativeLayout
         android:background="@color/white"
         android:layout_marginBottom="3dp"
@@ -14,10 +19,15 @@
         android:layout_width="match_parent"
         android:layout_height="0dp">
         <TextView
-            android:text="Biểu đồ nông sản theo loại"
+            android:id="@+id/tv1"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="15sp"
+            android:text="Biểu đồ sản lượng nông sản theo loại nông sản 2018"
+            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <com.github.mikephil.charting.charts.PieChart
+            android:layout_below="@+id/tv1"
             android:id="@+id/piechart"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -32,16 +42,19 @@
         android:layout_height="0dp">
         <TextView
            android:id="@+id/tv"
-            android:text="Biểu 5 tỉnh có nông sản được rau bán nhiều nhất"
+            android:textStyle="bold"
+            android:text="Biểu 4 tỉnh có nông sản được rao bán nhiều nhất 2018"
+            android:textSize="14sp"
+            android:textColor="@color/colorPrimaryDark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        <com.github.mikephil.charting.charts.BarChart
+        <com.github.mikephil.charting.charts.PieChart
             android:layout_below="@+id/tv"
-            android:id="@+id/barchart"
+            android:id="@+id/piechart2"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        </com.github.mikephil.charting.charts.BarChart>
+        </com.github.mikephil.charting.charts.PieChart>
     </RelativeLayout>
 
 </LinearLayout>

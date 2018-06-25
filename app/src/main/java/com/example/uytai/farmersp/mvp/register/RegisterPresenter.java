@@ -25,6 +25,7 @@ public class RegisterPresenter implements IRegister.Presenter {
 
     @Override
     public void requestSignUp() {
+        mRegisterView.showDialogProgress();
         NongDanService nongDanService = ApiClient.getClient().create(NongDanService.class);
         Call<List<NongDanModel>> call = nongDanService.signup(RegisterActivity.ten,RegisterActivity.avatar, RegisterActivity.status,
                 RegisterActivity.sdt, RegisterActivity.taikhoan, RegisterActivity.matkhau );
@@ -32,17 +33,20 @@ public class RegisterPresenter implements IRegister.Presenter {
             @Override
             public void onResponse(Call<List<NongDanModel>> call, Response<List<NongDanModel>> response) {
                 mRegisterView.SignUpSuccess();
+                mRegisterView.dismissDialog();
             }
 
             @Override
             public void onFailure(Call<List<NongDanModel>> call, Throwable t) {
                 mRegisterView.SignUpFail();
+                mRegisterView.dismissDialog();
             }
         });
     }
 
     @Override
     public void requestSignUpThuonglai() {
+        mRegisterView.showDialogProgress();
         ThuonglaiService thuonglaiService = ApiClient.getClient().create(ThuonglaiService.class);
         Call<List<ThuongLaiModel>> call = thuonglaiService.signupTL(RegisterActivity.ten,RegisterActivity.avatar,
                 RegisterActivity.rate, RegisterActivity.taikhoan, RegisterActivity.matkhau);
@@ -50,11 +54,13 @@ public class RegisterPresenter implements IRegister.Presenter {
             @Override
             public void onResponse(Call<List<ThuongLaiModel>> call, Response<List<ThuongLaiModel>> response) {
                 mRegisterView.SignUpSuccess();
+                mRegisterView.dismissDialog();
             }
 
             @Override
             public void onFailure(Call<List<ThuongLaiModel>> call, Throwable t) {
                 mRegisterView.SignUpFail();
+                mRegisterView.dismissDialog();
             }
         });
     }

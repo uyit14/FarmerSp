@@ -71,7 +71,7 @@
                 android:layout_marginRight="20dp"
                 android:textStyle="italic"
                 android:textSize="16sp"
-                android:hint="Thời gian bắt đầu mua"
+                android:hint="Thời gian bắt đầu mua (năm/ngày/tháng)"
                 android:inputType="date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -89,7 +89,7 @@
                 android:textStyle="italic"
                 android:textSize="16sp"
                 android:inputType="date"
-                android:hint="Thời gian kết thúc mua"
+                android:hint="Thời gian kết thúc mua (năm/ngày/tháng)"
                 android:layout_marginRight="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -105,7 +105,7 @@
             <EditText
                 android:id="@+id/giacaonhat_dangtin_tl"
                 android:textSize="16sp"
-                android:hint="Giá cao nhất"
+                android:hint="Giá cao nhất (VNĐ)"
                 android:layout_marginRight="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -121,7 +121,7 @@
             <EditText
                 android:id="@+id/giathapnhat_dangtin_tl"
                 android:textSize="16sp"
-                android:hint="Giá thấp nhất"
+                android:hint="Giá thấp nhất (VNĐ)"
                 android:layout_marginRight="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />

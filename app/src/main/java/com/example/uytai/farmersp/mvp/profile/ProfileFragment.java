@@ -1,5 +1,6 @@
 package com.example.uytai.farmersp.mvp.profile;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -67,6 +68,7 @@ public class ProfileFragment extends Fragment implements SwipeRefreshLayout.OnRe
     SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.dangxuat_profile)
     Button btnSignout;
+    ProgressDialog pDialog;
 
 
     public ProfileFragment() {
@@ -83,6 +85,7 @@ public class ProfileFragment extends Fragment implements SwipeRefreshLayout.OnRe
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_profile, container, false);
         ButterKnife.bind(this, root);
+        pDialog = new ProgressDialog(getActivity());
         swipeRefreshLayout.setOnRefreshListener(this);
         setInforUser();
         ActionToolbar();
@@ -119,6 +122,9 @@ public class ProfileFragment extends Fragment implements SwipeRefreshLayout.OnRe
     }
 
     private void editInforUser(){
+        pDialog.setMessage("Đang tải thông tin...!");
+        pDialog.setCancelable(false);
+        pDialog.show();
         String ten = edt_name.getText().toString();
         String sdt = edt_phone.getText().toString();
         String status = edt_status.getText().toString();
@@ -130,14 +136,19 @@ public class ProfileFragment extends Fragment implements SwipeRefreshLayout.OnRe
                 if(response.isSuccessful()){
                     swipeRefreshLayout.setRefreshing(true);
                     Toast.makeText(getContext(), "Cập nhật thành công", Toast.LENGTH_SHORT).show();
+                    if(pDialog.isShowing())
+                        pDialog.dismiss();
                 }else{
-
+                    if(pDialog.isShowing())
+                        pDialog.dismiss();
                 }
             }
 
             @Override
             public void onFailure(Call<POST> call, Throwable t) {
                 Toast.makeText(getContext(), "Cập nhật thành công", Toast.LENGTH_SHORT).show();
+                if(pDialog.isShowing())
+                    pDialog.dismiss();
             }
         });
         //
@@ -159,7 +170,7 @@ public class ProfileFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
     @OnClick(R.id.dangxuat_profile)
     void Signout(){
-
+        getActivity().finish();
     }
     @OnClick(R.id.img_dangtin)
     void DangTin(){

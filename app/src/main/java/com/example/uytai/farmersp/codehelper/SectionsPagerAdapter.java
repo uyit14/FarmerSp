@@ -49,7 +49,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
             case 1:
                 return "Thương lái";
             case 2:
-                return "Của tôi";
+                return "Thống kê";
             case 3:
                 return "Cá nhân";
             default:

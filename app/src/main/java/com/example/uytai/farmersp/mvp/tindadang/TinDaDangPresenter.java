@@ -26,6 +26,7 @@ public class TinDaDangPresenter implements ITinDaDang.Presenter {
 
     @Override
     public void requestGetListNongSan() {
+        mTinDangView.showDialogProgress();
         NongDanService nongDanService = ApiClient.getClient().create(NongDanService.class);
         Call<List<NongSanModel>> call = nongDanService.getNongSanbyIDND(MainActivity.nongDanModel.getId());
         call.enqueue(new Callback<List<NongSanModel>>() {
@@ -34,6 +35,7 @@ public class TinDaDangPresenter implements ITinDaDang.Presenter {
                 if(response.isSuccessful()){
                     if(response.body()!=null){
                         mTinDangView.getListNongSanSuccess(response.body());
+                        mTinDangView.dismissDialog();
                     }else{
 //                        Log.d("uytai123", "respone_null");
                     }
@@ -46,6 +48,7 @@ public class TinDaDangPresenter implements ITinDaDang.Presenter {
             @Override
             public void onFailure(Call<List<NongSanModel>> call, Throwable t) {
                 mTinDangView.getListNongSanFail();
+                mTinDangView.dismissDialog();
             }
         });
     }

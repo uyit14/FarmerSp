@@ -1,5 +1,6 @@
 package com.example.uytai.farmersp.mvp.trader;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -38,6 +39,7 @@ public class DetailTraderActivity extends AppCompatActivity implements SwipeRefr
     List<ThuMuaModelTL> thuMuaModelTLS;
     @BindView(R.id.swip)
     SwipeRefreshLayout swipeRefreshLayout;
+    ProgressDialog pDialog;
 
     //
     int idtl;
@@ -47,6 +49,7 @@ public class DetailTraderActivity extends AppCompatActivity implements SwipeRefr
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_trader);
         ButterKnife.bind(this);
+        pDialog = new ProgressDialog(this);
         swipeRefreshLayout.setOnRefreshListener(this);
         //
         idtl = getIntent().getIntExtra(Constant.KEY_PUT_ID_TL, -1);
@@ -95,6 +98,9 @@ public class DetailTraderActivity extends AppCompatActivity implements SwipeRefr
     //
     //
     private void requestGetListDetailTrader(){
+        pDialog.setMessage("Đang xử lý...!");
+        pDialog.setCancelable(false);
+        pDialog.show();
         ThuonglaiService thuonglaiService = ApiClient.getClient().create(ThuonglaiService.class);
         Call<List<ThuMuaModelTL>> call = thuonglaiService.getThuMuabyIDTL(idtl);
         call.enqueue(new Callback<List<ThuMuaModelTL>>() {
@@ -105,17 +111,25 @@ public class DetailTraderActivity extends AppCompatActivity implements SwipeRefr
                         thuMuaModelTLS.addAll(response.body());
                         detailTraderAdapter = new DetailTraderAdapter(getApplicationContext(), response.body());
                         listView.setAdapter(detailTraderAdapter);
+                        if(pDialog.isShowing())
+                            pDialog.dismiss();
                     }else {
                         Toast.makeText(getApplicationContext(), "Chưa có dữ liệu", Toast.LENGTH_SHORT).show();
+                        if(pDialog.isShowing())
+                            pDialog.dismiss();
                     }
                 }else{
-
+                    Toast.makeText(getApplicationContext(), "Thất bại", Toast.LENGTH_SHORT).show();
+                    if(pDialog.isShowing())
+                        pDialog.dismiss();
                 }
             }
 
             @Override
             public void onFailure(Call<List<ThuMuaModelTL>> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "Thất bại", Toast.LENGTH_SHORT).show();
+                if(pDialog.isShowing())
+                    pDialog.dismiss();
             }
         });
     }

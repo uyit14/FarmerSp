@@ -25,6 +25,7 @@ public class TraderPresenter implements ITrader.Presenter {
 
     @Override
     public void requestGetListTrader() {
+        mTraderView.showDialogProgress();
         NongDanService nongDanService = ApiClient.getClient().create(NongDanService.class);
         Call<List<ThuongLaiModel>> call = nongDanService.getTrader();
         call.enqueue(new Callback<List<ThuongLaiModel>>() {
@@ -34,6 +35,7 @@ public class TraderPresenter implements ITrader.Presenter {
                     if(response.body()!=null){
 //                        Log.d("uytai123", response.body().size()+"");
                         mTraderView.getListTraderSuccess(response.body());
+                        mTraderView.dismissDialog();
                     }else{
                         //null
 //                        Log.d("uytai123", response.body().size()+"");
@@ -45,6 +47,7 @@ public class TraderPresenter implements ITrader.Presenter {
             public void onFailure(Call<List<ThuongLaiModel>> call, Throwable t) {
 //                Log.d("uytai123", t.getMessage()+"");
                 mTraderView.getListTraderFail();
+                mTraderView.dismissDialog();
             }
         });
     }

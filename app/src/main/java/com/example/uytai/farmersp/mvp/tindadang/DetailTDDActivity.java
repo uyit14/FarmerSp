@@ -1,5 +1,6 @@
 package com.example.uytai.farmersp.mvp.tindadang;
 
+import android.app.ProgressDialog;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -67,6 +68,8 @@ public class DetailTDDActivity extends AppCompatActivity implements SwipeRefresh
     @BindView(R.id.swip_edit_nongsan)
     SwipeRefreshLayout swipeRefreshLayout;
 
+    ProgressDialog pDialog;
+
     int id;
 
     NongSanModel nongSan;
@@ -77,6 +80,7 @@ public class DetailTDDActivity extends AppCompatActivity implements SwipeRefresh
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_tdd);
         ButterKnife.bind(this);
+        pDialog = new ProgressDialog(this);
         swipeRefreshLayout.setOnRefreshListener(this);
         //
         ActionToolbar();
@@ -135,6 +139,9 @@ public class DetailTDDActivity extends AppCompatActivity implements SwipeRefresh
 
     //
     public void requestGetListNongSan() {
+        pDialog.setMessage("Đang tải thông tin...!");
+        pDialog.setCancelable(false);
+        pDialog.show();
         NongDanService nongDanService = ApiClient.getClient().create(NongDanService.class);
         Call<List<NongSanModel>> call = nongDanService.getNongSanbyID(id);
         call.enqueue(new Callback<List<NongSanModel>>() {
@@ -144,19 +151,23 @@ public class DetailTDDActivity extends AppCompatActivity implements SwipeRefresh
                     if(response.body()!=null){
                         nongSan = response.body().get(0);
                         setInfor();
-//                        Log.d("uytai123", "respone_is_not_null");
+                        if(pDialog.isShowing())
+                            pDialog.dismiss();
                     }else{
-//                        Log.d("uytai123", "respone_null");
+                        if(pDialog.isShowing())
+                        pDialog.dismiss();
                     }
                 }else{
-//                    Log.d("uytai123", "respone_null_" +MainActivity.nongDanModel.getId());
-//                    Log.d("uytai123", "respone_fail");
+                    if(pDialog.isShowing())
+                        pDialog.dismiss();
                 }
             }
 
             @Override
             public void onFailure(Call<List<NongSanModel>> call, Throwable t) {
                 Log.d("uyuyuy", "fail" + t.getMessage());
+                if(pDialog.isShowing())
+                    pDialog.dismiss();
             }
         });
     }
@@ -185,6 +196,9 @@ public class DetailTDDActivity extends AppCompatActivity implements SwipeRefresh
 
     //
     private void UpdateTDD(){
+        pDialog.setMessage("Đang tải thông tin...!");
+        pDialog.setCancelable(false);
+        pDialog.show();
         String mota = EdtDescription.getText().toString();
         String diachi = EdtDiaChi.getText().toString();
         String sdtlh = EdtSDTLienHe.getText().toString();
@@ -200,12 +214,16 @@ public class DetailTDDActivity extends AppCompatActivity implements SwipeRefresh
             public void onResponse(Call<POST> call, Response<POST> response) {
                 if(response.isSuccessful()){
                     Toast.makeText(getApplicationContext(), "Cập nhật thành công", Toast.LENGTH_SHORT).show();
+                    if(pDialog.isShowing())
+                        pDialog.dismiss();
                 }
             }
 
             @Override
             public void onFailure(Call<POST> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "Cập nhật thành công", Toast.LENGTH_SHORT).show();
+                if(pDialog.isShowing())
+                    pDialog.dismiss();
             }
         });
         //

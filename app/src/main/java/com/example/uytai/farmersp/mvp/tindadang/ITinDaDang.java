@@ -10,6 +10,8 @@ public interface ITinDaDang {
     interface View {
         void getListNongSanSuccess(List<NongSanModel> nongSanModels);
         void getListNongSanFail();
+        void showDialogProgress();
+        void dismissDialog();
     }
     interface Presenter{
         void requestGetListNongSan();

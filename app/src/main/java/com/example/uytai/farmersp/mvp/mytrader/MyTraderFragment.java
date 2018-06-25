@@ -1,5 +1,6 @@
 package com.example.uytai.farmersp.mvp.mytrader;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +16,12 @@ import com.example.uytai.farmersp.model.DangKyModel;
 import com.example.uytai.farmersp.model.ThuongLaiModel;
 import com.example.uytai.farmersp.retrofit.ApiClient;
 import com.example.uytai.farmersp.retrofit.NongDanService;
+import com.github.mikephil.charting.animation.Easing;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,10 +32,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MyTraderFragment extends Fragment implements IMyTrader.View {
+public class MyTraderFragment extends Fragment {
 
-    @BindView(R.id.bar_post)
+    @BindView(R.id.bar_thongke)
     Toolbar toolbar;
+    @BindView(R.id.piechart)
+    PieChart pieChart;
     MyTraderPresenter myTraderPresenter;
     ArrayList<Integer> arrIDTL;
     public MyTraderFragment() {
@@ -47,34 +56,61 @@ public class MyTraderFragment extends Fragment implements IMyTrader.View {
         View root = inflater.inflate(R.layout.fragment_mytrader, container, false);
         ButterKnife.bind(this, root);
         ActionToolbar();
-        myTraderPresenter = new MyTraderPresenter(this);
-        myTraderPresenter.requestGetListIDTL();
+        setPieChart();
+//        myTraderPresenter = new MyTraderPresenter(this, ro);
+//        myTraderPresenter.requestGetListIDTL();
         return root;
     }
 
     private void ActionToolbar() {
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Thương lái của tôi");
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Thống kê");
     }
 
-    @Override
-    public void getIDTLSuccess(List<DangKyModel> dangKyModels) {
-        if(dangKyModels!=null){
-            arrIDTL = new ArrayList<>();
-            Log.d("uytai", dangKyModels.size()+"");
-            for(int i = 0; i<dangKyModels.size() ; i++){
-                arrIDTL.add(dangKyModels.get(i).getIdtl());
-            }
-            getListTrader(arrIDTL);
-        }else{
-            Toast.makeText(getContext(), "Chưa có dữ liệu", Toast.LENGTH_SHORT).show();
-        }
+    private void setPieChart() {
+        pieChart.setUsePercentValues(true);
+        //pieChart.getDescription().setEnabled(true);
+        pieChart.setExtraOffsets(5,10,5,5);
+        pieChart.setDragDecelerationFrictionCoef(0.9f);
+        // pieChart.setTransparentCircleRadius(61f);
+        pieChart.setHoleColor(Color.WHITE);
+        pieChart.animateY(1000, Easing.EasingOption.EaseInOutCubic);
+        ArrayList<PieEntry> yValues = new ArrayList<>();
+        yValues.add(new PieEntry(30,"Bưởi"));
+        yValues.add(new PieEntry(20,"Xoài"));
+        yValues.add(new PieEntry(20,"Cam"));
+        yValues.add(new PieEntry(15,"Cà phê"));
+        yValues.add(new PieEntry(15,"Hồ Tiêu"));
+
+        PieDataSet dataSet = new PieDataSet(yValues, "");
+        dataSet.setSliceSpace(3f);
+        dataSet.setSelectionShift(5f);
+        dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+        PieData pieData = new PieData((dataSet));
+        pieData.setValueTextSize(15f);
+        pieData.setValueTextColor(Color.YELLOW);
+        pieChart.setData(pieData);
+        //PieChart Ends Here
     }
 
-    @Override
-    public void getIDNDFail() {
-        Toast.makeText(getContext(), "Lỗi trong khi tải, vui lòng thử lại sau", Toast.LENGTH_SHORT).show();
-    }
+//    @Override
+//    public void getIDTLSuccess(List<DangKyModel> dangKyModels) {
+//        if(dangKyModels!=null){
+//            arrIDTL = new ArrayList<>();
+//            Log.d("uytai", dangKyModels.size()+"");
+//            for(int i = 0; i<dangKyModels.size() ; i++){
+//                arrIDTL.add(dangKyModels.get(i).getIdtl());
+//            }
+//            getListTrader(arrIDTL);
+//        }else{
+//            Toast.makeText(getContext(), "Chưa có dữ liệu", Toast.LENGTH_SHORT).show();
+//        }
+//    }
+
+//    @Override
+//    public void getIDNDFail() {
+//        Toast.makeText(getContext(), "Lỗi trong khi tải, vui lòng thử lại sau", Toast.LENGTH_SHORT).show();
+//    }
 
     //
     public void getListTrader(ArrayList<Integer> arrIDTL){

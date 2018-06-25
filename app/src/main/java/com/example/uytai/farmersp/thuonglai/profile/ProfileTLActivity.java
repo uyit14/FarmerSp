@@ -1,5 +1,6 @@
 package com.example.uytai.farmersp.thuonglai.profile;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -61,11 +62,14 @@ public class ProfileTLActivity extends AppCompatActivity implements SwipeRefresh
     @BindView(R.id.rate)
     TextView tv_rate;
 
+    ProgressDialog pDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_tl);
         ButterKnife.bind(this);
+        pDialog = new ProgressDialog(this);
         swipeRefreshLayout.setOnRefreshListener(this);
         ActionToolbar();
         setInforUser();
@@ -105,6 +109,9 @@ public class ProfileTLActivity extends AppCompatActivity implements SwipeRefresh
     }
 
     private void editInforUser(){
+        pDialog.setMessage("Đang tải thông tin...!");
+        pDialog.setCancelable(false);
+        pDialog.show();
         String ten = edt_name.getText().toString();
         String status = edt_status.getText().toString();
         ThuonglaiService thuonglaiService = ApiClient.getClient().create(ThuonglaiService.class);
@@ -115,6 +122,8 @@ public class ProfileTLActivity extends AppCompatActivity implements SwipeRefresh
                 if(response.isSuccessful()){
                     swipeRefreshLayout.setRefreshing(true);
                     Toast.makeText(getApplicationContext(), "Cập nhật thành công", Toast.LENGTH_SHORT).show();
+                    if(pDialog.isShowing())
+                        pDialog.dismiss();
                 }else{
 
                 }
@@ -123,6 +132,8 @@ public class ProfileTLActivity extends AppCompatActivity implements SwipeRefresh
             @Override
             public void onFailure(Call<POST> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "Cập nhật thành công", Toast.LENGTH_SHORT).show();
+                if(pDialog.isShowing())
+                    pDialog.dismiss();
             }
         });
         //

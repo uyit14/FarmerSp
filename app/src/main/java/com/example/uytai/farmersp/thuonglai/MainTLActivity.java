@@ -1,5 +1,6 @@
 package com.example.uytai.farmersp.thuonglai;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,6 +10,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -47,14 +50,17 @@ import retrofit2.Response;
 public class MainTLActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, SwipeRefreshLayout.OnRefreshListener {
 
-    @BindView(R.id.listviewnongsan)
-    ListView listView;
+//    @BindView(R.id.listviewnongsan)
+//    ListView listView;
+    @BindView(R.id.recyclerviewFeedTL)
+    RecyclerView recyclerView;
 //    @BindView(R.id.search_nongsan)
 //    SearchView searchView;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.swip_nongsan_tl)
     SwipeRefreshLayout swipeRefreshLayout;
+    ProgressDialog pDialog;
 
     public static ThuongLaiModel thuongLaiModel;
     List<NongSanModelTL> listNongSan;
@@ -65,6 +71,8 @@ public class MainTLActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_tl);
         ButterKnife.bind(this);
+        pDialog = new ProgressDialog(this);
+        initView();
 //        searchView.setOnQueryTextListener(this);
         setSupportActionBar(toolbar);
         swipeRefreshLayout.setOnRefreshListener(this);
@@ -92,6 +100,13 @@ public class MainTLActivity extends AppCompatActivity
 
         //--get data from server--//
         requestGetListNongSan();
+    }
+
+    //
+    private void initView() {
+        recyclerView.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(linearLayoutManager);
     }
 
     private void getUser() {
@@ -146,7 +161,7 @@ public class MainTLActivity extends AppCompatActivity
         }else if(id==R.id.item_tdd_tl){
             startActivity(new Intent(MainTLActivity.this, TinDaDangTLActivity.class));
         } else if (id == R.id.item_dangxuat) {
-            //
+            finish();
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -157,6 +172,9 @@ public class MainTLActivity extends AppCompatActivity
 
     //------GET DATA FROM SERVER------//
     private void requestGetListNongSan(){
+        pDialog.setMessage("Đang tải thông tin...!");
+        pDialog.setCancelable(false);
+        pDialog.show();
         ThuonglaiService thuonglaiService = ApiClient.getClient().create(ThuonglaiService.class);
         Call<List<NongSanModelTL>> call = thuonglaiService.getNongSanForTL();
         call.enqueue(new Callback<List<NongSanModelTL>>() {
@@ -167,20 +185,35 @@ public class MainTLActivity extends AppCompatActivity
                         listNongSan.clear();
                         listNongSan.addAll(response.body());
                         mainTLAdapter = new MainTLAdapter(MainTLActivity.this, listNongSan);
-                        listView.setAdapter(mainTLAdapter);
+                        recyclerView.setAdapter(mainTLAdapter);
+                        if(pDialog.isShowing())
+                            pDialog.dismiss();
+                    }else{
+                        Toast.makeText(getApplicationContext(), "Chưa có dữ liệu", Toast.LENGTH_SHORT).show();
+                        if(pDialog.isShowing())
+                            pDialog.dismiss();
                     }
+                }else{
+                    Toast.makeText(getApplicationContext(), "Thất bại", Toast.LENGTH_SHORT).show();
+                    if(pDialog.isShowing())
+                        pDialog.dismiss();
                 }
             }
 
             @Override
             public void onFailure(Call<List<NongSanModelTL>> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "Tải thông tin thất bại, xin thử lại sau!", Toast.LENGTH_SHORT).show();
+                if(pDialog.isShowing())
+                    pDialog.dismiss();
             }
         });
     }
 
     //by id loai ns
     private void requestGetListNongSanbyidLoains(int idloains){
+        pDialog.setMessage("Đang tải thông tin...!");
+        pDialog.setCancelable(false);
+        pDialog.show();
         ThuonglaiService thuonglaiService = ApiClient.getClient().create(ThuonglaiService.class);
         Call<List<NongSanModelTL>> call = thuonglaiService.getNongSanbyIDLNSForTL(idloains);
         call.enqueue(new Callback<List<NongSanModelTL>>() {
@@ -191,7 +224,9 @@ public class MainTLActivity extends AppCompatActivity
                         listNongSan.clear();
                         listNongSan.addAll(response.body());
                         mainTLAdapter = new MainTLAdapter(MainTLActivity.this, listNongSan);
-                        listView.setAdapter(mainTLAdapter);
+                        recyclerView.setAdapter(mainTLAdapter);
+                        if(pDialog.isShowing())
+                            pDialog.dismiss();
                     }
                 }
             }
@@ -199,6 +234,8 @@ public class MainTLActivity extends AppCompatActivity
             @Override
             public void onFailure(Call<List<NongSanModelTL>> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "Tải thông tin thất bại, xin thử lại sau!", Toast.LENGTH_SHORT).show();
+                if(pDialog.isShowing())
+                    pDialog.dismiss();
             }
         });
     }
@@ -231,6 +268,6 @@ public class MainTLActivity extends AppCompatActivity
     }
     @OnClick(R.id.khac)
     void Khac(){
-        requestGetListNongSan();
+        requestGetListNongSanbyidLoains(0);
     }
 }

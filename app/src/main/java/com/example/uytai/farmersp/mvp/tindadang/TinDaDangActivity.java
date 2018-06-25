@@ -1,5 +1,6 @@
 package com.example.uytai.farmersp.mvp.tindadang;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -39,6 +40,8 @@ public class TinDaDangActivity extends AppCompatActivity implements ITinDaDang.V
     TinDaDangAdapter tinDaDangAdapter;
     TinDaDangPresenter tinDaDangPresenter;
 
+    ProgressDialog pDialog;
+
     int countTDD = 0;
 
     @Override
@@ -47,6 +50,7 @@ public class TinDaDangActivity extends AppCompatActivity implements ITinDaDang.V
         setContentView(R.layout.activity_tin_da_dang);
         ButterKnife.bind(this);
         //
+        pDialog = new ProgressDialog(this);
         tinDaDangPresenter = new TinDaDangPresenter(this);
         tinDaDangPresenter.requestGetListNongSan();
         //
@@ -85,6 +89,19 @@ public class TinDaDangActivity extends AppCompatActivity implements ITinDaDang.V
     @Override
     public void getListNongSanFail() {
         Toast.makeText(getApplicationContext(), "Fail", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showDialogProgress() {
+        pDialog.setMessage("Đang tải thông tin...!");
+        pDialog.setCancelable(false);
+        pDialog.show();
+    }
+
+    @Override
+    public void dismissDialog() {
+        if(pDialog.isShowing())
+            pDialog.dismiss();
     }
 
     @OnClick(R.id.float_tdd)

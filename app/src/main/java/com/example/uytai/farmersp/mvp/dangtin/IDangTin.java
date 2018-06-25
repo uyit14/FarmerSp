@@ -20,6 +20,8 @@ public interface IDangTin {
         void getTinhThanhFail();
         void getQuanHuyenSuccess(List<QuanHuyenModel> quanHuyenModels);
         void getQuanHuyenFail();
+        void showDialogProgress();
+        void dismissDialog();
     }
     interface Presenter{
         void requestDangTin();

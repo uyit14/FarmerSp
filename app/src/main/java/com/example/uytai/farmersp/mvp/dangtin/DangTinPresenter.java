@@ -28,6 +28,7 @@ public class DangTinPresenter implements IDangTin.Presenter {
 
     @Override
     public void requestDangTin() {
+        mDangTinView.showDialogProgress();
         NongDanService nongDanService = ApiClient.getClient().create(NongDanService.class);
         Call<List<NongSanModel>> call = nongDanService.themnongsan(DangTinActivity.tennongsan, DangTinActivity.tg_batdau, DangTinActivity.tg_ketthuc,
                 DangTinActivity.ten_lh, DangTinActivity.sdt_lh, DangTinActivity.diachi, DangTinActivity.hinhanh, DangTinActivity.mota,
@@ -36,11 +37,13 @@ public class DangTinPresenter implements IDangTin.Presenter {
             @Override
             public void onResponse(Call<List<NongSanModel>> call, Response<List<NongSanModel>> response) {
                 mDangTinView.DangTinSuccess();
+                mDangTinView.dismissDialog();
             }
 
             @Override
             public void onFailure(Call<List<NongSanModel>> call, Throwable t) {
                 mDangTinView.DangTinSuccess();
+                mDangTinView.dismissDialog();
             }
         });
     }
