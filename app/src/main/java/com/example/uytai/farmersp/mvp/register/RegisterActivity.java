@@ -6,6 +6,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -44,6 +45,9 @@ public class RegisterActivity extends AppCompatActivity implements IRegister.Vie
     @BindView(R.id.signup_button)
     CardView signup_button;
 
+    @BindView(R.id.register_toolbar)
+    Toolbar toolbar;
+
     //
     public static  String ten="";
     public static  String avatar="";
@@ -74,6 +78,12 @@ public class RegisterActivity extends AppCompatActivity implements IRegister.Vie
         registerPresenter.requestGetThuongLai();
         findViewById(R.id.signup_button).setOnClickListener(this);
         setChecked();
+    }
+
+    private void ActionToolbar() {
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Đăng k");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void setChecked() {

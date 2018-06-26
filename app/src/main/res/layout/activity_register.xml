@@ -9,7 +9,13 @@
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <include
+        layout="@layout/app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:id="@+id/register_toolbar"/>
     <ImageView
+        android:layout_below="@+id/register_toolbar"
         android:layout_marginTop="20dp"
         android:id="@+id/imgmain"
         android:src="@drawable/logo_design"

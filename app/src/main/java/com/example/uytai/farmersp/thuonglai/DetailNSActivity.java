@@ -86,7 +86,7 @@ public class DetailNSActivity extends AppCompatActivity {
             tv_sdt.setText(nongSanModelTL.getSdtLh());
             tv_tenns.setText(nongSanModelTL.getTennongsan());
             Glide.with(getApplicationContext()).load(nongSanModelTL.getAvatar()).placeholder(R.drawable.no_image).into(cir_avatar);
-            Glide.with(getApplicationContext()).load(nongSanModelTL.getAvatar()).placeholder(R.drawable.no_image).into(img_hinhanh);
+            Glide.with(getApplicationContext()).load(nongSanModelTL.getHinhanh()).placeholder(R.drawable.no_image).into(img_hinhanh);
             DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
             tv_startdate.setText(df.format(nongSanModelTL.getTgBatdau()));
             tv_enddate.setText(df.format(nongSanModelTL.getTgKetthuc()));

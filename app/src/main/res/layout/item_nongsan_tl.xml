@@ -10,16 +10,16 @@
     <LinearLayout
         android:id="@+id/layout_1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="70dp">
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/img_avatar_nd"
             android:src="@drawable/avatar"
             android:layout_width="70dp"
-            android:layout_height="70dp" />
+            android:layout_height="match_parent" />
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="70dp">
         <TextView
             android:id="@+id/tenns_ns"
             android:layout_marginTop="5dp"
@@ -92,8 +92,9 @@
             android:layout_gravity="top|center"
             android:src="@drawable/logo_design"
             android:id="@+id/hinhanh_ns"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:scaleType="fitXY"
+            android:layout_width="match_parent"
+            android:layout_height="270dp" />
         <Button
             android:id="@+id/btn_viewdetail_ns"
             android:layout_width="match_parent"

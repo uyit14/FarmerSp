@@ -132,7 +132,7 @@ public class LoginActivity extends AppCompatActivity implements ILogin.View {
                     bundle.putSerializable(Constant.KEY_PUT_OBJECT, nongDanModel);
                     intent.putExtra(Constant.KEY_PUT_BUNDLE, bundle);
                     startActivity(intent);
-//                    Log.d("uytai123", "Login Success");
+                    finish();
                 }else{
                     Toast.makeText(getApplicationContext(), "Đăng nhập nông dân thất bại", Toast.LENGTH_SHORT).show();
                 }
@@ -154,7 +154,7 @@ public class LoginActivity extends AppCompatActivity implements ILogin.View {
                     bundle.putSerializable(Constant.KEY_PUT_OBJECT, thuongLaiModel);
                     intent.putExtra(Constant.KEY_PUT_BUNDLE, bundle);
                     startActivity(intent);
-//                    Log.d("uytai123", "Login Success");
+                    finish();
                 }else{
                     Toast.makeText(getApplicationContext(), "Đăng nhập thương lái thất bại", Toast.LENGTH_SHORT).show();
                 }

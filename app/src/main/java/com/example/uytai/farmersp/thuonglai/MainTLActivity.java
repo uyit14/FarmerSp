@@ -29,6 +29,7 @@ import com.example.uytai.farmersp.R;
 import com.example.uytai.farmersp.config.Constant;
 import com.example.uytai.farmersp.model.NongSanModelTL;
 import com.example.uytai.farmersp.model.ThuongLaiModel;
+import com.example.uytai.farmersp.mvp.login.LoginActivity;
 import com.example.uytai.farmersp.retrofit.ApiClient;
 import com.example.uytai.farmersp.retrofit.ThuonglaiService;
 import com.example.uytai.farmersp.thuonglai.TinDangTL.TinDaDangTLActivity;
@@ -161,6 +162,7 @@ public class MainTLActivity extends AppCompatActivity
         }else if(id==R.id.item_tdd_tl){
             startActivity(new Intent(MainTLActivity.this, TinDaDangTLActivity.class));
         } else if (id == R.id.item_dangxuat) {
+            startActivity(new Intent(MainTLActivity.this, LoginActivity.class));
             finish();
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -186,6 +188,7 @@ public class MainTLActivity extends AppCompatActivity
                         listNongSan.addAll(response.body());
                         mainTLAdapter = new MainTLAdapter(MainTLActivity.this, listNongSan);
                         recyclerView.setAdapter(mainTLAdapter);
+                        mainTLAdapter.notifyDataSetChanged();
                         if(pDialog.isShowing())
                             pDialog.dismiss();
                     }else{
@@ -225,6 +228,7 @@ public class MainTLActivity extends AppCompatActivity
                         listNongSan.addAll(response.body());
                         mainTLAdapter = new MainTLAdapter(MainTLActivity.this, listNongSan);
                         recyclerView.setAdapter(mainTLAdapter);
+                        mainTLAdapter.notifyDataSetChanged();
                         if(pDialog.isShowing())
                             pDialog.dismiss();
                     }

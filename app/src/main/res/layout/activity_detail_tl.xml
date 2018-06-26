@@ -190,7 +190,6 @@
             <ImageView
                 android:src="@drawable/avatar"
                 android:id="@+id/hinhanh"
-                android:scaleType="fitXY"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </LinearLayout>

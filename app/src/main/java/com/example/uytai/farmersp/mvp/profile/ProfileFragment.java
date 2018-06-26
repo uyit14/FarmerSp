@@ -27,6 +27,7 @@ import com.example.uytai.farmersp.R;
 import com.example.uytai.farmersp.config.Constant;
 import com.example.uytai.farmersp.model.NongDanModel;
 import com.example.uytai.farmersp.mvp.dangtin.DangTinActivity;
+import com.example.uytai.farmersp.mvp.login.LoginActivity;
 import com.example.uytai.farmersp.mvp.tindadang.TinDaDangActivity;
 import com.example.uytai.farmersp.retrofit.ApiClient;
 import com.example.uytai.farmersp.retrofit.NongDanService;
@@ -170,6 +171,7 @@ public class ProfileFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
     @OnClick(R.id.dangxuat_profile)
     void Signout(){
+        startActivity(new Intent(getActivity().getApplicationContext(), LoginActivity.class));
         getActivity().finish();
     }
     @OnClick(R.id.img_dangtin)
