@@ -75,7 +75,7 @@ public class FeedFragment extends Fragment implements IFeed.View, SearchView.OnQ
     public void getListFeedSuccess(List<ThuMuaModel> thuMuaModels) {
         if(thuMuaModels !=null){
             listThuMua.addAll(thuMuaModels);
-            feedAdapter = new FeedAdapter(thuMuaModels, getActivity().getApplicationContext());
+            feedAdapter = new FeedAdapter(thuMuaModels, getActivity());
             recyclerViewFeed.setAdapter(feedAdapter);
         }
     }

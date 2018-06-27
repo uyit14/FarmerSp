@@ -196,7 +196,7 @@ public class DetailTDDActivity extends AppCompatActivity implements SwipeRefresh
 
     //
     private void UpdateTDD(){
-        pDialog.setMessage("Đang tải thông tin...!");
+        pDialog.setMessage("Đang xử lý...!");
         pDialog.setCancelable(false);
         pDialog.show();
         String mota = EdtDescription.getText().toString();

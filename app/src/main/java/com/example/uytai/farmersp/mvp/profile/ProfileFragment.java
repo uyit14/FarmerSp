@@ -123,7 +123,7 @@ public class ProfileFragment extends Fragment implements SwipeRefreshLayout.OnRe
     }
 
     private void editInforUser(){
-        pDialog.setMessage("Đang tải thông tin...!");
+        pDialog.setMessage("Đang xử lý...!");
         pDialog.setCancelable(false);
         pDialog.show();
         String ten = edt_name.getText().toString();

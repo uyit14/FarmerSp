@@ -246,7 +246,7 @@ public class DangTinActivity extends AppCompatActivity implements IDangTin.View 
 
     @Override
     public void showDialogProgress() {
-        pDialog.setMessage("Đang tải thông tin...!");
+        pDialog.setMessage("Đang xử lý...!");
         pDialog.setCancelable(false);
         pDialog.show();
     }

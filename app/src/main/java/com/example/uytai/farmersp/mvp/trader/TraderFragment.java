@@ -72,7 +72,7 @@ public class TraderFragment extends Fragment implements ITrader.View, SearchView
 
     private void initView() {
         recyclerviewTrader.setHasFixedSize(true);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerviewTrader.setLayoutManager(linearLayoutManager);
     }
 

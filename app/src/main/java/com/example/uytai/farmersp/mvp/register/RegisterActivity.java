@@ -182,7 +182,7 @@ public class RegisterActivity extends AppCompatActivity implements IRegister.Vie
 
     @Override
     public void showDialogProgress() {
-        pDialog.setMessage("Đang tải thông tin...!");
+        pDialog.setMessage("Đang xử lý...!");
         pDialog.setCancelable(false);
         pDialog.show();
     }
