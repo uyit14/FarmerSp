@@ -48,6 +48,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
 //        notifyDataSetChanged();
 //    }
 
+//search
     public void filter(String charText){
         charText = charText.toLowerCase(Locale.getDefault());
         arrFeed.clear();
