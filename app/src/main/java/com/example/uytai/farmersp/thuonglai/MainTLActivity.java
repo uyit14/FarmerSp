@@ -33,6 +33,7 @@ import com.example.uytai.farmersp.mvp.login.LoginActivity;
 import com.example.uytai.farmersp.retrofit.ApiClient;
 import com.example.uytai.farmersp.retrofit.ThuonglaiService;
 import com.example.uytai.farmersp.thuonglai.TinDangTL.TinDaDangTLActivity;
+import com.example.uytai.farmersp.thuonglai.nongsan.MapActivity;
 import com.example.uytai.farmersp.thuonglai.nongsan.NongSanActivity;
 import com.example.uytai.farmersp.thuonglai.profile.ProfileTLActivity;
 import com.example.uytai.farmersp.thuonglai.thongbao.ThongBaoTLActivity;
@@ -154,7 +155,7 @@ public class MainTLActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.item_nongsan) {
-            startActivity(new Intent(MainTLActivity.this, NongSanActivity.class));
+            startActivity(new Intent(MainTLActivity.this, MapActivity.class));
         } else if (id == R.id.item_thongbao) {
             startActivity(new Intent(MainTLActivity.this, ThongBaoTLActivity.class));
         } else if (id == R.id.item_canhan) {

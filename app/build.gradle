@@ -74,5 +74,7 @@ dependencies {
     // dexter runtime permissions
     implementation 'com.karumi:dexter:4.2.0'
     //
-    compile'com.github.ankitdubey021:GPSTracker:1.1'
+    compile 'com.github.ankitdubey021:GPSTracker:1.1'
+
+    compile 'com.google.maps.android:android-maps-utils:0.5+'
 }

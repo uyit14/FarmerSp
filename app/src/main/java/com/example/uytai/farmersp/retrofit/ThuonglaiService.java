@@ -4,6 +4,7 @@ import com.example.uytai.farmersp.model.NongDanModel;
 import com.example.uytai.farmersp.model.NongSanModelTL;
 import com.example.uytai.farmersp.model.ThuMuaModelTL;
 import com.example.uytai.farmersp.model.ThuongLaiModel;
+import com.example.uytai.farmersp.thuonglai.nongsan.LatLng;
 
 import java.util.List;
 
@@ -54,6 +55,9 @@ public interface ThuonglaiService {
 
     @GET("getnongsan.php")
     Call<List<NongSanModelTL>> getNongSanForTL();
+
+    @GET("getlatlng.php")
+    Call<List<LatLng>> getLatLng();
 
     @FormUrlEncoded
     @POST("getlistnsbyidloains.php")

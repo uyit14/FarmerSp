@@ -107,10 +107,11 @@ public class NongSanActivity extends AppCompatActivity implements GoogleApiClien
 
     private void updateUi() {
         if (mLastLocation != null) {
-            lat = mLastLocation.getLatitude();
-            lng = mLastLocation.getLongitude();
+//            lat = mLastLocation.getLatitude();
+//            lng = mLastLocation.getLongitude();
             latLng = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
-            //mMap.addMarker(new MarkerOptions().position(new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude())).title("You are here"));
+            Log.d("uytai", latLng.latitude + "_" + latLng.longitude);
+            mMap.addMarker(new MarkerOptions().position(new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude())).title("You are here"));
         }
     }
 

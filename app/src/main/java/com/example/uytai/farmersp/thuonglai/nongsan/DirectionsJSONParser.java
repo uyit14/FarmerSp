@@ -34,15 +34,15 @@ public class DirectionsJSONParser {
                 jLegs = ((JSONObject) jRoutes.get(i)).getJSONArray("legs");
                 List path = new ArrayList<HashMap<String, String>>();
 
-                HashMap<String, String> detail = new HashMap<String, String>();
-                String distance = jLegs.getJSONObject(0).getJSONObject("distance").getString("text");
-                String duration = jLegs.getJSONObject(0).getJSONObject("duration").getString("text");
-                detail.put("distance", distance);
-                detail.put("duration", duration);
-                detail.put("endAddress", jLegs.getJSONObject(0).getString("end_address"));
-                detail.put("startAddress", jLegs.getJSONObject(0).getString("start_address"));
-                path.add(detail);
-                routes.add(path);
+//                HashMap<String, String> detail = new HashMap<String, String>();
+//                String distance = jLegs.getJSONObject(0).getJSONObject("distance").getString("text");
+//                String duration = jLegs.getJSONObject(0).getJSONObject("duration").getString("text");
+//                detail.put("distance", distance);
+//                detail.put("duration", duration);
+//                detail.put("endAddress", jLegs.getJSONObject(0).getString("end_address"));
+//                detail.put("startAddress", jLegs.getJSONObject(0).getString("start_address"));
+//                path.add(detail);
+//                routes.add(path);
                 /** Traversing all legs */
                 for (int j = 0; j < jLegs.length(); j++) {
                     jSteps = ((JSONObject) jLegs.get(j)).getJSONArray("steps");
