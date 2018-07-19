@@ -120,9 +120,9 @@
         android:id="@+id/showmap"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:src="@drawable/map2"
-        android:scaleType="fitXY"
-        android:layout_width="35dp"
-        android:layout_height="35dp" />
+        android:src="@drawable/map70"
+        android:scaleType="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 </RelativeLayout>

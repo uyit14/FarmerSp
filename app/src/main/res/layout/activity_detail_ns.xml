@@ -115,6 +115,7 @@
                         android:layout_height="wrap_content" />
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/layout_address"
             android:layout_margin="5dp"
             android:orientation="horizontal"
             android:gravity="left|center"
@@ -129,8 +130,11 @@
                 android:id="@+id/diachi_detail"
                 android:layout_marginLeft="5dp"
                 android:layout_gravity="center_vertical"
-                android:textColor="@android:color/black"
+                android:textColor="@color/address"
                 android:text="08 Huu Nghi"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:drawableRight="@drawable/map"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>

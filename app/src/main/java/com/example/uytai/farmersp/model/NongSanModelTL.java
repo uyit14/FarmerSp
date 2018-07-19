@@ -53,6 +53,13 @@ public class NongSanModelTL implements Serializable {
     @SerializedName("id_quanhuyen")
     @Expose
     private int idQuanhuyen;
+    @SerializedName("lat")
+    @Expose
+    private double lat;
+    @SerializedName("lng")
+    @Expose
+    private double lng;
+
 
     public String getTen() {
         return ten;
@@ -164,5 +171,21 @@ public class NongSanModelTL implements Serializable {
 
     public void setIdQuanhuyen(int idQuanhuyen) {
         this.idQuanhuyen = idQuanhuyen;
+    }
+
+    public double getLat() {
+        return lat;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public double getLng() {
+        return lng;
+    }
+
+    public void setLng(double lng) {
+        this.lng = lng;
     }
 }

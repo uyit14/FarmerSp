@@ -22,6 +22,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.uytai.farmersp.R;
+import com.example.uytai.farmersp.config.Constant;
+import com.example.uytai.farmersp.model.NongSanModelTL;
 import com.example.uytai.farmersp.retrofit.ApiClient;
 import com.example.uytai.farmersp.retrofit.ThuonglaiService;
 import com.google.android.gms.common.ConnectionResult;
@@ -64,19 +66,48 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private Polyline mPolyline;
     LatLng here;
     ProgressDialog pDialog;
+    NongSanModelTL nongSanModelTL;
+    Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
         ButterKnife.bind(this);
-        pDialog = new ProgressDialog(this);
-        requestGetListNongSan();
         //install google api client
         GoogleAuthenController.getInstance().install(this, this, this);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        pDialog = new ProgressDialog(this);
+        bundle = getIntent().getBundleExtra(Constant.KEY_PUT_BUNDLE);
+
+    }
+
+    private void requestshowDetail() {
+        nongSanModelTL = (NongSanModelTL) bundle.getSerializable(Constant.KEY_PUT_OBJECT);
+        if (nongSanModelTL != null) {
+            addMarkertoOnePlace(nongSanModelTL.getLat(), nongSanModelTL.getLng(), nongSanModelTL.getTennongsan());
+        }
+    }
+
+    private void addMarkertoOnePlace(double latDetail, double lngDetail, String tenns) {
+        LatLng DetailLatLng = new LatLng(latDetail, lngDetail);
+        TextView text = new TextView(getApplicationContext());
+        text.setText(tenns);
+        text.setTextColor(getResources().getColor(R.color.cl_black));
+        text.setTypeface(Typeface.DEFAULT_BOLD);
+        text.setBackground(getResources().getDrawable(R.color.colorMain));
+        IconGenerator generator = new IconGenerator(getApplicationContext());
+        //generator.setBackground(getResources().getDrawable(R.drawable.custom_marker));
+        generator.setContentView(text);
+        Bitmap icon = generator.makeIcon();
+        MarkerOptions tp = new MarkerOptions().position(DetailLatLng).icon(BitmapDescriptorFactory.fromBitmap(icon));
+//        mMap.moveCamera(CameraUpdateFactory.newLatLng(DetailLatLng));
+//        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(DetailLatLng, 15));
+//        //move camera
+//        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latDetail, lngDetail), 13));
+        mMap.addMarker(tp);
     }
 
     private void addAllDatatomarker() {
@@ -105,8 +136,13 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     @OnClick(R.id.current)
-    void getCurrent(){
+    void getCurrent() {
         getCurrentLocation();
+    }
+
+    @OnClick(R.id.showall)
+    void showAll(){
+        requestGetListNongSan();
     }
 
 
@@ -124,16 +160,16 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     if (response != null) {
                         latLngList.addAll(response.body());
                         addAllDatatomarker();
-                        if(pDialog.isShowing())
+                        if (pDialog.isShowing())
                             pDialog.dismiss();
                     } else {
                         Toast.makeText(getApplicationContext(), "Chưa có dữ liệu", Toast.LENGTH_SHORT).show();
-                        if(pDialog.isShowing())
+                        if (pDialog.isShowing())
                             pDialog.dismiss();
                     }
                 } else {
                     Toast.makeText(getApplicationContext(), "Thất bại", Toast.LENGTH_SHORT).show();
-                    if(pDialog.isShowing())
+                    if (pDialog.isShowing())
                         pDialog.dismiss();
                 }
             }
@@ -164,13 +200,17 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-
+        this.mMap = googleMap;
         // Add a marker in Sydney, Australia, and move the camera.
 //        LatLng here = new LatLng(10.8030111, 106.721324);
 //        mMap.addMarker(new MarkerOptions().position(here).title("You are here"));
 //        mMap.moveCamera(CameraUpdateFactory.newLatLng(here));
 //        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(here, 15));
+        if (bundle != null) {
+            requestshowDetail();
+        } else {
+            requestGetListNongSan();
+        }
         mMap.setOnMarkerClickListener(this);
     }
 
@@ -192,7 +232,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     private void getCurrentLocation() {
         if (ActivityCompat.checkSelfPermission(MapActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(MapActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            Log.d("uytai", "reuturn");
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
@@ -204,16 +243,14 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         }
         Location lastLocation = LocationServices.FusedLocationApi.getLastLocation(GoogleAuthenController.getInstance().getGoogleApiClient());
         if (lastLocation != null) {
-            Log.d("uytai", lastLocation.getLatitude()+"_");
             here = new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude());
             Marker marker = mMap.addMarker(new MarkerOptions().position(here).title("Bạn ở đây"));
             marker.showInfoWindow();
             mMap.moveCamera(CameraUpdateFactory.newLatLng(here));
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(here, 15));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(here, 8));
             //move camera
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude()), 13));
+           // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude()), 13));
         } else {
-            Log.d("uytai", "null");
             //mTextViewStartLocation.setText(getResources().getString(R.string.booking_pic_start_location));
         }
     }
@@ -221,8 +258,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        mMap.clear();
-        finish();
     }
 
     @Override
@@ -236,9 +271,13 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         String url = getDirectionsUrl(here, mDestLocation);
         DownloadTask downloadTask = new DownloadTask();
         downloadTask.execute(url);
-        for(int i =0 ; i<latLngList.size();i++){
-            if(marker.getPosition().latitude==latLngList.get(i).getLatRS()){
-                showPopUp(latLngList.get(i).getTenlhRS(), latLngList.get(i).getSdtlhRS(), latLngList.get(i).getMotaRS());
+        if(nongSanModelTL!=null && latLngList.size()<=0){
+            showPopUp(nongSanModelTL.getTenLh(), nongSanModelTL.getSdtLh(), nongSanModelTL.getMota());
+        }else{
+            for (int i = 0; i < latLngList.size(); i++) {
+                if (marker.getPosition().latitude == latLngList.get(i).getLatRS()) {
+                    showPopUp(latLngList.get(i).getTenlhRS(), latLngList.get(i).getSdtlhRS(), latLngList.get(i).getMotaRS());
+                }
             }
         }
         return true;
@@ -246,7 +285,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     //
     PopupWindow popupWindow;
-    private void showPopUp(String tenlh, String sdtlh, String mota){
+
+    private void showPopUp(String tenlh, String sdtlh, String mota) {
         View view = getLayoutInflater().inflate(R.layout.popup_nongsan_detail, null);
         popupWindow = new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
         //popupWindow.setAnimationStyle(android.R.style.Animation_Dialog);

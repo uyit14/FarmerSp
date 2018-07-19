@@ -4,14 +4,12 @@ import android.Manifest;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.media.Image;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.example.uytai.farmersp.R;
 import com.example.uytai.farmersp.config.Constant;
 import com.example.uytai.farmersp.model.NongSanModelTL;
+import com.example.uytai.farmersp.thuonglai.nongsan.MapActivity;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -79,7 +78,7 @@ public class DetailNSActivity extends AppCompatActivity {
     }
 
     private void setInfor() {
-        if(nongSanModelTL!=null){
+        if (nongSanModelTL != null) {
             tv_description.setText(nongSanModelTL.getMota());
             tv_name.setText(nongSanModelTL.getTen());
             tv_diachi.setText(nongSanModelTL.getDiachi());
@@ -95,16 +94,23 @@ public class DetailNSActivity extends AppCompatActivity {
 
     private void getDateDetail() {
         Bundle bundle = getIntent().getBundleExtra(Constant.KEY_PUT_BUNDLE);
-        if(bundle!=null){
+        if (bundle != null) {
             nongSanModelTL = (NongSanModelTL) bundle.getSerializable(Constant.KEY_PUT_OBJECT);
-            Log.d("uytai123", nongSanModelTL.getTen());
         }
     }
 
+    @OnClick(R.id.layout_address)
+    void GotoMap(){
+        Intent intent = new Intent(DetailNSActivity.this, MapActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(Constant.KEY_PUT_OBJECT, nongSanModelTL);
+        intent.putExtra(Constant.KEY_PUT_BUNDLE, bundle);
+        startActivity(intent);
+    }
 
     //
     @OnClick(R.id.sdt_detail)
-    void callNow(){
+    void callNow() {
         checkAndRequestPermissions();
         showDialogConfirm();
     }
@@ -141,6 +147,7 @@ public class DetailNSActivity extends AppCompatActivity {
         intent.setData(Uri.parse("tel:" + tv_sdt.getText().toString()));
         startActivity(intent);
     }
+
     //send mess
     private void intentSendMesseage() {
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("sms:" + tv_sdt.getText().toString()));
