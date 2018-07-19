@@ -31,7 +31,11 @@
             android:theme="@style/Base.Theme.AppCompat" />
         <activity android:name=".mvp.onboarding.OnboardingActivity" />
         <activity android:name=".mvp.onboarding.SplashScreenActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".thuonglai.MainTLActivity" />
         <activity android:name=".thuonglai.nongsan.NongSanActivity" />
@@ -48,11 +52,7 @@
             android:value="AIzaSyB0hZbQUu4KgiA6PqtdJ6PlOe-l-qvq6n0" />
 
         <activity android:name=".thuonglai.nongsan.MapActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

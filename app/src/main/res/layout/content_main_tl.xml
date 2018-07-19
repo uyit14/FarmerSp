@@ -116,5 +116,13 @@
         </android.support.v4.widget.SwipeRefreshLayout>
 
     </LinearLayout>
+    <ImageView
+        android:id="@+id/showmap"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/map2"
+        android:scaleType="fitXY"
+        android:layout_width="35dp"
+        android:layout_height="35dp" />
 
 </RelativeLayout>

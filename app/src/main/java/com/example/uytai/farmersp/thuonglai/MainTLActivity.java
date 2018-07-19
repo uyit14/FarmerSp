@@ -14,13 +14,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,7 +31,6 @@ import com.example.uytai.farmersp.retrofit.ApiClient;
 import com.example.uytai.farmersp.retrofit.ThuonglaiService;
 import com.example.uytai.farmersp.thuonglai.TinDangTL.TinDaDangTLActivity;
 import com.example.uytai.farmersp.thuonglai.nongsan.MapActivity;
-import com.example.uytai.farmersp.thuonglai.nongsan.NongSanActivity;
 import com.example.uytai.farmersp.thuonglai.profile.ProfileTLActivity;
 import com.example.uytai.farmersp.thuonglai.thongbao.ThongBaoTLActivity;
 
@@ -52,17 +48,19 @@ import retrofit2.Response;
 public class MainTLActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, SwipeRefreshLayout.OnRefreshListener {
 
-//    @BindView(R.id.listviewnongsan)
+    //    @BindView(R.id.listviewnongsan)
 //    ListView listView;
     @BindView(R.id.recyclerviewFeedTL)
     RecyclerView recyclerView;
-//    @BindView(R.id.search_nongsan)
+    //    @BindView(R.id.search_nongsan)
 //    SearchView searchView;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.swip_nongsan_tl)
     SwipeRefreshLayout swipeRefreshLayout;
     ProgressDialog pDialog;
+    @BindView(R.id.showmap)
+    ImageView showmap;
 
     public static ThuongLaiModel thuongLaiModel;
     List<NongSanModelTL> listNongSan;
@@ -113,7 +111,7 @@ public class MainTLActivity extends AppCompatActivity
 
     private void getUser() {
         Bundle bundle = getIntent().getBundleExtra(Constant.KEY_PUT_BUNDLE);
-        if(bundle!=null){
+        if (bundle != null) {
             thuongLaiModel = (ThuongLaiModel) bundle.getSerializable(Constant.KEY_PUT_OBJECT);
         }
     }
@@ -160,7 +158,7 @@ public class MainTLActivity extends AppCompatActivity
             startActivity(new Intent(MainTLActivity.this, ThongBaoTLActivity.class));
         } else if (id == R.id.item_canhan) {
             startActivity(new Intent(MainTLActivity.this, ProfileTLActivity.class));
-        }else if(id==R.id.item_tdd_tl){
+        } else if (id == R.id.item_tdd_tl) {
             startActivity(new Intent(MainTLActivity.this, TinDaDangTLActivity.class));
         } else if (id == R.id.item_dangxuat) {
             startActivity(new Intent(MainTLActivity.this, LoginActivity.class));
@@ -171,10 +169,14 @@ public class MainTLActivity extends AppCompatActivity
         return true;
     }
 
+    @OnClick(R.id.showmap)
+    void ShowMap() {
+        startActivity(new Intent(MainTLActivity.this, MapActivity.class));
+    }
 
 
     //------GET DATA FROM SERVER------//
-    private void requestGetListNongSan(){
+    private void requestGetListNongSan() {
         pDialog.setMessage("Đang tải thông tin...!");
         pDialog.setCancelable(false);
         pDialog.show();
@@ -183,23 +185,23 @@ public class MainTLActivity extends AppCompatActivity
         call.enqueue(new Callback<List<NongSanModelTL>>() {
             @Override
             public void onResponse(Call<List<NongSanModelTL>> call, Response<List<NongSanModelTL>> response) {
-                if(response.isSuccessful()){
-                    if(response!=null){
+                if (response.isSuccessful()) {
+                    if (response != null) {
                         listNongSan.clear();
                         listNongSan.addAll(response.body());
                         mainTLAdapter = new MainTLAdapter(MainTLActivity.this, listNongSan);
                         recyclerView.setAdapter(mainTLAdapter);
                         mainTLAdapter.notifyDataSetChanged();
-                        if(pDialog.isShowing())
+                        if (pDialog.isShowing())
                             pDialog.dismiss();
-                    }else{
+                    } else {
                         Toast.makeText(getApplicationContext(), "Chưa có dữ liệu", Toast.LENGTH_SHORT).show();
-                        if(pDialog.isShowing())
+                        if (pDialog.isShowing())
                             pDialog.dismiss();
                     }
-                }else{
+                } else {
                     Toast.makeText(getApplicationContext(), "Thất bại", Toast.LENGTH_SHORT).show();
-                    if(pDialog.isShowing())
+                    if (pDialog.isShowing())
                         pDialog.dismiss();
                 }
             }
@@ -207,14 +209,14 @@ public class MainTLActivity extends AppCompatActivity
             @Override
             public void onFailure(Call<List<NongSanModelTL>> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "Tải thông tin thất bại, xin thử lại sau!", Toast.LENGTH_SHORT).show();
-                if(pDialog.isShowing())
+                if (pDialog.isShowing())
                     pDialog.dismiss();
             }
         });
     }
 
     //by id loai ns
-    private void requestGetListNongSanbyidLoains(int idloains){
+    private void requestGetListNongSanbyidLoains(int idloains) {
         pDialog.setMessage("Đang tải thông tin...!");
         pDialog.setCancelable(false);
         pDialog.show();
@@ -223,14 +225,14 @@ public class MainTLActivity extends AppCompatActivity
         call.enqueue(new Callback<List<NongSanModelTL>>() {
             @Override
             public void onResponse(Call<List<NongSanModelTL>> call, Response<List<NongSanModelTL>> response) {
-                if(response.isSuccessful()){
-                    if(response!=null){
+                if (response.isSuccessful()) {
+                    if (response != null) {
                         listNongSan.clear();
                         listNongSan.addAll(response.body());
                         mainTLAdapter = new MainTLAdapter(MainTLActivity.this, listNongSan);
                         recyclerView.setAdapter(mainTLAdapter);
                         mainTLAdapter.notifyDataSetChanged();
-                        if(pDialog.isShowing())
+                        if (pDialog.isShowing())
                             pDialog.dismiss();
                     }
                 }
@@ -239,7 +241,7 @@ public class MainTLActivity extends AppCompatActivity
             @Override
             public void onFailure(Call<List<NongSanModelTL>> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "Tải thông tin thất bại, xin thử lại sau!", Toast.LENGTH_SHORT).show();
-                if(pDialog.isShowing())
+                if (pDialog.isShowing())
                     pDialog.dismiss();
             }
         });
@@ -257,22 +259,24 @@ public class MainTLActivity extends AppCompatActivity
     }
 
 
-
     //
     @OnClick(R.id.tatcat)
-    void TatCa(){
+    void TatCa() {
         requestGetListNongSan();
     }
+
     @OnClick(R.id.anqua)
-    void AnQua(){
+    void AnQua() {
         requestGetListNongSanbyidLoains(1);
     }
+
     @OnClick(R.id.congnghiep)
-    void CongNghiep(){
+    void CongNghiep() {
         requestGetListNongSanbyidLoains(2);
     }
+
     @OnClick(R.id.khac)
-    void Khac(){
+    void Khac() {
         requestGetListNongSanbyidLoains(0);
     }
 }

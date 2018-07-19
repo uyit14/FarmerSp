@@ -6,8 +6,8 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/item_nongsan"
-            android:icon="@drawable/ic_tab_feed"
-            android:title="Nông dân" />
+            android:icon="@drawable/map_icon"
+            android:title="Bản đồ" />
         <item
             android:id="@+id/item_thongbao"
             android:icon="@drawable/ic_tab_notification"

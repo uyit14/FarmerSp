@@ -1,9 +1,9 @@
 package com.example.uytai.farmersp.thuonglai.nongsan;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.location.Location;
 import android.os.AsyncTask;
@@ -12,9 +12,12 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,7 +31,6 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -49,6 +51,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -59,11 +63,14 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     List<com.example.uytai.farmersp.thuonglai.nongsan.LatLng> latLngList = new ArrayList<>();
     private Polyline mPolyline;
     LatLng here;
+    ProgressDialog pDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+        ButterKnife.bind(this);
+        pDialog = new ProgressDialog(this);
         requestGetListNongSan();
         //install google api client
         GoogleAuthenController.getInstance().install(this, this, this);
@@ -97,9 +104,17 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         }, 2000);
     }
 
+    @OnClick(R.id.current)
+    void getCurrent(){
+        getCurrentLocation();
+    }
+
 
     //------GET DATA FROM SERVER------//
     private void requestGetListNongSan() {
+        pDialog.setMessage("Đang tải thông tin...!");
+        pDialog.setCancelable(false);
+        pDialog.show();
         ThuonglaiService thuonglaiService = ApiClient.getClient().create(ThuonglaiService.class);
         Call<List<com.example.uytai.farmersp.thuonglai.nongsan.LatLng>> call = thuonglaiService.getLatLng();
         call.enqueue(new Callback<List<com.example.uytai.farmersp.thuonglai.nongsan.LatLng>>() {
@@ -109,12 +124,17 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     if (response != null) {
                         latLngList.addAll(response.body());
                         addAllDatatomarker();
+                        if(pDialog.isShowing())
+                            pDialog.dismiss();
                     } else {
                         Toast.makeText(getApplicationContext(), "Chưa có dữ liệu", Toast.LENGTH_SHORT).show();
+                        if(pDialog.isShowing())
+                            pDialog.dismiss();
                     }
                 } else {
                     Toast.makeText(getApplicationContext(), "Thất bại", Toast.LENGTH_SHORT).show();
-
+                    if(pDialog.isShowing())
+                        pDialog.dismiss();
                 }
             }
 
@@ -172,6 +192,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     private void getCurrentLocation() {
         if (ActivityCompat.checkSelfPermission(MapActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(MapActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            Log.d("uytai", "reuturn");
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
@@ -183,7 +204,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         }
         Location lastLocation = LocationServices.FusedLocationApi.getLastLocation(GoogleAuthenController.getInstance().getGoogleApiClient());
         if (lastLocation != null) {
-
+            Log.d("uytai", lastLocation.getLatitude()+"_");
             here = new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude());
             Marker marker = mMap.addMarker(new MarkerOptions().position(here).title("Bạn ở đây"));
             marker.showInfoWindow();
@@ -192,8 +213,16 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             //move camera
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude()), 13));
         } else {
+            Log.d("uytai", "null");
             //mTextViewStartLocation.setText(getResources().getString(R.string.booking_pic_start_location));
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        mMap.clear();
+        finish();
     }
 
     @Override
@@ -207,7 +236,27 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         String url = getDirectionsUrl(here, mDestLocation);
         DownloadTask downloadTask = new DownloadTask();
         downloadTask.execute(url);
+        for(int i =0 ; i<latLngList.size();i++){
+            if(marker.getPosition().latitude==latLngList.get(i).getLatRS()){
+                showPopUp(latLngList.get(i).getTenlhRS(), latLngList.get(i).getSdtlhRS(), latLngList.get(i).getMotaRS());
+            }
+        }
         return true;
+    }
+
+    //
+    PopupWindow popupWindow;
+    private void showPopUp(String tenlh, String sdtlh, String mota){
+        View view = getLayoutInflater().inflate(R.layout.popup_nongsan_detail, null);
+        popupWindow = new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        //popupWindow.setAnimationStyle(android.R.style.Animation_Dialog);
+        popupWindow.showAtLocation(view, Gravity.TOP, 0, 0);
+        TextView des = view.findViewById(R.id.des);
+        TextView phone = view.findViewById(R.id.phone);
+        TextView name = view.findViewById(R.id.name);
+        des.setText(mota);
+        phone.setText(sdtlh);
+        name.setText(tenlh);
     }
 
 

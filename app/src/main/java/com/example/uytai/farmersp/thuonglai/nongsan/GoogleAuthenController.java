@@ -31,7 +31,7 @@ public class GoogleAuthenController {
         if (instance == null) {
             instance = new GoogleAuthenController();
         }
-        return instance;
+        return  instance;
     }
 
     public void install(final Context context, GoogleApiClient.OnConnectionFailedListener onConnectionFailedListener, GoogleApiClient.ConnectionCallbacks connectionCallbacks) {
