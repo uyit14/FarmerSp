@@ -38,31 +38,31 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-    compile "com.android.support:cardview-v7:26.1.0"
+    implementation "com.android.support:cardview-v7:26.1.0"
 
     //===Retrofit===//
-    compile "com.squareup.retrofit2:adapter-rxjava:${retrofit}"
-    compile "com.squareup.retrofit2:converter-gson:${retrofit}"
-    compile "com.squareup.retrofit2:retrofit:${retrofit}"
-    compile "com.squareup.okhttp3:logging-interceptor:${okhttp}"
+    implementation "com.squareup.retrofit2:adapter-rxjava:${retrofit}"
+    implementation "com.squareup.retrofit2:converter-gson:${retrofit}"
+    implementation "com.squareup.retrofit2:retrofit:${retrofit}"
+    implementation "com.squareup.okhttp3:logging-interceptor:${okhttp}"
 
     //====Butterknife====//
-    compile "com.jakewharton:butterknife:${butterknife}"
+    implementation "com.jakewharton:butterknife:${butterknife}"
     annotationProcessor "com.jakewharton:butterknife-compiler:${butterknife}"
 
     //===Glide ===/
-    compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile 'jp.wasabeef:glide-transformations:2.0.2'
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
+    implementation 'jp.wasabeef:glide-transformations:2.0.2'
     //==crop==/
-    compile 'com.theartofdev.edmodo:android-image-cropper:2.5.+'
+    implementation 'com.theartofdev.edmodo:android-image-cropper:2.5.+'
 
     //Design
     implementation 'com.android.support:design:26.1.0'
-    compile 'de.hdodenhof:circleimageview:2.2.0'
-    compile 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
 
     //Recyclerview
-    compile 'com.android.support:recyclerview-v7:26.1.0'
+    implementation 'com.android.support:recyclerview-v7:26.1.0'
     //chart
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
     //m
@@ -74,7 +74,7 @@ dependencies {
     // dexter runtime permissions
     implementation 'com.karumi:dexter:4.2.0'
     //
-    compile 'com.github.ankitdubey021:GPSTracker:1.1'
+    implementation 'com.github.ankitdubey021:GPSTracker:1.1'
 
-    compile 'com.google.maps.android:android-maps-utils:0.5+'
+    implementation 'com.google.maps.android:android-maps-utils:0.5+'
 }

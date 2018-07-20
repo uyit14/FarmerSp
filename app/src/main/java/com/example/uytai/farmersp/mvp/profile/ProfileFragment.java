@@ -12,6 +12,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,7 @@ import com.example.uytai.farmersp.mvp.login.LoginActivity;
 import com.example.uytai.farmersp.mvp.tindadang.TinDaDangActivity;
 import com.example.uytai.farmersp.retrofit.ApiClient;
 import com.example.uytai.farmersp.retrofit.NongDanService;
+import com.example.uytai.farmersp.thuonglai.MainTLActivity;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.io.File;
@@ -116,6 +118,7 @@ public class ProfileFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
 
     private void setInforUser() {
+        Log.d("uytai123", MainActivity.nongDanModel.getAvatar());
         edt_name.setText(MainActivity.nongDanModel.getTen().toString());
         edt_status.setText(MainActivity.nongDanModel.getStatus().toString());
         edt_phone.setText(MainActivity.nongDanModel.getSdt());
@@ -126,11 +129,17 @@ public class ProfileFragment extends Fragment implements SwipeRefreshLayout.OnRe
         pDialog.setMessage("Đang xử lý...!");
         pDialog.setCancelable(false);
         pDialog.show();
+        String newAvatar;
+        if(!hinhanh.equals("")){
+            newAvatar = hinhanh;
+        }else{
+            newAvatar = MainActivity.nongDanModel.getAvatar();
+        }
         String ten = edt_name.getText().toString();
         String sdt = edt_phone.getText().toString();
         String status = edt_status.getText().toString();
         NongDanService nongDanService = ApiClient.getClient().create(NongDanService.class);
-        Call<POST> call = nongDanService.editProfile(MainActivity.nongDanModel.getId(), ten, status, sdt, hinhanh);
+        Call<POST> call = nongDanService.editProfile(MainActivity.nongDanModel.getId(), ten, status, sdt, newAvatar);
         call.enqueue(new Callback<POST>() {
             @Override
             public void onResponse(Call<POST> call, Response<POST> response) {
@@ -209,7 +218,7 @@ public class ProfileFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
     //------------- chon anh--------------//
     private static final int GALLERY_PICK = 1;
-    String hinhanh;
+    String hinhanh="";
     public void onPickPhoto(View view){
         Intent galleryIntent = new Intent();
         galleryIntent.setType("image/*");

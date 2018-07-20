@@ -58,6 +58,7 @@ public class TinDaDangAdapter extends RecyclerView.Adapter<TinDaDangAdapter.TinD
                 Bundle bundle = new Bundle();
                 bundle.putSerializable(Constant.KEY_PUT_OBJECT, arrNongsan.get(position));
                 intent.putExtra(Constant.KEY_PUT_BUNDLE, bundle);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
             }
         });

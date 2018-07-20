@@ -116,6 +116,7 @@ public class TraderAdapter extends RecyclerView.Adapter<TraderAdapter.TraderView
             Bundle bundle = new Bundle();
             bundle.putSerializable(Constant.KEY_PUT_BUNDLE, thuongLaiModel);
             intent.putExtra(Constant.KEY_PUT_OBJECT, bundle);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         }
     }
