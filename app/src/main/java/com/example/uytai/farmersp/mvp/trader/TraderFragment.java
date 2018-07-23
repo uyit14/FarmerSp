@@ -112,7 +112,6 @@ public class TraderFragment extends Fragment implements ITrader.View, SearchView
 
     @Override
     public boolean onQueryTextChange(String s) {
-        Log.d("uytai123", s+"");
         traderAdapter.filter(s);
         return true;
     }

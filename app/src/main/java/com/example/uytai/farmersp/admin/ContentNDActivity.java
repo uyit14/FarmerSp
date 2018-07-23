@@ -80,13 +80,11 @@ public class ContentNDActivity extends AppCompatActivity {
                         if(pDialog.isShowing())
                             pDialog.dismiss();
                     }else{
-                        Log.d("uytai123", "respone_null");
                         if(pDialog.isShowing())
                             pDialog.dismiss();
                     }
                 }else{
 //                    Log.d("uytai123", "respone_null_" +MainActivity.nongDanModel.getId());
-                    Log.d("uytai123", "respone_fail");
                     if(pDialog.isShowing())
                         pDialog.dismiss();
                 }

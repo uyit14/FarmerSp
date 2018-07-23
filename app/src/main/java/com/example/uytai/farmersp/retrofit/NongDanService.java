@@ -79,7 +79,7 @@ public interface NongDanService {
                                     @Field("sdt_lh") String sdt_lh, @Field("diachi") String diachi,
                                          @Field("hinhanh") String hinhanh, @Field("mota") String mota,
                                          @Field("id_nongdan") int id_nd, @Field("id_loains") int id_loains,
-                                         @Field("id_quanhuyen") int id_quanhuyen );
+                                         @Field("id_quanhuyen") int id_quanhuyen, @Field("lat") double lat, @Field("lng") double lng);
 
     @FormUrlEncoded
     @POST("editnongsan.php")

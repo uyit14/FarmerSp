@@ -66,10 +66,10 @@ public class ThongBaoTLActivity extends AppCompatActivity {
         pieChart.setHoleColor(Color.WHITE);
         pieChart.animateY(1000, Easing.EasingOption.EaseInOutCubic);
         ArrayList<PieEntry> yValues = new ArrayList<>();
-        yValues.add(new PieEntry(45f,"Ăn quả"));
-        yValues.add(new PieEntry(25f,"Công nghiệp"));
-        yValues.add(new PieEntry(20f,"Lương thực"));
-        yValues.add(new PieEntry(10f,"Khác"));
+        yValues.add(new PieEntry(5f,"Ăn quả"));
+        yValues.add(new PieEntry(2f,"Công nghiệp"));
+        yValues.add(new PieEntry(1f,"Lương thực"));
+        //yValues.add(new PieEntry(0f,"Khác"));
 
         PieDataSet dataSet = new PieDataSet(yValues, "");
         dataSet.setSliceSpace(3f);
@@ -92,10 +92,10 @@ public class ThongBaoTLActivity extends AppCompatActivity {
         pieChart2.setHoleColor(Color.WHITE);
         pieChart2.animateY(1000, Easing.EasingOption.EaseInOutCubic);
         ArrayList<PieEntry> yValues = new ArrayList<>();
-        yValues.add(new PieEntry(25f,"Tiền Giang"));
-        yValues.add(new PieEntry(25f,"TP. HCM"));
-        yValues.add(new PieEntry(25f,"Trà Vinh"));
-        yValues.add(new PieEntry(25f,"Bến tre"));
+        yValues.add(new PieEntry(2f,"Tiền Giang"));
+        yValues.add(new PieEntry(1f,"Đắk Lắk"));
+        yValues.add(new PieEntry(3f,"Trà Vinh"));
+        yValues.add(new PieEntry(1f,"Bến tre"));
 
         PieDataSet dataSet = new PieDataSet(yValues, "");
         dataSet.setSliceSpace(3f);

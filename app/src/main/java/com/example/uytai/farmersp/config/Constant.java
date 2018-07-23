@@ -14,4 +14,5 @@ public class Constant {
   public static final String KEY_PUT_STATUS = "key_put_status";
   public static final String KEY_PUT_USERNAME = "key_put_username";
   public static final String KEY_PUT_PASSWORD = "key_put_pass";
+//  https://docs.google.com/document/d/13pgUy-duThoJ1brgw32Wve3e0TA996Zol0fp9palgcY/edit?usp=sharing
 }

@@ -28,11 +28,12 @@ public class DangTinPresenter implements IDangTin.Presenter {
 
     @Override
     public void requestDangTin() {
+        Log.d("uytai", DangTinActivity.lat+"_");
         mDangTinView.showDialogProgress();
         NongDanService nongDanService = ApiClient.getClient().create(NongDanService.class);
         Call<List<NongSanModel>> call = nongDanService.themnongsan(DangTinActivity.tennongsan, DangTinActivity.tg_batdau, DangTinActivity.tg_ketthuc,
                 DangTinActivity.ten_lh, DangTinActivity.sdt_lh, DangTinActivity.diachi, DangTinActivity.hinhanh, DangTinActivity.mota,
-                DangTinActivity.id_nd, DangTinActivity.id_loains_them, DangTinActivity.id_quanhuyen_them);
+                DangTinActivity.id_nd, DangTinActivity.id_loains_them, DangTinActivity.id_quanhuyen_them, DangTinActivity.lat, DangTinActivity.lng);
         call.enqueue(new Callback<List<NongSanModel>>() {
             @Override
             public void onResponse(Call<List<NongSanModel>> call, Response<List<NongSanModel>> response) {

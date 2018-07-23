@@ -76,11 +76,11 @@ public class MyTraderFragment extends Fragment {
         pieChart.setHoleColor(Color.WHITE);
         pieChart.animateY(1000, Easing.EasingOption.EaseInOutCubic);
         ArrayList<PieEntry> yValues = new ArrayList<>();
-        yValues.add(new PieEntry(30,"Bưởi"));
-        yValues.add(new PieEntry(20,"Xoài"));
-        yValues.add(new PieEntry(20,"Cam"));
-        yValues.add(new PieEntry(15,"Cà phê"));
-        yValues.add(new PieEntry(15,"Hồ Tiêu"));
+        yValues.add(new PieEntry(1,"Bưởi"));
+        yValues.add(new PieEntry(1,"Xoài"));
+        yValues.add(new PieEntry(1,"Cam"));
+        yValues.add(new PieEntry(1,"Ổi"));
+        yValues.add(new PieEntry(4,"Khác"));
 
         PieDataSet dataSet = new PieDataSet(yValues, "");
         dataSet.setSliceSpace(3f);

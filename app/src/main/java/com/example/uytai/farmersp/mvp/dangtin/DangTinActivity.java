@@ -1,14 +1,16 @@
 package com.example.uytai.farmersp.mvp.dangtin;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -19,16 +21,17 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.uytai.farmersp.MainActivity;
 import com.example.uytai.farmersp.R;
 import com.example.uytai.farmersp.config.Constant;
 import com.example.uytai.farmersp.model.LoaiNSModel;
 import com.example.uytai.farmersp.model.QuanHuyenModel;
 import com.example.uytai.farmersp.model.TinhThanhModel;
 import com.example.uytai.farmersp.mvp.tindadang.TinDaDangActivity;
+import com.google.android.gms.maps.model.LatLng;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,17 +42,19 @@ import butterknife.OnClick;
 public class DangTinActivity extends AppCompatActivity implements IDangTin.View {
 
     //
-    public static String tennongsan="";
+    public static String tennongsan = "";
     public static String tg_batdau = "";
     public static String tg_ketthuc = "";
-    public static String ten_lh="";
-    public static String sdt_lh="";
-    public static String diachi="";
-    public static String hinhanh="";
-    public static String mota="";
-    public static int id_nd=0;
-    public static int id_loains_them=0;
-    public static int id_quanhuyen_them=0;
+    public static String ten_lh = "";
+    public static String sdt_lh = "";
+    public static String diachi = "";
+    public static String hinhanh = "";
+    public static String mota = "";
+    public static int id_nd = 0;
+    public static int id_loains_them = 0;
+    public static int id_quanhuyen_them = 0;
+    public static double lat = 0;
+    public static double lng = 0;
     //
     @BindView(R.id.tennongsan_dangtin)
     EditText edt_tennongsan;
@@ -128,7 +133,7 @@ public class DangTinActivity extends AppCompatActivity implements IDangTin.View 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 QHadapter.clear();
-                dangTinPresenter.requestGetQuanHuyen(position+1);
+                dangTinPresenter.requestGetQuanHuyen(position + 1);
             }
 
             @Override
@@ -137,11 +142,11 @@ public class DangTinActivity extends AppCompatActivity implements IDangTin.View 
         });
     }
 
-    private void getDataDangTin(){
+    private void getDataDangTin() {
         sp_loains.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                id_loains_them = position+1;
+                id_loains_them = position + 1;
             }
 
             @Override
@@ -153,7 +158,7 @@ public class DangTinActivity extends AppCompatActivity implements IDangTin.View 
         sp_quanhuyen.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                id_quanhuyen_them = position+1;
+                id_quanhuyen_them = position + 1;
             }
 
             @Override
@@ -170,14 +175,38 @@ public class DangTinActivity extends AppCompatActivity implements IDangTin.View 
         ten_lh = edt_tenlienhe.getText().toString();
         sdt_lh = edt_sdt.getText().toString();
         diachi = edt_diachi.getText().toString();
+        getLocationFromAddress(getApplicationContext(), diachi);
         mota = edt_mota.getText().toString();
-        if(tennongsan.equals("") || tg_batdau.equals("") || tg_ketthuc.equals("")
+        if (tennongsan.equals("") || tg_batdau.equals("") || tg_ketthuc.equals("")
                 || sdt_lh.equals("") || ten_lh.equals("") || diachi.equals("")
-                || mota.equals("")){
+                || mota.equals("")) {
             Toast.makeText(getApplicationContext(), "Vui lòng điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
-        }else{
+        } else {
             dangTinPresenter.requestDangTin();
         }
+    }
+
+    public LatLng getLocationFromAddress(Context context, String strAddress) {
+        Geocoder coder = new Geocoder(context);
+        List<Address> address;
+        LatLng p1 = null;
+        try {
+            // May throw an IOException
+            address = coder.getFromLocationName(strAddress, 5);
+            if (address == null) {
+                return null;
+            }
+
+            Address location = address.get(0);
+            p1 = new LatLng(location.getLatitude(), location.getLongitude());
+            lat = p1.latitude;
+            lng = p1.longitude;
+
+        } catch (IOException ex) {
+
+            ex.printStackTrace();
+        }
+        return p1;
     }
 
     @Override
@@ -194,8 +223,8 @@ public class DangTinActivity extends AppCompatActivity implements IDangTin.View 
 
     @Override
     public void getLoaiNSSuccess(List<LoaiNSModel> loaiNSModels) {
-        if(loaiNSModels!=null){
-            for(int i = 0 ; i<loaiNSModels.size(); i++){
+        if (loaiNSModels != null) {
+            for (int i = 0; i < loaiNSModels.size(); i++) {
                 arrLoains.add(loaiNSModels.get(i).getTenloains());
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),
                         android.R.layout.simple_spinner_dropdown_item, arrLoains);
@@ -211,7 +240,7 @@ public class DangTinActivity extends AppCompatActivity implements IDangTin.View 
 
     @Override
     public void getTinhThanhSuccess(List<TinhThanhModel> tinhthanhModels) {
-        for(int i = 0 ; i<tinhthanhModels.size(); i++){
+        for (int i = 0; i < tinhthanhModels.size(); i++) {
             arrTinhThanh.add(tinhthanhModels.get(i).getTentinhthanh());
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),
                     android.R.layout.simple_spinner_dropdown_item, arrTinhThanh);
@@ -228,13 +257,13 @@ public class DangTinActivity extends AppCompatActivity implements IDangTin.View 
 
     @Override
     public void getQuanHuyenSuccess(List<QuanHuyenModel> quanHuyenModels) {
-        if(quanHuyenModels!=null){
+        if (quanHuyenModels != null) {
 //            Log.d("uytai123", arrQuanHuyen.size()+"");
-            for(int i = 0 ; i<quanHuyenModels.size(); i++){
+            for (int i = 0; i < quanHuyenModels.size(); i++) {
                 arrQuanHuyen.add(quanHuyenModels.get(i).getTenquanhuyen());
                 sp_quanhuyen.setAdapter(QHadapter);
             }
-        }else{
+        } else {
 //            Log.d("uytai123", "NULL");
         }
     }
@@ -253,23 +282,23 @@ public class DangTinActivity extends AppCompatActivity implements IDangTin.View 
 
     @Override
     public void dismissDialog() {
-        if(pDialog.isShowing())
+        if (pDialog.isShowing())
             pDialog.dismiss();
     }
 
     // ------- cac su kien click --------- //
     @OnClick(R.id.hinhanh_dangtin)
-    void ChooseImage(View v){
+    void ChooseImage(View v) {
         onPickPhoto(v);
     }
 
     @OnClick(R.id.btn_huy_dangtin)
-    void HuyDangTin(View v){
+    void HuyDangTin(View v) {
         finish();
     }
 
     @OnClick(R.id.btn_luu_dangtin)
-    void LuuDangTin(View v){
+    void LuuDangTin(View v) {
         getDataDangTin();
     }
 
@@ -278,13 +307,13 @@ public class DangTinActivity extends AppCompatActivity implements IDangTin.View 
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode){
+        switch (requestCode) {
             case GALLERY_PICK:
-                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                     intent.setType("image/*");
                     startActivityForResult(intent, GALLERY_PICK);
-                }else{
+                } else {
                     //ban khong cho phep mo camera
                 }
                 break;
@@ -294,24 +323,24 @@ public class DangTinActivity extends AppCompatActivity implements IDangTin.View 
 
     //
     //chon anh
-    public void onPickPhoto(View view){
+    public void onPickPhoto(View view) {
         Intent galleryIntent = new Intent();
         galleryIntent.setType("image/*");
         galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(galleryIntent, "SELECT IMAGE"),GALLERY_PICK);
+        startActivityForResult(Intent.createChooser(galleryIntent, "SELECT IMAGE"), GALLERY_PICK);
     }
 
     //
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == GALLERY_PICK && resultCode == RESULT_OK){
+        if (requestCode == GALLERY_PICK && resultCode == RESULT_OK) {
             Uri imageUri = data.getData();
             CropImage.activity(imageUri).setAspectRatio(1, 1).start(this);
         }
-        if(requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE){
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
-            if (resultCode == RESULT_OK){
+            if (resultCode == RESULT_OK) {
                 Uri resultUri = result.getUri();
                 File file = new File(resultUri.getPath());
                 Glide.with(DangTinActivity.this).load(file).into(img_hinhanh);

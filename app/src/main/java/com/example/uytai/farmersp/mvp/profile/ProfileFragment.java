@@ -118,7 +118,6 @@ public class ProfileFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
 
     private void setInforUser() {
-        Log.d("uytai123", MainActivity.nongDanModel.getAvatar());
         edt_name.setText(MainActivity.nongDanModel.getTen().toString());
         edt_status.setText(MainActivity.nongDanModel.getStatus().toString());
         edt_phone.setText(MainActivity.nongDanModel.getSdt());
