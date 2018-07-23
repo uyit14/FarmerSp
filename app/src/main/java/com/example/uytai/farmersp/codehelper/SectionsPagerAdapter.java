@@ -3,6 +3,7 @@ package com.example.uytai.farmersp.codehelper;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+
 import com.example.uytai.farmersp.mvp.feed.FeedFragment;
 import com.example.uytai.farmersp.mvp.mytrader.MyTraderFragment;
 import com.example.uytai.farmersp.mvp.profile.ProfileFragment;
@@ -19,19 +20,19 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        switch (position){
+        switch (position) {
             case 0:
                 FeedFragment canbanFragment = new FeedFragment();
                 return canbanFragment;
             case 1:
-                 TraderFragment traderFragment = new TraderFragment();
+                TraderFragment traderFragment = new TraderFragment();
                 return traderFragment;
             case 2:
                 MyTraderFragment myTraderFragment = new MyTraderFragment();
                 return myTraderFragment;
             case 3:
                 ProfileFragment profileFragment = new ProfileFragment();
-                return  profileFragment;
+                return profileFragment;
             default:
                 return null;
         }
@@ -42,8 +43,8 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         return 4;
     }
 
-    public CharSequence getPageTitle(int position){
-        switch (position){
+    public CharSequence getPageTitle(int position) {
+        switch (position) {
             case 0:
                 return "Thu mua";
             case 1:

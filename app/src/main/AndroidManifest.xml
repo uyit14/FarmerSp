@@ -51,9 +51,10 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyB0hZbQUu4KgiA6PqtdJ6PlOe-l-qvq6n0" />
 
-        <activity android:name=".thuonglai.nongsan.MapActivity">
-
-        </activity>
+        <activity android:name=".thuonglai.nongsan.MapActivity" />
+        <activity android:name=".admin.AdminActivity" />
+        <activity android:name=".admin.ContentNDActivity" />
+        <activity android:name=".admin.ContentTLActivity"></activity>
     </application>
 
 </manifest>

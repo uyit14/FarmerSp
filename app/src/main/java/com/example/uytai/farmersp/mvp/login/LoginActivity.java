@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.uytai.farmersp.MainActivity;
 import com.example.uytai.farmersp.R;
+import com.example.uytai.farmersp.admin.AdminActivity;
 import com.example.uytai.farmersp.config.Constant;
 import com.example.uytai.farmersp.model.NongDanModel;
 import com.example.uytai.farmersp.model.ThuongLaiModel;
@@ -157,6 +158,10 @@ public class LoginActivity extends AppCompatActivity implements ILogin.View {
                     finish();
                 }else{
                     Toast.makeText(getApplicationContext(), "Đăng nhập thương lái thất bại", Toast.LENGTH_SHORT).show();
+                }
+            }else{
+                if(taikhoan.equals("admin") && matkhau.equals("1")){
+                    startActivity(new Intent(LoginActivity.this, AdminActivity.class));
                 }
             }
         }else{
