@@ -85,7 +85,16 @@ public class TraderAdapter extends RecyclerView.Adapter<TraderAdapter.TraderView
     public void onBindViewHolder(TraderViewHolder holder, int position) {
         Glide.with(context).load(arrTrader.get(position).getAvatar()).placeholder(R.drawable.no_image).into(holder.crImgAvatar);
         holder.tvName.setText(arrTrader.get(position).getTen());
-        holder.tvRate.setText(arrTrader.get(position).getRate());
+        float sum = 0;
+        for(int i=0; i<TraderFragment.rationTLs.size();i++){
+            if(arrTrader.get(i).getId()==TraderFragment.rationTLs.get(i).getIdtl()){
+                sum+=TraderFragment.rationTLs.get(i).getRate();
+            }
+        }
+        if(TraderFragment.rationTLs.size()>0){
+            Log.d("uytai123", (sum/TraderFragment.rationTLs.size())+"");
+        }
+        //holder.tvRate.setText(arrTrader.get(position).getRate());
         holder.tvStatus.setText(arrTrader.get(position).getStatus());
     }
 
