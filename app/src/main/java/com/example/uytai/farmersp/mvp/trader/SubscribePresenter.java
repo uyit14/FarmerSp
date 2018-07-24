@@ -39,4 +39,9 @@ public class SubscribePresenter implements ISubscribe.Presenter {
             }
         });
     }
+
+    @Override
+    public void requestGetRating(int idtl) {
+
+    }
 }

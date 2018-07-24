@@ -19,7 +19,7 @@ public class ThuMuaModel implements Serializable {
     private String avatar;
     @SerializedName("id")
     @Expose
-    private String id;
+    private int id;
     @SerializedName("ten_nongsan")
     @Expose
     private String tenNongsan;
@@ -47,6 +47,17 @@ public class ThuMuaModel implements Serializable {
     @SerializedName("mota")
     @Expose
     private String mota;
+    @SerializedName("id_thuonglai")
+    @Expose
+    private int id_thuonglai;
+
+    public int getId_thuonglai() {
+        return id_thuonglai;
+    }
+
+    public void setId_thuonglai(int id_thuonglai) {
+        this.id_thuonglai = id_thuonglai;
+    }
 
     public String getTen() {
         return ten;
@@ -64,11 +75,11 @@ public class ThuMuaModel implements Serializable {
         this.avatar = avatar;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

@@ -3,6 +3,7 @@ package com.example.uytai.farmersp.retrofit;
 import com.example.uytai.farmersp.model.DangKyModel;
 import com.example.uytai.farmersp.model.LoaiNSModel;
 import com.example.uytai.farmersp.model.QuanHuyenModel;
+import com.example.uytai.farmersp.model.Rating;
 import com.example.uytai.farmersp.model.ThuMuaModel;
 import com.example.uytai.farmersp.model.NongSanModel;
 import com.example.uytai.farmersp.model.ThuongLaiModel;
@@ -103,6 +104,25 @@ public interface NongDanService {
     @POST("getthuonglaibyidtl.php")
     Call<List<ThuongLaiModel>> getThuongLaibyID(@Field("idtl[]") ArrayList<Integer> idtl);
 
+    @FormUrlEncoded
+    @POST("rating.php")
+    Call<POST> rating(@Field("idbd") int idnd, @Field("id_user_rt") int id_user_rt, @Field("rate") float rate, @Field("id_user") int id_user);
+
+    @FormUrlEncoded
+    @POST("updaterating.php")
+    Call<POST> updaterating(@Field("idbd") int idnd,@Field("id_user_rt") int id_user_rt, @Field("rate") float rate);
+
+
+    @FormUrlEncoded
+    @POST("loadratingbyidbd.php")
+    Call<List<Rating>> getratingbd(@Field("idbd") int idbd);
+
+    @GET("getrating.php")
+    Call<List<Rating>> getRating();
+
+    @FormUrlEncoded
+    @POST("getratingbyidtl.php")
+    Call<List<Rating>> getratingtl(@Field("id_user") int id_user);
 //    @Multipart
 //    @POST("getthuonglaibyidtl.php")
 //    Call<List<ThuongLaiModel>> getThuongLaibyID(@Query("idtl[]") ArrayList<Integer> idtl);

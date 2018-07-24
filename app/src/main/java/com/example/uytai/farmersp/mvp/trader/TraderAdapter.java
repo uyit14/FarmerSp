@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,10 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.uytai.farmersp.R;
 import com.example.uytai.farmersp.config.Constant;
+import com.example.uytai.farmersp.model.Rating;
 import com.example.uytai.farmersp.model.ThuongLaiModel;
+import com.example.uytai.farmersp.retrofit.ApiClient;
+import com.example.uytai.farmersp.retrofit.NongDanService;
 
 import java.text.Normalizer;
 import java.util.ArrayList;
@@ -22,6 +26,9 @@ import java.util.Locale;
 import java.util.regex.Pattern;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by uytai on 4/13/2018.

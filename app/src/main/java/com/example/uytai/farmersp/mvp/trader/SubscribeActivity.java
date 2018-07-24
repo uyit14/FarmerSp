@@ -1,5 +1,6 @@
 package com.example.uytai.farmersp.mvp.trader;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,6 +17,7 @@ import com.example.uytai.farmersp.MainActivity;
 import com.example.uytai.farmersp.R;
 import com.example.uytai.farmersp.config.Constant;
 import com.example.uytai.farmersp.model.DangKyModel;
+import com.example.uytai.farmersp.model.Rating;
 import com.example.uytai.farmersp.model.ThuMuaModelTL;
 import com.example.uytai.farmersp.model.ThuongLaiModel;
 import com.example.uytai.farmersp.retrofit.ApiClient;
@@ -47,6 +50,10 @@ public class SubscribeActivity extends AppCompatActivity {
     Toolbar toolbar;
     @BindView(R.id.countdd)
     TextView countdd;
+    @BindView(R.id.ratingbar)
+    RatingBar ratingBar;
+    ProgressDialog pDialog;
+    NongDanService nongDanService;
 
     int idtl =0 ;
     SubscribePresenter subscribePresenter;
@@ -57,6 +64,7 @@ public class SubscribeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subscribe);
         ButterKnife.bind(this);
+        pDialog = new ProgressDialog(this);
         getTrader();
         ActionToolbar();
         requestGetListDetailTrader();
@@ -83,10 +91,10 @@ public class SubscribeActivity extends AppCompatActivity {
         if(bundle!=null){
             final ThuongLaiModel thuongLaiModel = (ThuongLaiModel) bundle.getSerializable(Constant.KEY_PUT_BUNDLE);
             idtl = thuongLaiModel.getId();
+            requestGetRating(idtl);
             //set Trader infor
             Glide.with(SubscribeActivity.this).load(thuongLaiModel.getAvatar()).placeholder(R.drawable.no_image).into(civ_avatar);
             tv_name.setText(thuongLaiModel.getTen());
-            tv_rate.setText(thuongLaiModel.getRate()+"");
             tv_status.setText(thuongLaiModel.getStatus());
             //click button subcsribe
             btn_subcsribe.setOnClickListener(new View.OnClickListener() {
@@ -124,6 +132,51 @@ public class SubscribeActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Thất bại", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    //
+    private void requestGetRating(int idtl){
+        pDialog.setMessage("Đang tải thông tin...!");
+        pDialog.setCancelable(false);
+        pDialog.show();
+        nongDanService = ApiClient.getClient().create(NongDanService.class);
+        Call<List<Rating>> call = nongDanService.getratingtl(idtl);
+        call.enqueue(new Callback<List<Rating>>() {
+            @Override
+            public void onResponse(Call<List<Rating>> cal, Response<List<Rating>> response) {
+                if(response.isSuccessful()){
+                    if(response.body()!=null){
+                        //ratings.addAll(response.body());
+                        handlerRating(response.body());
+                        Log.d("uytai123", response.body().size()+"");
+                    }
+                    if(pDialog.isShowing())
+                        pDialog.dismiss();
+                }else{
+                    Log.d("uytai123", "NOT");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Rating>> call, Throwable t) {
+                Log.d("uytai123", "Fail");
+                if(pDialog.isShowing())
+                    pDialog.dismiss();
+            }
+        });
+    }
+
+    //xu ly tinh trung binh cua moi bai dang
+    private void handlerRating(List<Rating> ratingList){
+        float sum = 0;
+        float rate = 0;
+        for(int i=0 ; i<ratingList.size(); i++){
+            sum+=ratingList.get(i).getRate();
+        }
+        rate = (sum/ratingList.size());
+        rate = Math.round(rate);
+        ratingBar.setRating(rate);
+        tv_rate.setText(rate+"");
     }
 
 //    public void requestSubscibe(int idnd, int idtl) {

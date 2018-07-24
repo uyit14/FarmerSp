@@ -2,6 +2,7 @@ package com.example.uytai.farmersp.mvp.trader;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -15,12 +16,19 @@ import android.view.ViewGroup;
 import android.widget.SearchView;
 import android.widget.Toast;
 import com.example.uytai.farmersp.R;
+import com.example.uytai.farmersp.model.Rating;
 import com.example.uytai.farmersp.model.ThuongLaiModel;
+import com.example.uytai.farmersp.retrofit.ApiClient;
+import com.example.uytai.farmersp.retrofit.NongDanService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class TraderFragment extends Fragment implements ITrader.View, SearchView.OnQueryTextListener {
@@ -32,8 +40,10 @@ public class TraderFragment extends Fragment implements ITrader.View, SearchView
     @BindView(R.id.search_trader)
     SearchView searchView;
     TraderAdapter traderAdapter;
-
     ProgressDialog pDialog;
+    NongDanService nongDanService;
+    ArrayList<List<Rating>> listArrayList = new ArrayList<>();
+    public static List<Float> srateList = new ArrayList<>();
 
     public TraderFragment() {
         // Required empty public constructor
@@ -77,11 +87,16 @@ public class TraderFragment extends Fragment implements ITrader.View, SearchView
     }
 
 
+
+
     @Override
     public void getListTraderSuccess(List<ThuongLaiModel> thuongLaiModel) {
         if(thuongLaiModel !=null){
             traderAdapter = new TraderAdapter(thuongLaiModel, getActivity().getApplicationContext());
             recyclerviewTrader.setAdapter(traderAdapter);
+            for(int i=0; i<thuongLaiModel.size();i++){
+                requestGetRating(thuongLaiModel.get(i).getId());
+            }
         }else{
             Toast.makeText(getActivity().getApplicationContext(), "Null", Toast.LENGTH_SHORT).show();
         }
@@ -114,5 +129,54 @@ public class TraderFragment extends Fragment implements ITrader.View, SearchView
     public boolean onQueryTextChange(String s) {
         traderAdapter.filter(s);
         return true;
+    }
+
+
+    //
+    private void requestGetRating(int idtl){
+        nongDanService = ApiClient.getClient().create(NongDanService.class);
+        Call<List<Rating>> call = nongDanService.getratingtl(idtl);
+        call.enqueue(new Callback<List<Rating>>() {
+            @Override
+            public void onResponse(Call<List<Rating>> cal, Response<List<Rating>> response) {
+                if(response.isSuccessful()){
+                    if(response.body()!=null){
+                        //ratings.addAll(response.body());
+                        //handlerRating(response.body());
+                        listArrayList.add(response.body());
+                        //Log.d("uytai123", listArrayList.size()+"");
+                    }
+                }else{
+                    //Log.d("uytai123", "NOT");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Rating>> call, Throwable t) {
+                //Log.d("uytai123", "Fail");
+            }
+        });
+        //
+        getRateONAllListRating(listArrayList);
+    }
+
+    //
+    private void getRateONAllListRating(ArrayList<List<Rating>> lists){
+        for(int i=0; i<lists.size();i++){
+            handlerRating(lists.get(i));
+        }
+    }
+
+    //xu ly tinh trung binh cua moi bai dang
+    private void handlerRating(List<Rating> ratingList){
+        float sum = 0;
+        float rate = 0;
+        for(int i=0 ; i<ratingList.size(); i++){
+            sum+=ratingList.get(i).getRate();
+        }
+        rate = (sum/ratingList.size());
+        rate = Math.round(rate);
+        Log.d("uytai123", rate+"");
+        srateList.add(rate);
     }
 }
