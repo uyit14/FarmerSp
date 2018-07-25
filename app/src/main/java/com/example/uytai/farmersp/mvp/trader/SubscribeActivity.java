@@ -52,6 +52,8 @@ public class SubscribeActivity extends AppCompatActivity {
     TextView countdd;
     @BindView(R.id.ratingbar)
     RatingBar ratingBar;
+    @BindView(R.id.luotdanhgia)
+    TextView luotdanhgia;
     ProgressDialog pDialog;
     NongDanService nongDanService;
 
@@ -154,6 +156,8 @@ public class SubscribeActivity extends AppCompatActivity {
                         pDialog.dismiss();
                 }else{
                     Log.d("uytai123", "NOT");
+                    if(pDialog.isShowing())
+                        pDialog.dismiss();
                 }
             }
 
@@ -173,10 +177,14 @@ public class SubscribeActivity extends AppCompatActivity {
         for(int i=0 ; i<ratingList.size(); i++){
             sum+=ratingList.get(i).getRate();
         }
-        rate = (sum/ratingList.size());
-        rate = Math.round(rate);
+        if(ratingList.size()>0){
+            rate = (sum/ratingList.size());
+        }
+        //rate = Math.round(rate);
         ratingBar.setRating(rate);
         tv_rate.setText(rate+"");
+        Log.d("uytai123", rate+"");
+        luotdanhgia.setText(ratingList.size()+"");
     }
 
 //    public void requestSubscibe(int idnd, int idtl) {

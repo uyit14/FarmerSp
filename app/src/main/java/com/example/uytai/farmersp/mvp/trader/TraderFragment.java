@@ -65,7 +65,7 @@ public class TraderFragment extends Fragment implements ITrader.View, SearchView
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_trader, container, false);
         ButterKnife.bind(this, root);
-        requestGetListRating();
+        //requestGetListRating();
         return root;
     }
 
@@ -99,7 +99,7 @@ public class TraderFragment extends Fragment implements ITrader.View, SearchView
     public void getListTraderSuccess(List<ThuongLaiModel> thuongLaiModel) {
         if(thuongLaiModel !=null){
             modelsTL.addAll(thuongLaiModel);
-            getAllListRating();
+            //getAllListRating();
             traderAdapter = new TraderAdapter(thuongLaiModel, getActivity().getApplicationContext());
             recyclerviewTrader.setAdapter(traderAdapter);
 //            for(int i=0; i<thuongLaiModel.size();i++){
@@ -140,43 +140,43 @@ public class TraderFragment extends Fragment implements ITrader.View, SearchView
     }
 
 
-    //get allLis rating
-    private void requestGetListRating(){
-        nongDanService = ApiClient.getClient().create(NongDanService.class);
-        Call<List<Rating>> call = nongDanService.getRating();
-        call.enqueue(new Callback<List<Rating>>() {
-            @Override
-            public void onResponse(Call<List<Rating>> call, Response<List<Rating>> response) {
-                if(response.isSuccessful()){
-                    if(response.body()!=null){
-                        modelsRT.addAll(response.body());
-                    }
-                }
-            }
+//    //get allLis rating
+//    private void requestGetListRating(){
+//        nongDanService = ApiClient.getClient().create(NongDanService.class);
+//        Call<List<Rating>> call = nongDanService.getRating();
+//        call.enqueue(new Callback<List<Rating>>() {
+//            @Override
+//            public void onResponse(Call<List<Rating>> call, Response<List<Rating>> response) {
+//                if(response.isSuccessful()){
+//                    if(response.body()!=null){
+//                        modelsRT.addAll(response.body());
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<Rating>> call, Throwable t) {
+//
+//            }
+//        });
+//    }
 
-            @Override
-            public void onFailure(Call<List<Rating>> call, Throwable t) {
 
-            }
-        });
-    }
-
-
-    private void getAllListRating(){
-        if(modelsRT.size()>0 && modelsTL.size()>0){
-            for(int i=0; i<modelsTL.size(); i++){
-                for(int j=0; j<modelsRT.size(); j++){
-                    if(modelsTL.get(i).getId()==modelsRT.get(j).getId_user()){
-                        RationTL rationTL = new RationTL();
-                        rationTL.setRate(modelsRT.get(j).getRate());
-                        rationTL.setIdtl(modelsTL.get(i).getId());
-                        rationTLs.add(rationTL);
-                    }
-                }
-            }
-        }
-        Log.d("uytai", rationTLs.size()+"_rate");
-    }
+//    private void getAllListRating(){
+//        if(modelsRT.size()>0 && modelsTL.size()>0){
+//            for(int i=0; i<modelsTL.size(); i++){
+//                for(int j=0; j<modelsRT.size(); j++){
+//                    if(modelsTL.get(i).getId()==modelsRT.get(j).getId_user()){
+//                        RationTL rationTL = new RationTL();
+//                        rationTL.setRate(modelsRT.get(j).getRate());
+//                        rationTL.setIdtl(modelsTL.get(i).getId());
+//                        rationTLs.add(rationTL);
+//                    }
+//                }
+//            }
+//        }
+//        Log.d("uytai", rationTLs.size()+"_rate");
+//    }
 
 
 //    //

@@ -64,6 +64,7 @@
                             android:id="@+id/rate"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:visibility="gone"
                             android:layout_marginTop="5dp"
                             android:layout_below="@+id/name"
                             android:layout_gravity="center_vertical"
@@ -78,7 +79,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
-                        android:layout_below="@+id/layout_1"
+                        android:layout_below="@+id/img_avatar"
                         android:ellipsize="end"
                         android:text="dsada"
                         android:textSize="12sp"/>

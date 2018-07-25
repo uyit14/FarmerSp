@@ -45,6 +45,7 @@
                                 android:layout_height="120dp" />
                         </LinearLayout>
                         <LinearLayout
+                            android:orientation="vertical"
                             android:gravity="center"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
@@ -54,11 +55,29 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="5dp"
                                 android:layout_below="@+id/name"
-                                android:layout_gravity="center_vertical"
+                                android:layout_gravity="center"
                                 android:drawableRight="@drawable/icon_star"
                                 android:gravity="center"
                                 android:text="0.0"
                                 android:textSize="16sp"/>
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+                                <TextView
+                                    android:id="@+id/luotdanhgia"
+                                    android:text="0"
+                                    android:layout_marginRight="5dp"
+                                    android:textColor="#efd10f"
+                                    android:textStyle="bold"
+                                    android:textSize="16sp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content" />
+                                <TextView
+                                    android:text="Lượt đánh giá"
+                                    android:textSize="16sp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content" />
+                            </LinearLayout>
                         </LinearLayout>
                     </LinearLayout>
                     <LinearLayout

@@ -10,6 +10,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,9 +21,11 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.uytai.farmersp.R;
 import com.example.uytai.farmersp.config.Constant;
+import com.example.uytai.farmersp.model.Rating;
 import com.example.uytai.farmersp.mvp.profile.ProfileFragment;
 import com.example.uytai.farmersp.mvp.tindadang.TinDaDangActivity;
 import com.example.uytai.farmersp.retrofit.ApiClient;
+import com.example.uytai.farmersp.retrofit.NongDanService;
 import com.example.uytai.farmersp.retrofit.ThuonglaiService;
 import com.example.uytai.farmersp.thuonglai.MainTLActivity;
 import com.example.uytai.farmersp.thuonglai.TinDangTL.DangTinTLActivity;
@@ -30,6 +33,7 @@ import com.example.uytai.farmersp.thuonglai.TinDangTL.TinDaDangTLActivity;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.io.File;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -58,6 +62,8 @@ public class ProfileTLActivity extends AppCompatActivity implements SwipeRefresh
     TextView tv_edit;
     @BindView(R.id.swip_editprofile)
     SwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.luotdanhgia)
+    TextView luotdanhgia;
 
     @BindView(R.id.rate)
     TextView tv_rate;
@@ -71,6 +77,7 @@ public class ProfileTLActivity extends AppCompatActivity implements SwipeRefresh
         ButterKnife.bind(this);
         pDialog = new ProgressDialog(this);
         swipeRefreshLayout.setOnRefreshListener(this);
+        requestGetRating(MainTLActivity.thuongLaiModel.getId());
         ActionToolbar();
         setInforUser();
     }
@@ -106,6 +113,56 @@ public class ProfileTLActivity extends AppCompatActivity implements SwipeRefresh
         edt_name.setText(MainTLActivity.thuongLaiModel.getTen().toString());
         edt_status.setText(MainTLActivity.thuongLaiModel.getStatus().toString());
         Glide.with(getApplicationContext()).load(MainTLActivity.thuongLaiModel.getAvatar()).placeholder(R.drawable.no_image).into(cir_avatar);
+    }
+
+    //
+    private void requestGetRating(int idtl){
+        pDialog.setMessage("Đang tải thông tin...!");
+        pDialog.setCancelable(false);
+        pDialog.show();
+        NongDanService nongDanService = ApiClient.getClient().create(NongDanService.class);
+        Call<List<Rating>> call = nongDanService.getratingtl(idtl);
+        call.enqueue(new Callback<List<Rating>>() {
+            @Override
+            public void onResponse(Call<List<Rating>> cal, Response<List<Rating>> response) {
+                if(response.isSuccessful()){
+                    if(response.body()!=null){
+                        //ratings.addAll(response.body());
+                        handlerRating(response.body());
+                        Log.d("uytai123", response.body().size()+"");
+                    }
+                    if(pDialog.isShowing())
+                        pDialog.dismiss();
+                }else{
+                    Log.d("uytai123", "NOT");
+                    if(pDialog.isShowing())
+                        pDialog.dismiss();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Rating>> call, Throwable t) {
+                Log.d("uytai123", "Fail");
+                if(pDialog.isShowing())
+                    pDialog.dismiss();
+            }
+        });
+    }
+
+    //
+    //xu ly tinh trung binh cua moi bai dang
+    private void handlerRating(List<Rating> ratingList){
+        float sum = 0;
+        float rate = 0;
+        for(int i=0 ; i<ratingList.size(); i++){
+            sum+=ratingList.get(i).getRate();
+        }
+        if(ratingList.size()>0){
+            rate = (sum/ratingList.size());
+        }
+        //rate = Math.round(rate);
+        tv_rate.setText(rate+"");
+        luotdanhgia.setText(ratingList.size()+"");
     }
 
     private void editInforUser(){
