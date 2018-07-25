@@ -39,7 +39,7 @@ public class SplashScreenActivity extends AppCompatActivity {
             public void run() {
                 super.run();
                 int waited = 0;
-                while (waited < 3500) {
+                while (waited < 2500) {
                     try {
                         sleep(100);
                     } catch (InterruptedException e) {

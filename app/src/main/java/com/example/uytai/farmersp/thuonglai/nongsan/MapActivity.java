@@ -184,17 +184,23 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private void requestshowDetail() {
         nongSanModelTL = (NongSanModelTL) bundle.getSerializable(Constant.KEY_PUT_OBJECT);
         if (nongSanModelTL != null) {
-            addMarkertoOnePlace(nongSanModelTL.getLat(), nongSanModelTL.getLng(), nongSanModelTL.getTennongsan());
+            addMarkertoOnePlace(nongSanModelTL.getLat(), nongSanModelTL.getLng(), nongSanModelTL.getTennongsan(), nongSanModelTL.getIdLoains());
         }
     }
 
-    private void addMarkertoOnePlace(double latDetail, double lngDetail, String tenns) {
+    private void addMarkertoOnePlace(double latDetail, double lngDetail, String tenns, int idLoains) {
         LatLng DetailLatLng = new LatLng(latDetail, lngDetail);
         TextView text = new TextView(getApplicationContext());
         text.setText(tenns);
         text.setTextColor(getResources().getColor(R.color.cl_black));
         text.setTypeface(Typeface.DEFAULT_BOLD);
-        text.setBackground(getResources().getDrawable(R.color.colorMain));
+        if(idLoains==1){
+            text.setBackground(getResources().getDrawable(R.color.colorMain));
+        }else if(idLoains==2){
+            text.setBackground(getResources().getDrawable(R.color.congnghiep));
+        }else{
+            text.setBackground(getResources().getDrawable(R.color.khac));
+        }
         IconGenerator generator = new IconGenerator(getApplicationContext());
         //generator.setBackground(getResources().getDrawable(R.drawable.custom_marker));
         generator.setContentView(text);
@@ -217,7 +223,13 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     text.setText(latLng.getTennongsanRS());
                     text.setTextColor(getResources().getColor(R.color.cl_black));
                     text.setTypeface(Typeface.DEFAULT_BOLD);
-                    text.setBackground(getResources().getDrawable(R.color.colorMain));
+                    if(latLng.getId_loains()==1){
+                        text.setBackground(getResources().getDrawable(R.color.colorMain));
+                    }else if(latLng.getId_loains()==2){
+                        text.setBackground(getResources().getDrawable(R.color.congnghiep));
+                    }else{
+                        text.setBackground(getResources().getDrawable(R.color.khac));
+                    }
                     IconGenerator generator = new IconGenerator(getApplicationContext());
                     //generator.setBackground(getResources().getDrawable(R.drawable.custom_marker));
                     generator.setContentView(text);

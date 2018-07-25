@@ -70,6 +70,7 @@ public class RegisterActivity extends AppCompatActivity implements IRegister.Vie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         ButterKnife.bind(this);
+        ActionToolbar();
         pDialog = new ProgressDialog(this);
         registerPresenter = new RegisterPresenter(this);
         listnongDanModels = new ArrayList<>();
@@ -82,8 +83,14 @@ public class RegisterActivity extends AppCompatActivity implements IRegister.Vie
 
     private void ActionToolbar() {
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Đăng k");
+        getSupportActionBar().setTitle("Đăng ký");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     private void setChecked() {

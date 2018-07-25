@@ -87,11 +87,15 @@ public class LoginActivity extends AppCompatActivity implements ILogin.View {
     }
 
     private void getDataSignup() {
-        if(getIntent().getStringExtra(Constant.KEY_PUT_USERNAME)!=null && getIntent().getStringExtra(Constant.KEY_PUT_PASSWORD)!=null){
-            String username = getIntent().getStringExtra(Constant.KEY_PUT_USERNAME);
-            String password = getIntent().getStringExtra(Constant.KEY_PUT_PASSWORD);
-            tipTaiKhoan.getEditText().setText(username);
-            tipMatKhau.getEditText().setText(password);
+        try {
+            if(getIntent().getStringExtra(Constant.KEY_PUT_USERNAME)!=null && getIntent().getStringExtra(Constant.KEY_PUT_PASSWORD)!=null){
+                String username = getIntent().getStringExtra(Constant.KEY_PUT_USERNAME);
+                String password = getIntent().getStringExtra(Constant.KEY_PUT_PASSWORD);
+                tipTaiKhoan.getEditText().setText(username);
+                tipMatKhau.getEditText().setText(password);
+            }
+        }catch (Exception e){
+
         }
     }
 
@@ -135,6 +139,7 @@ public class LoginActivity extends AppCompatActivity implements ILogin.View {
                     startActivity(intent);
                     finish();
                 }else{
+                    
                     Toast.makeText(getApplicationContext(), "Đăng nhập nông dân thất bại", Toast.LENGTH_SHORT).show();
                 }
             }else if(cbThuonglai.isChecked()){

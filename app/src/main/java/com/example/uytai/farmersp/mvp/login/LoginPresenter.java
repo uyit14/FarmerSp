@@ -25,43 +25,51 @@ public class LoginPresenter implements ILogin.Presenter {
 
     @Override
     public void requestGetListUser() {
-        NongDanService nongDanService = ApiClient.getClient().create(NongDanService.class);
-        Call<List<NongDanModel>> call = nongDanService.getUserND();
-        call.enqueue(new Callback<List<NongDanModel>>() {
-            @Override
-            public void onResponse(Call<List<NongDanModel>> call, Response<List<NongDanModel>> response) {
-                if(response.isSuccessful()){
-                    if(response.body()!=null){
-                        mLoginView.getListUserSuccess(response.body());
+        try {
+            NongDanService nongDanService = ApiClient.getClient().create(NongDanService.class);
+            Call<List<NongDanModel>> call = nongDanService.getUserND();
+            call.enqueue(new Callback<List<NongDanModel>>() {
+                @Override
+                public void onResponse(Call<List<NongDanModel>> call, Response<List<NongDanModel>> response) {
+                    if(response.isSuccessful()){
+                        if(response.body()!=null){
+                            mLoginView.getListUserSuccess(response.body());
+                        }
                     }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<List<NongDanModel>> call, Throwable t) {
-                mLoginView.getListUserFail();
-            }
-        });
+                @Override
+                public void onFailure(Call<List<NongDanModel>> call, Throwable t) {
+                    mLoginView.getListUserFail();
+                }
+            });
+        }catch (Exception e){
+
+        }
     }
 
     @Override
     public void requestGetThuongLai() {
-        ThuonglaiService thuonglaiService = ApiClient.getClient().create(ThuonglaiService.class);
-        Call<List<ThuongLaiModel>> call = thuonglaiService.getUserTL();
-        call.enqueue(new Callback<List<ThuongLaiModel>>() {
-            @Override
-            public void onResponse(Call<List<ThuongLaiModel>> call, Response<List<ThuongLaiModel>> response) {
-                if(response.isSuccessful()){
-                    if(response.body()!=null){
-                        mLoginView.getListTLSuccess(response.body());
+        try {
+            ThuonglaiService thuonglaiService = ApiClient.getClient().create(ThuonglaiService.class);
+            Call<List<ThuongLaiModel>> call = thuonglaiService.getUserTL();
+            call.enqueue(new Callback<List<ThuongLaiModel>>() {
+                @Override
+                public void onResponse(Call<List<ThuongLaiModel>> call, Response<List<ThuongLaiModel>> response) {
+                    if(response.isSuccessful()){
+                        if(response.body()!=null){
+                            mLoginView.getListTLSuccess(response.body());
+                        }
                     }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<List<ThuongLaiModel>> call, Throwable t) {
-                mLoginView.getListTLFail();
-            }
-        });
+                @Override
+                public void onFailure(Call<List<ThuongLaiModel>> call, Throwable t) {
+                    mLoginView.getListTLFail();
+                }
+            });
+        }catch (Exception e){
+
+        }
     }
 }

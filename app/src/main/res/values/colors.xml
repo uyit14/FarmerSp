@@ -18,4 +18,6 @@
     <color name="idle_dot">#662D9CDB</color>
     <color name="ob_header">#4A4A4A</color>
     <color name="ob_desc">#4A4A4A</color>
+    <color name="congnghiep">#eda701</color>
+    <color name="khac">#d700ef</color>
 </resources>

@@ -22,6 +22,9 @@ public class LatLng {
     @SerializedName("mota")
     @Expose
     private String motaRS;
+    @SerializedName("id_loains")
+    @Expose
+    private int id_loains;
 
     public String getTennongsanRS() {
         return tennongsanRS;
@@ -69,5 +72,13 @@ public class LatLng {
 
     public void setMotaRS(String motaRS) {
         this.motaRS = motaRS;
+    }
+
+    public int getId_loains() {
+        return id_loains;
+    }
+
+    public void setId_loains(int id_loains) {
+        this.id_loains = id_loains;
     }
 }

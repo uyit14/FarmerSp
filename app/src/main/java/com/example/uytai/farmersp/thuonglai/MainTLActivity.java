@@ -277,6 +277,6 @@ public class MainTLActivity extends AppCompatActivity
 
     @OnClick(R.id.khac)
     void Khac() {
-        requestGetListNongSanbyidLoains(0);
+        requestGetListNongSanbyidLoains(3);
     }
 }

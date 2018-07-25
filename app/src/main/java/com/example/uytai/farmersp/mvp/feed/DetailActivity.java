@@ -6,16 +6,16 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.uytai.farmersp.MainActivity;
@@ -69,6 +69,8 @@ public class DetailActivity extends AppCompatActivity {
     RatingBar ratingBar;
     @BindView(R.id.clickrating)
     ImageView clickRating;
+    @BindView(R.id.luotdanhgia)
+    TextView luotdanhgia;
     ProgressDialog pDialog;
     NongDanService nongDanService;
 
@@ -90,9 +92,8 @@ public class DetailActivity extends AppCompatActivity {
     }
 
 
-
     //get rating theo id cuar tung bai dang
-    private void requestGetRatingbyIDBD(int idbd){
+    private void requestGetRatingbyIDBD(int idbd) {
         pDialog.setMessage("Đang tải thông tin...!");
         pDialog.setCancelable(false);
         pDialog.show();
@@ -101,37 +102,39 @@ public class DetailActivity extends AppCompatActivity {
         call.enqueue(new Callback<List<Rating>>() {
             @Override
             public void onResponse(Call<List<Rating>> cal, Response<List<Rating>> response) {
-                if(response.isSuccessful()){
-                    if(response.body()!=null){
+                if (response.isSuccessful()) {
+                    if (response.body() != null) {
                         //ratings.addAll(response.body());
                         handlerRating(response.body());
                     }
-                    if(pDialog.isShowing())
+                    if (pDialog.isShowing())
                         pDialog.dismiss();
-                }else{
+                } else {
                     //Log.d("uytai123", "NOT");
                 }
             }
 
             @Override
             public void onFailure(Call<List<Rating>> call, Throwable t) {
-               // Log.d("uytai123", "Fail");
-                if(pDialog.isShowing())
+                // Log.d("uytai123", "Fail");
+                if (pDialog.isShowing())
                     pDialog.dismiss();
             }
         });
     }
 
     //xu ly tinh trung binh cua moi bai dang
-    private void handlerRating(List<Rating> ratingList){
+    private void handlerRating(List<Rating> ratingList) {
         float sum = 0;
         float rate = 0;
-        for(int i=0 ; i<ratingList.size(); i++){
-            sum+=ratingList.get(i).getRate();
+        for (int i = 0; i < ratingList.size(); i++) {
+            sum += ratingList.get(i).getRate();
         }
-        rate = (sum/ratingList.size());
-        rate = Math.round(rate);
+        if(ratingList.size()>0){
+            rate = (sum / ratingList.size());
+        }
         ratingBar.setRating(rate);
+        luotdanhgia.setText(ratingList.size()+"");
     }
 
 
@@ -145,21 +148,21 @@ public class DetailActivity extends AppCompatActivity {
                 pDialog.show();
                 float rating = ratingBar.getRating();
                 boolean flag = false;
-                if(idbd!=0 && idtl!=0 && MainActivity.nongDanModel.getId()!=0){
-                    for(int i=0;i<ratings.size();i++){
-                        if(ratings.get(i).getIdbd()==idbd && ratings.get(i).getId_user_rt()==MainActivity.nongDanModel.getId()){
-                            flag=true;
+                if (idbd != 0 && idtl != 0 && MainActivity.nongDanModel.getId() != 0) {
+                    for (int i = 0; i < ratings.size(); i++) {
+                        if (ratings.get(i).getIdbd() == idbd && ratings.get(i).getId_user_rt() == MainActivity.nongDanModel.getId()) {
+                            flag = true;
                             break;
                         }
                     }
-                    if(flag){
+                    if (flag) {
                         //update
                         //Log.d("uytai123", "update");
-                        if(pDialog.isShowing())
+                        if (pDialog.isShowing())
                             pDialog.dismiss();
                         UpdateRating(idbd, MainActivity.nongDanModel.getId(), rating);
-                    }else{
-                        if(pDialog.isShowing())
+                    } else {
+                        if (pDialog.isShowing())
                             pDialog.dismiss();
                         //Log.d("uytai", "insert");
                         //insert
@@ -172,14 +175,14 @@ public class DetailActivity extends AppCompatActivity {
 
 
     //get allLis rating
-    private void requestGetListRating(){
+    private void requestGetListRating() {
         nongDanService = ApiClient.getClient().create(NongDanService.class);
         Call<List<Rating>> call = nongDanService.getRating();
         call.enqueue(new Callback<List<Rating>>() {
             @Override
             public void onResponse(Call<List<Rating>> call, Response<List<Rating>> response) {
-                if(response.isSuccessful()){
-                    if(response.body()!=null){
+                if (response.isSuccessful()) {
+                    if (response.body() != null) {
                         ratings.addAll(response.body());
                     }
                 }
@@ -194,7 +197,7 @@ public class DetailActivity extends AppCompatActivity {
 
 
     //neu user chua rating thi insert
-    private void Rating(int idbd, int id_user_rating, float rate, int iduser){
+    private void Rating(int idbd, int id_user_rating, float rate, int iduser) {
         pDialog.setMessage("Đang xử lý...!");
         pDialog.setCancelable(false);
         pDialog.show();
@@ -203,16 +206,18 @@ public class DetailActivity extends AppCompatActivity {
         call.enqueue(new Callback<POST>() {
             @Override
             public void onResponse(Call<POST> call, Response<POST> response) {
-                if(pDialog.isShowing())
+                if (pDialog.isShowing())
                     pDialog.dismiss();
                 //Log.d("uytai", "OK");
+                Toast.makeText(getApplicationContext(), "Đánh giá thành công!", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(Call<POST> call, Throwable t) {
-                if(pDialog.isShowing())
+                if (pDialog.isShowing())
                     pDialog.dismiss();
                 //Log.d("uytai", "Fail");
+                Toast.makeText(getApplicationContext(), "Đánh giá thành công!", Toast.LENGTH_SHORT).show();
             }
         });
         //reload list rating
@@ -221,7 +226,7 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     //neu user darating roi thi update rate
-    private void UpdateRating(int idbd, int id_user_rt, float rate){
+    private void UpdateRating(int idbd, int id_user_rt, float rate) {
         pDialog.setMessage("Đang xử lý...!");
         pDialog.setCancelable(false);
         pDialog.show();
@@ -230,15 +235,17 @@ public class DetailActivity extends AppCompatActivity {
         call.enqueue(new Callback<POST>() {
             @Override
             public void onResponse(Call<POST> call, Response<POST> response) {
-                if(pDialog.isShowing())
+                if (pDialog.isShowing())
                     pDialog.dismiss();
+                Toast.makeText(getApplicationContext(), "Đánh giá thành công!", Toast.LENGTH_SHORT).show();
                 //Log.d("uytai", "OK");
             }
 
             @Override
             public void onFailure(Call<POST> call, Throwable t) {
-                if(pDialog.isShowing())
+                if (pDialog.isShowing())
                     pDialog.dismiss();
+                Toast.makeText(getApplicationContext(), "Đánh giá thành công!", Toast.LENGTH_SHORT).show();
                 //Log.d("uytai", "Fail");
             }
         });
@@ -262,7 +269,7 @@ public class DetailActivity extends AppCompatActivity {
 
     private void getFeedDetail() {
         Bundle bundle = getIntent().getBundleExtra(Constant.KEY_PUT_BUNDLE);
-        if(bundle!=null){
+        if (bundle != null) {
             ThuMuaModel thuMuaModel = (ThuMuaModel) bundle.getSerializable(Constant.KEY_PUT_OBJECT);
             idbd = thuMuaModel.getId();
             idtl = thuMuaModel.getId_thuonglai();
@@ -274,7 +281,7 @@ public class DetailActivity extends AppCompatActivity {
             tv_date.setText(df.format(thuMuaModel.getTgKetthuc()));
             DecimalFormat formatter = new DecimalFormat("###,###,###");
             String giathapnhat = formatter.format(Double.parseDouble(thuMuaModel.getGiaThapnhat()));
-            String giacaonhat =  formatter.format(Double.parseDouble(thuMuaModel.getGiaCaonhat()));
+            String giacaonhat = formatter.format(Double.parseDouble(thuMuaModel.getGiaCaonhat()));
             tv_giathap.setText(giathapnhat + " VND");
             tv_giacao.setText(giacaonhat + " VND");
             tv_lienhe.setText(thuMuaModel.getLienhe());
@@ -286,7 +293,7 @@ public class DetailActivity extends AppCompatActivity {
     //
     //
     @OnClick(R.id.sdt_detail)
-    void callNow(){
+    void callNow() {
         checkAndRequestPermissions();
         showDialogConfirm();
     }
@@ -323,6 +330,7 @@ public class DetailActivity extends AppCompatActivity {
         intent.setData(Uri.parse("tel:" + tv_sdt.getText().toString()));
         startActivity(intent);
     }
+
     //send mess
     private void intentSendMesseage() {
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("sms:" + tv_sdt.getText().toString()));
